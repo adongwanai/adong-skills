@@ -1,0 +1,154 @@
+{
+  "version": 3,
+  "skills": {
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "skillFolderHash": "3116f3e62dbd02b44a598b1aa690d2a8938e8f89",
+      "installedAt": "2026-01-24T15:22:30.361Z",
+      "updatedAt": "2026-01-24T15:22:30.361Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "b86e3967846abb5beeeb874410d8f2ebf6a3f5e1",
+      "installedAt": "2026-01-24T15:22:30.798Z",
+      "updatedAt": "2026-01-24T15:22:30.798Z"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/remotion-dev/skills.git",
+      "skillPath": "skills/remotion/SKILL.md",
+      "skillFolderHash": "2891cb4d34e2a3619d29079459846c4864961af1",
+      "installedAt": "2026-01-25T08:11:25.357Z",
+      "updatedAt": "2026-02-25T09:15:29.505Z"
+    },
+    "planning-with-files": {
+      "source": "OthmanAdi/planning-with-files",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files.git",
+      "skillPath": "skills/planning-with-files/SKILL.md",
+      "skillFolderHash": "012040cac2785df474911e9d2d80c40731c6dad0",
+      "installedAt": "2026-02-07T02:38:18.127Z",
+      "updatedAt": "2026-02-07T02:38:18.127Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "installedAt": "2026-02-07T02:38:30.183Z",
+      "updatedAt": "2026-03-18T15:21:26.259Z"
+    },
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "skillFolderHash": "d28aa4ed67fe5a3f1336f0fcccb1e548c67dc864",
+      "installedAt": "2026-02-26T11:48:57.080Z",
+      "updatedAt": "2026-02-26T11:48:57.080Z"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/executing-plans/SKILL.md",
+      "skillFolderHash": "75248b138170840e3e82680cfde7ca615414a548",
+      "installedAt": "2026-02-26T11:48:57.171Z",
+      "updatedAt": "2026-02-26T11:48:57.171Z"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "skillFolderHash": "cf6f5c8813cf0445276129a5f2b443927b50f645",
+      "installedAt": "2026-02-26T11:48:57.340Z",
+      "updatedAt": "2026-02-26T11:48:57.340Z"
+    },
+    "writing-skills": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/writing-skills/SKILL.md",
+      "skillFolderHash": "657cdd6aef472054ffd3f0e7798494d79be9f807",
+      "installedAt": "2026-02-26T11:48:57.427Z",
+      "updatedAt": "2026-02-26T11:48:57.427Z"
+    },
+    "tavily-search": {
+      "source": "veithly/tavily-search",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/veithly/tavily-search.git",
+      "skillPath": "skills/tavily-search/SKILL.md",
+      "skillFolderHash": "a78c96e56badd5774b2216933d3c5740d224c328",
+      "installedAt": "2026-03-17T06:53:34.563Z",
+      "updatedAt": "2026-03-17T06:53:34.563Z"
+    },
+    "notion-api": {
+      "source": "intellectronica/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/intellectronica/agent-skills.git",
+      "skillPath": "skills/notion-api/SKILL.md",
+      "skillFolderHash": "f62186555624f784371cf31f9580a03f389fb592",
+      "installedAt": "2026-03-17T06:54:04.538Z",
+      "updatedAt": "2026-03-17T06:54:04.538Z"
+    },
+    "proactive-agent": {
+      "source": "halthelobster/proactive-agent",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/halthelobster/proactive-agent.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "058ed007012a2c88465d2a59edc5cab48596aa59",
+      "installedAt": "2026-03-17T06:54:07.426Z",
+      "updatedAt": "2026-03-17T06:54:07.426Z"
+    },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "9fa6850b305ad7237ffe61fc12f9e3d2d9c3d990",
+      "pluginName": "agent-browser",
+      "installedAt": "2026-03-17T06:54:34.946Z",
+      "updatedAt": "2026-03-17T06:54:34.946Z"
+    },
+    "summarize": {
+      "source": "steipete/clawdis",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/steipete/clawdis.git",
+      "skillPath": "skills/summarize/SKILL.md",
+      "skillFolderHash": "49dc6809bdf16e0e7e3ab478302389d419bcc19f",
+      "installedAt": "2026-03-17T06:54:51.380Z",
+      "updatedAt": "2026-03-17T06:54:51.380Z"
+    },
+    "humanizer": {
+      "source": "blader/humanizer",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/blader/humanizer.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "d8085c7da5ddb9a179572837d4806b68cde3e9ff",
+      "installedAt": "2026-03-18T15:21:36.580Z",
+      "updatedAt": "2026-03-18T15:21:36.580Z"
+    }
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "codex",
+    "cursor",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "claude-code"
+  ],
+  "dismissed": {
+    "findSkillsPrompt": true
+  }
+}
