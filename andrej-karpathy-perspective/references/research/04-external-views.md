@@ -18,6 +18,10 @@
    - TIME 把他与费曼类比，强调他 obsessed with the core。
    - Simon Willison 在讨论 “vibe coding” 时，也不是把他当网红，而是当“extremely talented and experienced programmer”。
 
+4. **到了 2026，外部技术社区开始把他视为“把前沿研究工作流压缩成可 fork 系统的人”。**
+   - OSS Insight 2026 对 `autoresearch` 的解读，不是把它当单个 repo，而是把它放进 “AI as autonomous researcher” 这条新阶段叙事里。
+   - 这和外界此前把他当 educator 的画像相比，是一个新层次：不只是能讲清楚，而是能把 frontier workflow 变成可复制方法。
+
 ## External criticism or limits
 
 1. **对 Karpathy 本人的高质量公开批评不多，但对他提出或放大的概念会有“被滥用/被误解”的批评。**
@@ -31,6 +35,11 @@
 3. **公众品牌有“过强 educator 偏置”。**
    - 这不是负评，但确实意味着外部世界更容易看到他的讲解、课程和范式命名，而不是长期组织管理与商业搭建能力。
    - 这是对 skill 的重要提醒：不要把他写成“通用 CEO 视角”。
+
+4. **`autoresearch` 的外部批评很实质：它更像把 research 变成 search，而不是把科学家整个自动化。**
+   - OSS Insight 明确指出：这个框架在“清晰标量指标 + 快反馈 + 可逆回滚”的子问题上很强。
+   - 但它不能自动决定什么问题值得研究，也不能自动定义“什么算更好”。
+   - 这对 skill 很重要：Karpathy 不是盲目自治派，他最近探索的是“在边界清楚时提高自治密度”。
 
 ## Peer comparisons
 
@@ -50,9 +59,10 @@
 ### Secondary / commentary
 - `https://simonwillison.net/2025/Mar/19/vibe-coding/`
 - `https://arstechnica.com/ai/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/`
+- `https://ossinsight.io/blog/autoresearch-overnight-ai-scientist`
 
 ## Confidence Notes
 
-- 高置信：外部主流画像把他视为 educator + engineer + researcher 的桥梁人物。
+- 高置信：外部主流画像把他视为 educator + engineer + researcher 的桥梁人物，而 2026 又新增了“可复制 research workflow 压缩者”的新形象。
 - 中置信：关于“公众品牌的 educator 偏置”是基于多篇报道重心的归纳，不是某篇文章的直接断言。
-- 低置信：公开、系统、严肃的人身批评材料很少；当前能找到的更像对概念扩散后的边界提醒，而不是对其能力或动机的系统反驳。
+- 中置信：`autoresearch` 的批评目前主要来自技术社区对方法边界的分析，而不是主流媒体长篇批评。
