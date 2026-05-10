@@ -5,7 +5,7 @@
 
 ## 仓库内容
 
-目前仓库里包含两类 skill：
+目前仓库里包含以下 skill：
 
 ### 1. andrej-karpathy-perspective
 
@@ -42,6 +42,24 @@ Andrej Karpathy 视角的思维型 skill。
 
 目录见：
 [github-to-skill/](./github-to-skill/)
+
+### 3. vibe-paper-deai
+
+AC 级别的论文审稿与去 AI 味 skill。
+适合用来：
+
+- 以 Area Chair 视角审查 ML/AI 论文中的 LLM 生成痕迹
+- 去除论文中的 AI 写作味道（overclaiming、模板化 limitation、浅层 ablation 等）
+- 顶会投稿前的自检（NeurIPS、ICML、ICLR、CVPR、ACL、COLM、AAAI）
+- 检测幻觉引用、公式碎片化、bullet-heavy 等常见问题
+
+两种模式：
+
+- **Mode A — Audit**：输出审稿报告，含 Vibe Paper Probability 和 Salvage Plan
+- **Mode B — Rewrite**：在保留所有技术内容的前提下润色论文段落
+
+目录见：
+[vibe-paper-deai/](./vibe-paper-deai/)
 
 ## 如何使用
 
