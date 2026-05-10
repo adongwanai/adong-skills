@@ -43,7 +43,49 @@ Andrej Karpathy 视角的思维型 skill。
 目录见：
 [github-to-skill/](./github-to-skill/)
 
-### 3. vibe-paper-deai
+### 3. adong-wechat-writer
+
+阿东的微信公众号长文写作 skill。
+适合用来：
+
+- 根据素材（PDF、新闻链接、语音转文字等）产出公众号长文
+- 用阿东的个人风格撰写、续写、扩写文章
+- 公众号内容创作全流程（选题深化 → 初稿 → 去AI味 → 发布）
+
+触发词：写公众号、写文章、写稿子、帮我写、续写、扩写、出稿
+
+目录见：
+[adong-wechat-writer/](./adong-wechat-writer/)
+
+### 4. adong-x-writer
+
+阿东的 X/Twitter 推文写作 skill。
+适合用来：
+
+- 撰写单条推文或 thread 推文串
+- 从公众号长文或视频脚本变形成 X 版本
+- 用阿东的风格发布技术观点和行业洞察
+
+触发词：写推文、发X、写个thread、X版本、Twitter版本
+
+目录见：
+[adong-x-writer/](./adong-x-writer/)
+
+### 5. adong-xhs-writer
+
+阿东的小红书图文笔记写作 skill。
+适合用来：
+
+- 撰写小红书图文笔记（300-800字 + 配图建议）
+- 从公众号长文或视频脚本变形成小红书版本
+- 技术干货的短内容分享
+
+触发词：写小红书、小红书笔记、图文笔记、小红书版本
+
+目录见：
+[adong-xhs-writer/](./adong-xhs-writer/)
+
+### 6. vibe-paper-deai
 
 AC 级别的论文审稿与去 AI 味 skill。
 适合用来：
