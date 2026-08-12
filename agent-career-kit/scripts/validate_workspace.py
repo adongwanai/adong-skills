@@ -2,75 +2,49 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
-import re
 import zipfile
 from pathlib import Path
 
-from common import PLACEHOLDER_RE, RENDERER_VERSION, load_profile, profile_digest, validate_profile, workspace_path
+from common import (
+    PLACEHOLDER_RE,
+    RENDERER_VERSION,
+    VIEW_NAMES,
+    active_view_names,
+    load_profile,
+    profile_digest,
+    validate_profile,
+    workspace_path,
+)
+from career_state import load_state, render_markdown, state_digest, validate_state
 from render_resumes import LATEX_ASSETS, render_document
 
 
 REQUIRED_FILES = (
     "candidate-profile.json",
+    "career-state.json",
+    "intake.md",
     "evidence-ledger.md",
     "capability-map.md",
     "weaknesses.md",
     "progress.md",
-    "outputs/application/application-tracker.csv",
-    "outputs/application/interview-schedule.csv",
-    "outputs/application/offer-comparison.csv",
+    "application-dashboard.md",
 )
 
-TRACKER_HEADERS = {
-    "application-tracker.csv": [
-        "application_id", "company", "role", "source", "route", "status", "date", "next_action", "notes"
-    ],
-    "interview-schedule.csv": [
-        "interview_id", "company", "role", "round", "date", "focus", "result", "review_path"
-    ],
-    "offer-comparison.csv": [
-        "offer_id", "company", "role", "level", "cash", "equity", "bonus", "benefits", "conditions", "deadline", "risk_notes"
-    ],
-}
-APPLICATION_STATUSES = {
-    "researching", "ready", "referred", "applied", "screen", "interviewing", "offer", "rejected", "paused", "withdrawn"
-}
-INTERVIEW_RESULTS = {"pending", "pass", "fail", "withdrawn"}
-DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
-
-def _validate_tracker(path: Path, expected_header: list[str], workspace: Path) -> list[str]:
+def _validate_generated_dashboard(workspace: Path, state: dict) -> list[str]:
     errors: list[str] = []
-    with path.open(encoding="utf-8", newline="") as handle:
-        rows = list(csv.DictReader(handle))
-        actual_header = handle.seek(0) or next(csv.reader(handle), [])
-    if actual_header != expected_header:
-        return [f"invalid tracker header: {path.name}"]
-    id_field = expected_header[0]
-    ids = [row[id_field] for row in rows]
-    if any(not item for item in ids) or len(ids) != len(set(ids)):
-        errors.append(f"{path.name} requires unique non-empty {id_field} values")
-    for row_number, row in enumerate(rows, start=2):
-        if path.name == "application-tracker.csv":
-            if row["status"] not in APPLICATION_STATUSES:
-                errors.append(f"{path.name}:{row_number} has invalid status")
-            if row["status"] not in {"rejected", "withdrawn"} and not row["next_action"].strip():
-                errors.append(f"{path.name}:{row_number} requires next_action")
-            date = row["date"]
-        elif path.name == "interview-schedule.csv":
-            if row["result"] not in INTERVIEW_RESULTS:
-                errors.append(f"{path.name}:{row_number} has invalid result")
-            if row["review_path"]:
-                review = workspace / row["review_path"]
-                if not review.is_file() or workspace not in review.resolve().parents:
-                    errors.append(f"{path.name}:{row_number} has invalid review_path")
-            date = row["date"]
-        else:
-            date = row["deadline"]
-        if date and not DATE_RE.match(date):
-            errors.append(f"{path.name}:{row_number} date must use YYYY-MM-DD")
+    dashboard_dir = workspace / "outputs" / "career-dashboard"
+    for filename in ("index.html", "style.css", "app.js"):
+        path = dashboard_dir / filename
+        if not path.is_file() or path.stat().st_size == 0:
+            errors.append(f"missing or empty generated artifact: {path.relative_to(workspace)}")
+    index = dashboard_dir / "index.html"
+    if index.is_file() and f"<!-- career-state-sha256: {state_digest(state)} -->" not in index.read_text(encoding="utf-8"):
+        errors.append("Offer 驾驶舱与当前 career-state.json 不一致")
+    markdown = workspace / "application-dashboard.md"
+    if markdown.is_file() and markdown.read_text(encoding="utf-8") != render_markdown(state):
+        errors.append("Markdown 求职看板与当前 career-state.json 不一致")
     return errors
 
 
@@ -91,7 +65,8 @@ def _validate_pdf(path: Path, profile: dict, view_name: str, tex_path: Path) -> 
         text = "\n".join(page.extract_text() or "" for page in pdf.pages)
         expected_text = (
             profile["candidate"]["name"],
-            profile["candidate"]["university"],
+            profile["resume_views"][view_name]["headline"],
+            profile["candidate"].get("university", ""),
             next(claim["name"] for claim in profile["claims"] if claim["id"] == profile["resume_views"][view_name]["claim_ids"][0]),
         )
         for value in (*expected_text, profile.get("fixture_notice", "").strip()):
@@ -108,10 +83,17 @@ def _validate_pdf(path: Path, profile: dict, view_name: str, tex_path: Path) -> 
     return errors
 
 
-def _validate_generated_artifacts(workspace: Path, profile: dict) -> list[str]:
+def _validate_generated_resumes(
+    workspace: Path, profile: dict, view_names: list[str] | None = None
+) -> list[str]:
     errors: list[str] = []
     digest = profile_digest(profile)
-    for view_name in ("development", "algorithm"):
+    active = active_view_names(profile)
+    selected = active if view_names is None else view_names
+    for view_name in selected:
+        if view_name not in active:
+            errors.append(f"不能验证未启用的简历方向: {view_name}")
+            continue
         resume_dir = workspace / "outputs" / "resumes" / view_name
         tex_path = resume_dir / "main.tex"
         class_path = resume_dir / LATEX_ASSETS[0].name
@@ -163,6 +145,12 @@ def _validate_generated_artifacts(workspace: Path, profile: dict) -> list[str]:
             except (zipfile.BadZipFile, KeyError, UnicodeDecodeError, json.JSONDecodeError):
                 errors.append(f"invalid Overleaf ZIP: {zip_path.relative_to(workspace)}")
 
+    return errors
+
+
+def _validate_generated_portfolio(workspace: Path, profile: dict) -> list[str]:
+    errors: list[str] = []
+    digest = profile_digest(profile)
     portfolio_dir = workspace / "outputs" / "portfolio"
     for filename in ("index.html", "style.css", "app.js"):
         path = portfolio_dir / filename
@@ -179,39 +167,34 @@ def _validate_generated_artifacts(workspace: Path, profile: dict) -> list[str]:
         if fixture_notice and fixture_notice not in text:
             errors.append("portfolio is missing fixture disclosure")
 
-    tracker = workspace / "outputs" / "application" / "career-tracker.xlsx"
-    if not tracker.is_file() or tracker.stat().st_size == 0:
-        errors.append("missing or empty generated artifact: outputs/application/career-tracker.xlsx")
-    else:
-        try:
-            with zipfile.ZipFile(tracker) as archive:
-                names = archive.namelist()
-                if "xl/workbook.xml" not in names:
-                    errors.append("career-tracker.xlsx is not a valid workbook")
-                else:
-                    workbook_xml = archive.read("xl/workbook.xml").decode("utf-8")
-                    for sheet in ("Applications", "Interviews", "Offers", "Summary"):
-                        if f'name="{sheet}"' not in workbook_xml:
-                            errors.append(f"career-tracker.xlsx is missing sheet: {sheet}")
-                    xml_text = "\n".join(
-                        archive.read(name).decode("utf-8")
-                        for name in names
-                        if name.startswith("xl/") and name.endswith(".xml")
-                    )
-                    for marker in ("#REF!", "#DIV/0!", "#VALUE!", "#NAME?", "#N/A"):
-                        if marker in xml_text:
-                            errors.append(f"career-tracker.xlsx contains formula error: {marker}")
-        except zipfile.BadZipFile:
-            errors.append("career-tracker.xlsx is not a valid workbook")
     return errors
 
 
-def validate_workspace(workspace: Path, require_artifacts: bool) -> list[str]:
+def validate_workspace(
+    workspace: Path,
+    require_artifacts: bool = False,
+    *,
+    stage: str = "profile",
+    require_resumes: bool = False,
+    require_portfolio: bool = False,
+    require_dashboard: bool = False,
+    view_names: list[str] | None = None,
+) -> list[str]:
     errors: list[str] = []
-    for relative in REQUIRED_FILES:
+    required_files = ("candidate-profile.json", "career-state.json", "intake.md") if stage == "intake" else REQUIRED_FILES
+    for relative in required_files:
         path = workspace / relative
         if not path.is_file() or path.stat().st_size == 0:
             errors.append(f"missing or empty required file: {relative}")
+
+    state_path = workspace / "career-state.json"
+    state = load_state(workspace) if state_path.is_file() else None
+    if state is not None:
+        errors.extend(validate_state(state, workspace))
+    if stage == "intake":
+        if require_dashboard and state is not None:
+            errors.extend(_validate_generated_dashboard(workspace, state))
+        return errors
 
     profile_path = workspace / "candidate-profile.json"
     profile = None
@@ -219,27 +202,39 @@ def validate_workspace(workspace: Path, require_artifacts: bool) -> list[str]:
         profile = load_profile(workspace)
         errors.extend(validate_profile(profile, workspace))
 
-    tracker_dir = workspace / "outputs" / "application"
-    for filename, expected_header in TRACKER_HEADERS.items():
-        path = tracker_dir / filename
-        if path.is_file():
-            errors.extend(_validate_tracker(path, expected_header, workspace))
-
-    if require_artifacts and profile is not None and not validate_profile(profile, workspace):
-        errors.extend(_validate_generated_artifacts(workspace, profile))
+    profile_valid = profile is not None and not validate_profile(profile, workspace)
+    if profile_valid and (require_artifacts or require_resumes):
+        errors.extend(_validate_generated_resumes(workspace, profile, view_names))
+    if profile_valid and (require_artifacts or require_portfolio):
+        errors.extend(_validate_generated_portfolio(workspace, profile))
+    if state is not None and require_dashboard:
+        errors.extend(_validate_generated_dashboard(workspace, state))
     return errors
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Validate an Agent Career Kit workspace.")
+    parser = argparse.ArgumentParser(description="分阶段验证 Agent 求职工作区。")
     parser.add_argument("workspace")
-    parser.add_argument("--require-artifacts", action="store_true")
+    parser.add_argument("--stage", choices=("intake", "profile"), default="profile")
+    parser.add_argument("--require-resumes", action="store_true")
+    parser.add_argument("--view", action="append", choices=VIEW_NAMES, dest="views")
+    parser.add_argument("--require-portfolio", action="store_true")
+    parser.add_argument("--require-dashboard", action="store_true")
+    parser.add_argument("--require-artifacts", action="store_true", help="维护者兼容参数：验证简历和作品集。")
     args = parser.parse_args()
     workspace = workspace_path(args.workspace)
-    errors = validate_workspace(workspace, args.require_artifacts)
+    errors = validate_workspace(
+        workspace,
+        args.require_artifacts,
+        stage=args.stage,
+        require_resumes=args.require_resumes,
+        require_portfolio=args.require_portfolio,
+        require_dashboard=args.require_dashboard,
+        view_names=args.views,
+    )
     if errors:
-        raise SystemExit("workspace validation failed:\n- " + "\n- ".join(errors))
-    print(f"OK: {workspace}")
+        raise SystemExit("工作区验证失败：\n- " + "\n- ".join(errors))
+    print(f"验证通过：{workspace}（阶段：{args.stage}）")
 
 
 if __name__ == "__main__":

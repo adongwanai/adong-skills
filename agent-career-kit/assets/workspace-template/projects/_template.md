@@ -1,61 +1,61 @@
-# Evidence Project: <title>
+# 证据项目：<标题>
 
-- Target capability:
-- Proposed claim ID:
-- Project state: planned | running | evidenced
-- Claim fact status: planned
-- Ship gate: Block
+- 目标能力：
+- 计划 Claim ID：
+- 项目状态：planned | running | evidenced
+- Claim 事实状态：planned
+- 当前门槛：Block
 
-## Question And Decision
+## 问题与决策
 
-- Question:
-- What result changes the decision:
-- What evidence would weaken the intended claim:
+- 要回答的问题：
+- 什么结果会改变当前决策：
+- 什么证据会削弱预期结论：
 
-## Baseline And Task Set
+## 基线与任务集
 
-- Fixed task set or dataset:
-- Frozen baseline and budget:
-- Split, leakage and reachability checks:
+- 固定任务集或数据集：
+- 冻结基线与预算：
+- 数据划分、泄漏与可达性检查：
 
-## Method Or System
+## 方法或系统
 
-- State / action / observation / stop boundary:
-- Key decision and rejected alternative:
-- Safety, permission and cost constraints:
+- State / Action / Observation / Stop 边界：
+- 关键决策与替代方案：
+- 安全、权限与成本约束：
 
-## Metrics And Verifier
+## 指标与 Verifier
 
-- Outcome metrics:
-- Trajectory metrics:
-- Verifier version and gaming risks:
+- 结果指标：
+- 轨迹指标：
+- Verifier 版本与被攻击风险：
 
-## Trace And Failure Plan
+## Trace 与失败计划
 
-- Representative success traces:
-- Failure taxonomy and required failure examples:
-- Reproduction command and environment:
+- 代表性成功 Trace：
+- 失败分类与必须保留的失败案例：
+- 复现命令与环境：
 
-## Ablation Or Alternative
+## 消融或替代方案
 
-- Must run:
-- Useful if decision remains unclear:
-- Cut as unnecessary:
+- 必须运行：
+- 只有决策仍不清楚时再运行：
+- 明确不做：
 
-## Definition Of Done
+## 完成条件
 
-- [ ] fixed task set and same-budget baseline
-- [ ] versioned verifier
-- [ ] representative traces
-- [ ] failure analysis
-- [ ] raw results and limitation
-- [ ] public-safe contribution boundary
+- [ ] 固定任务集与同预算基线
+- [ ] 有版本的 Verifier
+- [ ] 代表性 Trace
+- [ ] 失败分析
+- [ ] 原始结果与限制
+- [ ] 个人贡献边界清楚
 
-## Promotion And Ship Gate
+## 状态提升与使用门槛
 
-`planned -> provided` only after the applicable definition-of-done checks pass and source IDs are added. `provided -> confirmed` only after an explicit conflict/review resolution is recorded. Set `visibility=resume|public` only after a separate publication review.
+适用完成条件通过并补充来源 IDs 后，才允许 `planned -> provided`；明确解决冲突并留下记录后，才允许 `provided -> confirmed`。
 
-- Current verdict: Block | Caution | Pass | Improve
-- Evidence for verdict:
-- Supported claim after results:
-- Known limitation:
+- 当前判断：Block | Caution | Pass | Improve
+- 判断证据：
+- 结果出来后可以支持的表述：
+- 已知限制：

@@ -1,17 +1,17 @@
-# Story: <title>
+# 面试故事：<标题>
 
-- Claim IDs:
-- Competencies:
-- Status: raw | structured | practiced
+- Claim IDs：
+- 能力标签：
+- 状态：raw | structured | practiced
 
-## 30 Seconds
+## 30 秒版本
 
-## 60-90 Seconds
+## 60-90 秒版本
 
-## Deep Follow-Ups
+## 深挖追问
 
-## Contribution Boundary
+## 个人贡献边界
 
-## Evidence And Metrics
+## 证据与指标
 
-## Reflection
+## 失败、限制与反思

@@ -1,6 +1,6 @@
-# Weakness History
+# 弱点与修复记录
 
-| Date | Context | Breakdown | Root Cause | Repair Action | Validation | State |
+| 日期 | 场景 | 暴露的问题 | 根因 | 修复动作 | 验证方式 | 状态 |
 | --- | --- | --- | --- | --- | --- | --- |
 
-States: `open`, `repairing`, `validated`.
+状态：`open`、`repairing`、`validated`。

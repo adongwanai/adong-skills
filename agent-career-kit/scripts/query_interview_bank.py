@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from common import workspace_path
+from index_interview_bank import BUNDLED_BANK, index_bank
 
 
 def main() -> None:
@@ -22,6 +23,8 @@ def main() -> None:
 
     workspace = workspace_path(args.workspace)
     index_path = workspace / "interview-bank" / "question-index.json"
+    if not index_path.is_file():
+        index_path = index_bank(BUNDLED_BANK, workspace)
     payload = json.loads(index_path.read_text(encoding="utf-8"))
     levels = set(args.level or ["L1", "L2", "L3", "L4", "L5"])
     contains = args.contains.casefold() if args.contains else None

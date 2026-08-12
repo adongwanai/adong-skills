@@ -4,20 +4,18 @@
   "candidate": {
     "name": "",
     "headline": "",
+    "career_stage": "",
     "location": "",
     "email": "",
     "phone": "",
-    "links": [],
-    "contact_visibility": {
-      "resume": [],
-      "public": []
-    }
+    "links": []
   },
   "education": [],
   "claims": [],
   "resume_views": {
     "development": {
-      "headline": "Agent Development Engineer",
+      "active": false,
+      "headline": "Agent 开发工程师",
       "expected_pages": 1,
       "summary": "",
       "summary_claim_ids": [],
@@ -26,7 +24,8 @@
       "skills": []
     },
     "algorithm": {
-      "headline": "Agent Algorithm Engineer",
+      "active": false,
+      "headline": "Agent 算法工程师",
       "expected_pages": 1,
       "summary": "",
       "summary_claim_ids": [],
@@ -40,6 +39,7 @@
     "summary_claim_ids": [],
     "metrics": [],
     "featured_claim_ids": [],
-    "visuals": []
+    "visuals": [],
+    "resume_downloads": []
   }
 }

@@ -10,7 +10,15 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from common import FACT_STATUSES, SKILL_DIR, claims_by_id, profile_digest, require_valid_profile, workspace_path
+from common import (
+    FACT_STATUSES,
+    SKILL_DIR,
+    active_view_names,
+    claims_by_id,
+    profile_digest,
+    require_valid_profile,
+    workspace_path,
+)
 
 
 CATEGORY_LABELS = {
@@ -33,15 +41,15 @@ FILTER_GROUPS = (
 )
 
 
-def render_links(candidate: dict[str, Any]) -> str:
+def render_links(profile: dict[str, Any]) -> str:
+    candidate = profile["candidate"]
+    labels = {"development": "开发简历", "algorithm": "算法简历"}
+    downloads = profile.get("portfolio", {}).get("resume_downloads", active_view_names(profile))
     links = [
-        '<a class="button primary" href="../resumes/development/main.pdf">开发简历</a>',
-        '<a class="button" href="../resumes/algorithm/main.pdf">算法简历</a>',
+        f'<a class="button{" primary" if index == 0 else ""}" href="../resumes/{view_name}/main.pdf">{labels[view_name]}</a>'
+        for index, view_name in enumerate(downloads)
     ]
-    selected = set(candidate["contact_visibility"]["public"])
     for link in candidate.get("links", []):
-        if link["label"] not in selected:
-            continue
         links.append(
             f'<a class="button" href="{html.escape(link["url"], quote=True)}">{html.escape(link["label"])}</a>'
         )
@@ -58,7 +66,7 @@ def render_metrics(metrics: list[dict[str, str]]) -> str:
 def render_filters(profile: dict[str, Any], claims: list[dict[str, Any]]) -> str:
     categories = {claim["category"] for claim in claims}
     if any(
-        item["status"] in FACT_STATUSES and item["visibility"] == "public" and item["public_safe"] is True
+        item["status"] in FACT_STATUSES
         for item in profile.get("education", [])
     ):
         categories.add("education")
@@ -157,12 +165,12 @@ def render_education_card(item: dict[str, Any]) -> str:
 def render_timeline(profile: dict[str, Any], claims: list[dict[str, Any]], visuals: dict[str, dict[str, str]]) -> str:
     cards: list[tuple[str, str]] = []
     metrics = profile["portfolio"].get("metrics", [])
-    public_education = [
+    selected_education = [
         item
         for item in profile.get("education", [])
-        if item["status"] in FACT_STATUSES and item["visibility"] == "public" and item["public_safe"] is True
+        if item["status"] in FACT_STATUSES
     ]
-    for item in public_education:
+    for item in selected_education:
         cards.append((item.get("start", ""), render_education_card(item)))
     for claim in claims:
         if claim["category"] == "award":
@@ -174,6 +182,8 @@ def render_timeline(profile: dict[str, Any], claims: list[dict[str, Any]], visua
 def render_skills(profile: dict[str, Any], public_claim_ids: set[str]) -> str:
     sections: list[str] = []
     for view_name, label in (("development", "Agent 开发"), ("algorithm", "Agent 算法")):
+        if view_name not in active_view_names(profile):
+            continue
         groups = [
             group
             for group in profile["resume_views"][view_name].get("skills", [])
@@ -201,15 +211,15 @@ def render_honors(claims: list[dict[str, Any]]) -> str:
     return "\n".join(f"<li>{html.escape(item)}</li>" for item in honors)
 
 
-def render_contact(candidate: dict[str, Any]) -> str:
-    selected = set(candidate["contact_visibility"]["public"])
+def render_contact(profile: dict[str, Any]) -> str:
+    candidate = profile["candidate"]
     contacts: list[str] = []
-    if "location" in selected:
+    if candidate.get("location", "").strip():
         contacts.append(f"<span>{html.escape(candidate['location'])}</span>")
-    if "email" in selected:
+    if candidate.get("email", "").strip():
         email = html.escape(candidate["email"], quote=True)
         contacts.append(f'<a href="mailto:{email}">{html.escape(candidate["email"])}</a>')
-    if "phone" in selected:
+    if candidate.get("phone", "").strip():
         phone = html.escape(candidate["phone"], quote=True)
         contacts.append(f'<a href="tel:{phone}">{html.escape(candidate["phone"])}</a>')
     return "".join(contacts)
@@ -265,11 +275,7 @@ def render_portfolio(workspace: Path) -> Path:
 
     candidate = profile["candidate"]
     claim_map = claims_by_id(profile)
-    public_claims = [
-        claim
-        for claim in profile["claims"]
-        if claim["status"] in FACT_STATUSES and claim["visibility"] == "public" and claim["public_safe"] is True
-    ]
+    public_claims = [claim for claim in profile["claims"] if claim["status"] in FACT_STATUSES]
     public_claim_ids = {claim["id"] for claim in public_claims}
     featured = [claim_map[claim_id] for claim_id in profile["portfolio"]["featured_claim_ids"]]
     visuals = copy_visuals(workspace, staging, profile)
@@ -281,14 +287,14 @@ def render_portfolio(workspace: Path) -> Path:
         "portfolio_label": html.escape(profile["portfolio"].get("label", "INTERVIEW PORTFOLIO · 2026")),
         "fixture_notice": html.escape(profile.get("fixture_notice", "")),
         "summary": html.escape(profile["portfolio"]["summary"]),
-        "links": render_links(candidate),
+        "links": render_links(profile),
         "metrics": render_metrics(profile["portfolio"].get("metrics", [])),
         "filters": render_filters(profile, featured),
         "timeline": render_timeline(profile, featured, visuals),
         "skills": render_skills(profile, public_claim_ids),
         "honors": render_honors(public_claims),
         "honors_hidden": "" if any(claim["category"] == "award" for claim in public_claims) else " hidden",
-        "contact": render_contact(candidate),
+        "contact": render_contact(profile),
         "details_json": detail_payload(profile, featured, visuals),
     }
     template = (assets / "index.html.template").read_text(encoding="utf-8")
@@ -315,7 +321,7 @@ def render_portfolio(workspace: Path) -> Path:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Render a public-safe static Agent portfolio.")
+    parser = argparse.ArgumentParser(description="生成候选人 Agent 作品集网页。")
     parser.add_argument("workspace")
     args = parser.parse_args()
     print(render_portfolio(workspace_path(args.workspace)))

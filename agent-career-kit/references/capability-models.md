@@ -1,58 +1,67 @@
-# Capability Models
+# 分层能力模型
 
-Read this file when diagnosing level, selecting resume evidence, or preparing a company pack.
+用于判断候选阶段、选择简历证据、分析 JD 和设计补强路线。
 
-## Anchors
+## 统一判断锚点
 
-- `strong`: multiple source-linked examples; can defend mechanism, tradeoff, failure, and outcome.
-- `usable`: at least one credible example; some depth or scope is missing.
-- `gap`: target role expects it, but current evidence is insufficient.
-- `unknown`: materials do not answer the question.
+- `strong`：同一能力有多个来源关联案例，能解释机制、权衡、失败与结果。
+- `usable`：至少有一个可信案例，可以用于当前阶段，但深度或范围仍有限。
+- `gap`：目标岗位明确需要，现有证据不足。
+- `unknown`：材料无法判断。
 
-Do not collapse these labels into a fake total score. Record evidence IDs and the next proof needed.
+不要换算成综合百分比。每项判断都写证据 IDs 与下一项最小证明。
 
-## Agent Development
+## 候选阶段
 
-| Dimension | Senior/high-level evidence |
-| --- | --- |
-| Agent loop and state | Explicit state/action/observation/done model, stop conditions, checkpoint and recovery |
-| Tool system | Schema design, routing, error return, idempotency, permissions, MCP or equivalent protocol boundaries |
-| Context and memory | Context selection, compression, write/recall/forget policy, conflict and pollution control |
-| RAG and search | Parsing, retrieval, rerank, query planning, citations, failure decomposition and evaluation |
-| Harness architecture | Provider, runner, tools, memory, channel, autonomy, session and policy boundaries |
-| Sandbox and safety | File/shell/network isolation, prompt injection, approval gates, audit and data boundaries |
-| Reliability | Timeout, retry, backoff, circuit breaking, replay, rollback, graceful degradation and SLO reasoning |
-| Observability and eval | Logs, traces, task sets, outcome/transcript evaluation, verifier, regression and ship gates |
-| Performance and cost | Latency, token, cache, batch, model routing, QPS, resource and cost tradeoffs |
-| System design | API, worker, queue, storage, model gateway, capacity, failure domains and evolution path |
-| Delivery and influence | 0-to-1 definition, cross-team alignment, standards, mentoring, rollout, incident learning |
+### 校招 `campus`
 
-## Agent Algorithm
+重点不是生产规模或跨团队影响，而是：
 
-| Dimension | Senior/high-level evidence |
-| --- | --- |
-| Model foundations | Transformer, attention, KV cache, decoding, training loop and optimization reasoning |
-| Agent paradigms | ReAct, planning, search, reflection and multi-agent boundaries tied to failure modes |
-| Retrieval algorithms | Sparse/dense/hybrid retrieval, rerank, multi-hop search, GraphRAG and attribution evaluation |
-| Tool-use learning | Tool trajectory data, SFT/preference data, constrained outputs and failure correction |
-| Agentic RL | State, action, environment, reward, policy, rollout, credit assignment and reset design |
-| Reward and verifier | Rule, programmatic, model judge and human verification; gaming, bias and consistency controls |
-| Evaluation science | Research question, dataset split, leakage, baseline, metric, holdout, ablation and reproducibility |
-| Data synthesis | Seed tasks, evolution, rejection sampling, quality filtering, diversity and contamination controls |
-| Memory/skill learning | Episodic/semantic/procedural memory, skill extraction, retrieval, forgetting and longitudinal eval |
-| Research judgment | Hypothesis, alternative explanations, negative results, limitations and supported claims |
-| Training systems | Data pipeline, distributed training, checkpointing, inference evaluation, cost and compute budget |
-| Leadership and influence | Research direction, benchmark ownership, standards, mentoring and cross-functional adoption |
+1. 计算机、机器学习或相关基础是否扎实；
+2. 能否独立完成一个可运行的 Agent 项目闭环；
+3. 是否理解使用的框架、检索、模型和评测机制；
+4. 能否说明个人贡献、失败、限制和下一步；
+5. 是否展示快速学习、复现、实验与清晰表达能力。
 
-## High-Level Calibration
+课程项目、个人项目、比赛、实验室研究和开源贡献都可以是主要证据。没有生产用户、跨团队影响或完整 benchmark 不应自动判失败。
 
-A high-level candidate must show more than framework usage. Require evidence of:
+### 有经验 `experienced`
 
-1. Defining an ambiguous problem and a measurable success condition.
-2. Making a non-obvious technical choice and explaining the rejected alternative.
-3. Owning a system or research loop beyond one module.
-4. Handling failure, safety, cost, or reproducibility.
-5. Influencing a team, platform, research direction, or business decision.
-6. Knowing the contribution boundary between the candidate, team, framework, model, and AI coding tools.
+在校招基础上，重点增加：独立交付、生产约束、可维护性、可靠性、协作、可观察结果和持续迭代。
 
-Use representative JDs to adjust priority, never to fabricate a new identity.
+### 资深 `senior`
+
+除技术深度外，还需要：模糊问题定义、非显然决策与替代方案、系统/研究范围、失败域、成本与风险、跨团队影响、标准建设和长期所有权。
+
+## Agent 开发
+
+| 维度 | 校招可用证据 | 资深强证据 |
+| --- | --- | --- |
+| Agent 循环与状态 | 能解释 state/action/observation/done 与停止条件 | checkpoint、恢复、重放、状态演进与故障边界 |
+| 工具系统 | 完成 schema、调用、错误返回和一个真实工具 | 路由、幂等、权限、协议边界、治理与规模化 |
+| 上下文与记忆 | 实现选取、压缩或基本读写策略 | 冲突、污染、遗忘、长期评测与容量权衡 |
+| RAG 与搜索 | 完成解析、检索、引用和基本验证 | 混合检索、rerank、query planning、失败拆解与持续评测 |
+| 安全与沙箱 | 知道文件/网络/提示注入边界 | 隔离、审批、审计、数据治理与故障降级 |
+| 可靠性与评测 | 有可运行测试、代表案例和已知失败 | task set、trace、SLO、回归、ship gate 与事故学习 |
+| 系统设计 | 能画清主要组件和数据流 | 容量、队列、存储、网关、失败域、迁移和成本 |
+| 交付与影响 | 独立完成项目并清楚说明贡献 | 0 到 1 定义、跨团队协作、标准、推广与长期 owner |
+
+## Agent 算法
+
+| 维度 | 校招可用证据 | 资深强证据 |
+| --- | --- | --- |
+| 模型基础 | 理解 Transformer、attention、推理与训练基本机制 | 能连接系统瓶颈、优化目标、训练/推理权衡 |
+| Agent 范式 | 能解释 ReAct、planning、reflection 的用途和限制 | 基于失败模式选择范式，设计搜索/多 Agent 边界 |
+| 检索算法 | 实现 sparse/dense/hybrid 中一种并做基本比较 | rerank、多跳、GraphRAG、归因与系统评测 |
+| Tool-use 数据 | 能构造少量轨迹和失败修正样例 | 数据生产、SFT/偏好、受约束输出与质量闭环 |
+| Reward/Verifier | 理解规则、模型 judge 与人工验证差异 | gaming、偏差、一致性、校准和多层 gate |
+| 评测科学 | 有问题、数据划分、baseline、metric 和限制 | holdout、泄漏、ablation、复现与替代解释 |
+| 研究判断 | 能复现、分析负结果并窄化结论 | 定义方向、构建 benchmark、影响研究或产品决策 |
+| 训练系统 | 理解基本数据与训练流程 | 分布式训练、checkpoint、推理评测、算力与成本预算 |
+
+## 使用规则
+
+1. 先判断阶段，再使用对应列；不要直接拿资深强证据要求否定校招候选人。
+2. 代表性 JD 只调整优先级，不创造新身份。
+3. 两个方向分别评估，但只启用用户当前需要且有证据的简历方向。
+4. `unknown` 是信息不足，不是能力差；把最高价值的未知转成一个问题或最小任务。

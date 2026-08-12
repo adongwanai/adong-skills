@@ -8,8 +8,8 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from common import RENDERER_VERSION, profile_digest, require_valid_profile, workspace_path
-from render_resumes import LATEX_ASSETS, render_document
+from common import RENDERER_VERSION, VIEW_NAMES, profile_digest, require_valid_profile, workspace_path
+from render_resumes import LATEX_ASSETS, render_document, selected_views
 
 
 ZIP_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
@@ -36,11 +36,12 @@ def add_binary(archive: zipfile.ZipFile, name: str, data: bytes) -> None:
     archive.writestr(info, data)
 
 
-def package(workspace: Path) -> list[Path]:
+def package(workspace: Path, view_names: list[str] | None = None) -> list[Path]:
     profile = require_valid_profile(workspace)
+    view_names = selected_views(profile, view_names)
     digest = profile_digest(profile)
     outputs: list[Path] = []
-    for view_name in ("development", "algorithm"):
+    for view_name in view_names:
         resume_dir = workspace / "outputs" / "resumes" / view_name
         tex_path = resume_dir / "main.tex"
         if not tex_path.is_file():
@@ -84,8 +85,13 @@ def package(workspace: Path) -> list[Path]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Create deterministic Overleaf ZIP files.")
     parser.add_argument("workspace")
+    parser.add_argument("--view", action="append", choices=VIEW_NAMES, dest="views")
     args = parser.parse_args()
-    print("\n".join(str(path) for path in package(workspace_path(args.workspace))))
+    try:
+        outputs = package(workspace_path(args.workspace), args.views)
+    except ValueError as error:
+        raise SystemExit(f"Overleaf 打包失败：\n{error}") from None
+    print("\n".join(str(path) for path in outputs))
 
 
 if __name__ == "__main__":

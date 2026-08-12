@@ -1,130 +1,109 @@
-# Stable Dual-Resume System
+# 简历系统
 
-Read this file for resume intake, audit, rewriting, rendering, and QA.
+用于简历导入、审计、生成、改写、渲染与 QA。
 
-## Non-Negotiable Model
+## 模型
 
-Maintain one fact store and two views:
+维护一个事实源和两个可选方向：
 
-- Agent Development emphasizes architecture, tool/runtime engineering, reliability, evaluation, safety, performance, delivery, and influence.
-- Agent Algorithm emphasizes problem formulation, data, baseline, reward/verifier, training, evaluation science, ablation, failure analysis, and research judgment.
+- Agent 开发：突出架构、工具/运行时、上下文与记忆、可靠性、评测、安全、性能和交付。
+- Agent 算法：突出问题定义、数据、检索/规划算法、训练、Reward/Verifier、评测、消融、失败分析和研究判断。
 
-Do not make a third primary resume for a JD. Update the shared facts only when the candidate gains or corrects evidence.
+方向不是强制产物。只启用当前有证据且用户需要的方向；未启用方向保持空 `claim_ids`。
 
-The default output is template-aligned rendering, not a fixed demo resume and not a freshly rewritten resume. Preserve the candidate's supplied content, render it cleanly, and keep critique, better phrasings, missing-evidence questions, and JD-facing emphasis notes in the audit file unless the user explicitly asks to apply them.
+稳定主简历保存长期定位。针对单个 JD 的内容选择放在独立投递包中，不复制事实，不破坏主简历。
 
-The schema-v2 views select stable claim and bullet IDs; text remains stored once. Fact maturity is not publication permission. A selected claim must be `provided|confirmed`, `visibility=resume|public`, `public_safe=true`, source-linked at claim and bullet level, and pass its ship gate. View summaries and skills cite selected claim IDs.
+## 三种模式
 
-## Audit Sequence
+- `audit`：审计现有内容，输出问题与建议，不应用改写。
+- `preserve`：导入并保留原文，只修复用户明确授权的事实或格式错误。
+- `generate`：根据事实生成或优化内容；先给审阅稿，用户一次性确认后应用到最终稿。
 
-### 0. Scope And Role Calibration
+“帮我写/生成/优化简历”默认是 `generate`；“导入/审计/保持原文”默认是 `audit` 或 `preserve`。
 
-- State that PDF extraction may distort layout, so the content audit treats apparent spacing and line-wrap artifacts cautiously. Still report actual spelling, grammar, punctuation, capitalization, and technical-term errors as hard issues.
-- Infer the target role and level from the resume. If a JD is present, use it to calibrate the review standard and record role signals or gaps, but do not create a JD-specific primary resume.
-- Apply a higher bar to senior candidates: architecture, technical decisions, rejected alternatives, leadership, business or research impact, and scope of influence.
-- Judge the candidate's evidence, not employer categories or personal-background stereotypes.
+## 审计顺序
 
-### 1. Thirty-Second Impression
+### 1. 范围与岗位校准
 
-Report:
+- 判断候选阶段与目标方向，使用对应阶段标尺。
+- 有 JD 时校准关键词与证据优先级，但不把 JD 中的要求写成候选人事实。
+- PDF 抽取可能破坏换行；将真实拼写/术语错误与抽取噪声分开。
 
-- inferred role and level;
-- `continue`, `borderline`, or `close` reading decision;
-- the single strongest signal;
-- the single reason the resume may be rejected.
+### 2. 30 秒印象
 
-This is a reviewer simulation, not a claim about a real hiring committee.
+报告：推断岗位与阶段、`continue/borderline/close` 阅读判断、最强信号、最大拒绝风险。说明这是模拟招聘阅读，不是真实录用预测。
 
-### 2. Whole-Resume Audit
+### 3. 整体审计
 
-Check career narrative, role signal, JD alignment when supplied, internal consistency, information hierarchy, noise, technical correctness, evidence density, ownership, scope, and high-level leadership. Separate technical errors from evidence gaps and writing weaknesses.
+检查岗位信号、叙事、信息层级、技术正确性、证据密度、贡献边界、技能与经历一致性。
 
-Audit the summary independently. Check that it is concise, avoids empty self-evaluation, and can be supported by selected claims. A useful drafting frame is `positioning + years or stage + technical domain + strongest evidenced achievement`; omit any component that the sources do not support.
+摘要使用 `定位 + 阶段/年限 + 技术领域 + 最强证据`，没有来源的部分直接省略。技能必须能回到经历 claim。
 
-Audit skills independently. Every claimed proficiency must point to project, work, research, or open-source evidence. Do not force proficiency tiers when the evidence only supports a categorized list.
+### 4. 逐段与逐 bullet
 
-### 3. Section And Bullet Audit
-
-Audit every selected experience or project independently and every selected bullet exactly once, even when it passes. For each issue use:
+每个选中 bullet 恰好审计一次：
 
 ```text
-Critique: the exact weakness.
-Analysis: the negative inference a reviewer could reasonably make.
-Suggestion: the smallest factual change, rewrite, or evidence question that resolves it.
-Severity: blocker | high | medium | low.
-Evidence: claim/source ID.
+问题：具体弱点。
+影响：招聘者可能形成的合理负面判断。
+建议：最小事实修复、改写或证据问题。
+优先级：blocker | high | medium | low。
+证据：claim/source ID。
 ```
 
-Apply these tests to every selected bullet:
+逐项检查：
 
-- So What: what technical, user, team, business, research, or risk value changed?
-- Decision: what problem led to this method, what alternative existed, and why was it rejected?
-- Mechanism: does the wording show how the result was achieved rather than list frameworks?
-- Evidence: is there a metric, scope, artifact, qualitative transition, or risk avoided?
-- Ownership: what did the candidate personally decide or implement?
-- Influence: did impact reach a system, team, platform, research direction, or standard?
-- Boundary: what belongs to the team, framework, model, or AI tool?
-- Defensibility: can the candidate explain baseline, denominator, window, failure, and limitation?
+- So What：改变了什么技术、用户、团队、研究或风险状态？
+- Decision：为何选这个方案，替代方案是什么？
+- Mechanism：是否说明机制，而非只列框架名？
+- Evidence：有数字、范围、工件、定性变化或风险避免吗？
+- Ownership：本人决定、实现和验证了什么？
+- Boundary：团队、框架、模型和 AI 工具分别贡献了什么？
+- Failure：有哪些失败与限制，能否解释？
 
-Also check narrative completeness (`STAR`, `CAR`, or `PAR` as appropriate), verb strength against real ownership, implicit collaboration or leadership demonstrated through actions, and spelling/grammar/punctuation/terminology. A strong verb is a finding only when the evidence supports that ownership.
-
-Use this required artifact structure in `outputs/resumes/resume-audit.md`:
+审计文件 `outputs/resumes/resume-audit.md` 使用：
 
 ```text
-## Audit Scope
-## Thirty-Second Impression
-## Holistic Audit
-## Language And Terminology
-## Summary Audit
-## Experience And Project Audit
-## Bullet-Level Audit
-## Strategic Revision Blueprint
-### Before / After
-## Unresolved Evidence
+## 审计范围
+## 30 秒印象
+## 整体审计
+## 语言与术语
+## 摘要审计
+## 经历与项目审计
+## 逐 Bullet 审计
+## 修改蓝图
+### 原文 / 建议稿
+## 未解决证据
+## 用户确认
 ```
 
-Under `Bullet-Level Audit`, include one table row beginning with the stable bullet ID for every bullet selected by either resume view. Each row records verdict, Critique, Analysis, Suggestion, and the relevant checks. `Pass` is allowed only when the statement answers So What, has a defensible mechanism or role, and has appropriate evidence for its claim.
+## 安全改写
 
-## Strategic Revision Blueprint
+可用模式：
 
-After the audit:
+- `问题 -> 决策 -> 实现 -> 证据`
+- `约束 -> 权衡 -> 缓解 -> 结果`
+- `基线 -> 干预 -> 评测 -> 限制`
+- `失败 -> 定位 -> 修复 -> 回归预防`
+- `模糊需求 -> 成功定义 -> 对齐 -> 交付范围`
 
-1. Order fixes by `blocker`, `high`, `medium`, then `low`.
-2. Recommend the fitting narrative tool: `STAR/CAR`, decision-tradeoff, problem-decision-implementation-evidence, or a qualitative impact pattern.
-3. Provide at least one real `Before / After` example from the candidate's text. The `After` version may reorganize only supported facts; otherwise present a question instead of a fabricated rewrite.
-4. List evidence-mining questions by information value, but ask the candidate only the single highest-value unresolved question in the current turn.
-5. Keep spelling, grammar, punctuation, and terminology corrections separate from factual rewrites so formatting extraction noise is not confused with content defects.
+不要强制百分比。有效定性结果包括：从不可观察变为可追踪、从手工变为可复现、建立评测门禁、消除权限风险或把模糊任务变成可执行标准。
 
-## Writing Patterns
+Agent 改写在确认前只放审计/投递包；确认后写入档案并记录 `text_origin=agent` 与 approval。纯拼写、标点、术语大小写修复也要在确认清单中单独列出。
 
-When the user asks for an applied rewrite, use the shortest truthful pattern that fits:
+## 排序
 
-- `Problem -> decision -> implementation -> evidence`.
-- `Constraint -> tradeoff -> mitigation -> outcome`.
-- `Baseline -> intervention -> evaluation -> limitation`.
-- `Failure -> diagnosis -> fix -> regression prevention`.
-- `Ambiguity -> success definition -> alignment -> delivered scope`.
+- 校招默认：岗位标题、教育/定位、技能、最强项目/研究、实习/开源/荣誉；如果实习更强，可以前移。
+- 有经验/资深默认：岗位标题、摘要、证据化技能、最强工作/项目/研究、其余经历、教育。
+- 实际章节顺序以 view 的 `claim_ids` 第一次出现的类别为准，使不同方向的重点真实生效。
 
-Prefer strong verbs only when ownership supports them. Do not force percentages. Valid qualitative outcomes include creating end-to-end traceability, establishing an evaluation gate, removing a permission risk, making a process reproducible, or turning an ambiguous task into an adopted standard.
+## 渲染
 
-## Section Order
+```bash
+python3 <skill-dir>/scripts/render_resumes.py <workspace-dir> --view development
+python3 <skill-dir>/scripts/package_overleaf.py <workspace-dir> --view development
+```
 
-For experienced candidates, default to:
+不传 `--view` 时渲染全部已启用方向。岗位标题必须显示在姓名下方的正文中，而不是只存在注释或元数据。
 
-1. identity and literal role signal;
-2. concise summary;
-3. role-specific skills supported by claims;
-4. strongest work, project, or research evidence;
-5. remaining experience and projects;
-6. publications/open source/awards when material;
-7. education.
-
-Use the same visual template for both views to reinforce a stable identity.
-
-Treat the user-selected GitHub template's class, section hierarchy, typography, spacing model, photo treatment, and visual structure as immutable by default. Auditing content or proposing wording must not alter the template, generated TeX/PDF, or approved resume text. Change any of them only after an explicit user request.
-
-## Render And QA
-
-`render_resumes.py` writes `outputs/resumes/development/main.tex` and `outputs/resumes/algorithm/main.tex` with the canonical profile digest. The renderer dynamically fills the candidate workspace through the upstream `resume-photo` template style from `LLM-Resume-Template`, using `\documentclass{resume-photo}`, `\ResumeName`, `\ResumeContacts`, `\ResumeTitle`, `\section`, and `\ResumeItem`. It contains no hard-coded sample achievements, schools, companies, projects, links, or metrics. It keeps only the compatibility settings needed for bundled Tectonic PDF extraction and Overleaf portability: TeX Live's Fandol Song CJK font and a text-extractable `\heiti` mapping.
-
-Compile with XeLaTeX on Overleaf. In Codex, use the bundled LaTeX plugin's Tectonic compiler when its TeX Live runtime does not include `xelatex`. Package each directory for Overleaf only after the script confirms the current profile digest. Extract PDF text with two parsers at release time, render every page to PNG, and inspect margins, wrapping, density, hierarchy, glyphs, and blank pages. Search final sources and extracted text for unresolved placeholders.
+模板默认保持 `LLM-Resume-Template` 的视觉结构；内容、章节和排序动态来自候选人档案。

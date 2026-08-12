@@ -1,23 +1,25 @@
-# Progress
+# 进度
 
-## Current Direction
+## 当前阶段与方向
 
-Not set.
+待判断。
 
-## Completed Outputs
+## 本轮完成
 
-None.
+暂无。
 
-## Remaining Evidence
+## 已确认改写
 
-None recorded.
+暂无。
 
-## Next Three Actions
+## 未解决证据
 
-1. Build the candidate profile.
-2. Map evidence to both role models.
-3. Select the first public artifact to validate.
+暂无。
 
-## Next Validation
+## 下一步（最多三项）
 
-Run workspace validation after filling the profile.
+1. 提供任意一种起始材料并定义目标 Offer。
+
+## 下一次验证
+
+材料导入后验证候选人档案；岗位运营后验证网页驾驶舱；只有生成相应产物时才运行对应门禁。

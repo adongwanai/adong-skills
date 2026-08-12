@@ -1,65 +1,89 @@
-# Quality Gates
+# 质量门禁
 
-Read this file before declaring an artifact or cycle complete.
+生成文件不等于完成。只运行当前请求对应的门禁。
 
-## Skill Package
+## Intake
 
-- Official `quick_validate.py` passes.
-- `agents/openai.yaml` uses valid metadata and a default prompt containing `$agent-career-kit`.
-- No private candidate data, hard-coded personal paths, author branding, temp sync data, or secrets are present. Only the explicitly disclosed Adong template demo and anonymous synthetic acceptance fixture may be repository-local candidate profiles.
-- Every reference in `SKILL.md` exists and is one level below it.
+```bash
+python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --stage intake
+```
 
-## Workspace And Evidence
+- `intake.md` 与空白档案存在；
+- 空白求职状态与网页驾驶舱存在；
+- 用户知道可以提供什么、首轮会得到什么、下一步是什么；
+- 不要求简历、作品集、题库索引或完整 profile。
 
-- Candidate workspace is outside the public Agent Career Kit repository; initialized workspaces deny Git tracking by default.
-- Candidate interview-bank indexes stay outside the repository, retain the bundled source hash/line/difficulty, exclude L0 by default, and label company fields as reported attributions.
-- Claim and bullet IDs are unique and both resume views reference existing items.
-- Resume artifacts reference only `provided` or `confirmed`, `visibility=resume|public`, public-safe claims. Portfolio artifacts use only explicit `visibility=public` claims and approved contact keys.
-- All selected claims and bullets have valid structured source references.
-- Facts and JD/company hypotheses are visibly separated.
-- No per-JD primary resume exists.
+## 候选人档案
 
-## Resume
+```bash
+python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir>
+```
 
-- `outputs/resumes/resume-audit.md` contains scope/role calibration, 30-second impression, holistic, language/terminology, summary, experience/project, bullet-level, revision-blueprint, Before/After, and unresolved-evidence sections.
-- Every bullet selected by either stable resume view appears exactly once in the bullet-level audit with a verdict and `Critique -> Analysis -> Suggestion`; passing bullets remain visible instead of being silently skipped.
-- Development and algorithm TeX files contain the current profile digest, come from the same profile, and differ only by stable view and bullet selection/emphasis.
-- No `TODO`, `TBD`, `XX`, `[待确认]`, or unsupported example content remains.
-- XeLaTeX or the bundled Tectonic XeTeX compilation exits successfully for both variants.
-- PDFs are valid, searchable, contain the current profile digest, and have the configured A4 page count.
-- Extract with the bundled parser and, for release QA, a second parser. Text must contain identity, role signal and a representative selected claim. A visually correct but garbled extraction is a Block.
-- Render every page to PNG and inspect: no overlap, clipping, blank pages, broken glyphs, orphan headings, or unreadable density. Release QA uses PDFKit on macOS and Poppler on other platforms; do not accept a renderer that reports missing CJK maps or drops glyphs.
-- Re-rendering an unchanged profile produces identical TeX and normalized extracted text.
-- Each Overleaf ZIP contains current `main.tex`, `manifest.json` and a self-contained provenance `NOTICE.txt`; packaging fails after profile changes until TeX is regenerated.
+- 候选阶段有效，至少一个简历方向启用；
+- claim/bullet/source ID 唯一且引用有效；
+- 未启用方向为空，不阻断当前方向；
+- 普通项目可以 `caution/improve`；`pass` 项目满足强工件门槛；
+- Agent 改写有用户确认记录；
+- 没有占位符伪装成最终事实。
 
-## Interview And Growth
+## 简历
 
-- A targeted reconnaissance pack contains an evidence-linked one-sentence risk assessment, exactly three core suspicions, the required priority table, and 15-20 main questions. Every question has a source type, 2-3 follow-ups, scoring anchors, verification evidence, and assessment purpose; 2-4 questions test non-JD-core breadth/honesty.
-- A `focus` review names one project or knowledge point and records the mechanism, implementation, evidence, tradeoff, failure and boundary reached.
-- A `full-loop` plan totals 45 or 60 minutes and preserves this order: self-introduction, project deep dive, Agent fundamentals, exactly one external-coding or hand-written-algorithm task, and candidate questions.
-- In interview mode, the Agent never writes or patches the candidate's coding solution; it may inspect the submitted code and run its tests.
-- A live mock reveals one question at a time and does not expose future questions, prepared follow-ups, scoring points, or an ideal answer before the candidate responds.
-- Questions are labeled as simulated unless sourced as real public questions.
-- Feedback cites the candidate answer or evidence, not personality guesses.
-- Scores use anchored dimensions and are not converted into hiring probability.
-- Every repair action has a validation question or artifact.
-- `planned` project outcomes remain out of public claims.
+```bash
+python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --require-resumes --view development
+```
 
-## Portfolio
+- 传 `--view` 时只要求该方向的 TeX、PDF 和 Overleaf ZIP；不传时检查所有已启用方向；
+- TeX 与当前 profile 完全一致；
+- PDF 是 A4、页数正确、文本可搜索；
+- 姓名、可见岗位标题和一个代表性 claim 能被抽取；
+- 岗位标题不是注释，章节顺序符合该方向的 claim 优先级；
+- 无重叠、裁切、空白页、乱码、孤立标题或不可读密度；
+- ZIP 包含当前 `main.tex`、class、manifest 与许可证说明。
 
-- First viewport exposes candidate identity and role signal.
-- Projects include actual public-safe visuals from `public-assets/` and evidence references. Reject symlinks, non-image files and executable/external SVG content.
-- Desktop and mobile screenshots show no overlap, horizontal overflow, or unreadable text.
-- Links, downloadable resume paths, keyboard focus, alt text, and color contrast work.
-- No private path, unapproved email/phone/location/link, hidden metadata, unsafe URL scheme, HTML injection, or placeholder leak.
+## JD 投递包
 
-## Application And Review
+- JD 路径与 SHA256 对应当前原文；
+- 每项要求映射 claim IDs 或写具体 gap；
+- 选材只来自当前档案，不含 planned claim；
+- 审阅稿与最终稿目录分开；
+- 最终稿有 approval 时间与记录；
+- 投递包能解释选材、排序和未覆盖风险。
+- `--final --compile` 后 PDF 页数符合 view 配置且全部为 A4，正文有目标岗位标题，元数据含当前 request digest。
 
-- Tracker IDs and statuses are valid; next actions are concrete.
-- Company pack judgments quote the JD or cite a public source; hypotheses are labeled.
-- Real interview feedback is separated from simulated practice.
-- Progress records outputs, remaining gaps, next three actions, and how to validate them.
+## 作品集
 
-## Completion Report
+```bash
+python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --require-portfolio
+```
 
-Report passed commands, inspected artifacts, unresolved gaps, and anything that remains `planned`. A generated file is not proof until the relevant gate has been run.
+- HTML/CSS/JS 与当前 profile digest 一致；
+- 首屏有候选人和岗位信号；
+- 项目详情、筛选、键盘焦点、图片和链接可用；
+- 桌面与移动端无横向溢出或内容重叠；
+- 简历按钮只显示 `portfolio.resume_downloads` 中配置的方向。
+
+## 面试与成长
+
+- `focus` 只围绕一个项目/主题；`full-loop` 总时长为 45 或 60 分钟；
+- 实时只显示一道题，不提前泄露答案或评分点；
+- 反馈引用候选人回答或证据，不做性格猜测；
+- 每个修复动作都有验证问题或工件；
+- 重复失败写回 `weaknesses.md`。
+
+## 求职看板
+
+- `career-state.json` 是唯一事实源，Markdown 和网页状态摘要与其 digest 一致；
+- 每次投递、回复、面试和 Offer 追加事件或更新对应对象，不抹掉过去过程；
+- 每个进行中事项有明确下一步，同一岗位只进入行动队列一次；
+- Offer 截止、待面试与待复盘优先于普通准备动作；
+- 漏斗按岗位去重，不把未投递拒绝计入已投递；
+- 网页桌面与移动端无横向溢出、重叠、裁切或不可读文本；
+- 不生成、不验证、不依赖 XLSX。
+
+```bash
+python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --require-dashboard
+```
+
+## 完成报告
+
+用中文报告：运行了哪些门禁、检查了哪些产物、哪些仍是草稿、哪些仍 planned、下一步最多 3 项。不要用一个总分掩盖具体失败。

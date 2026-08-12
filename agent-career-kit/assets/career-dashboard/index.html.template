@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f5">
+  <meta name="description" content="{{candidate_name}} 的 Offer 求职驾驶舱">
+  <title>{{candidate_name}} | Offer 求职驾驶舱</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="product-name">Agent Career Kit</p>
+      <h1>Offer 求职驾驶舱</h1>
+    </div>
+    <nav aria-label="页面导航">
+      <a href="#actions">今日行动</a>
+      <a href="#jobs">岗位</a>
+      <a href="#interviews">面试</a>
+      <a href="#offers">Offer</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="target-band" aria-labelledby="target-title">
+      <div class="target-copy">
+        <p class="candidate">{{candidate_name}} / {{candidate_headline}}</p>
+        <h2 id="target-title">{{target_title}}</h2>
+        <p>{{target_detail}}</p>
+      </div>
+      <div class="target-meta">{{target_meta}}</div>
+    </section>
+
+    <section class="metrics" aria-label="求职核心指标">
+      {{metrics}}
+    </section>
+
+    <section id="actions" class="section actions-section" aria-labelledby="actions-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="actions-title">下一最佳动作</h2>
+          <p>先处理最接近面试或 Offer 的事项，再扩充岗位池。</p>
+        </div>
+        <a class="text-link" href="../../application-dashboard.md">查看 Markdown</a>
+      </div>
+      <div class="action-list">{{actions}}</div>
+    </section>
+
+    <div class="work-grid">
+      <section class="section funnel-section" aria-labelledby="funnel-title">
+        <div class="section-heading compact">
+          <div>
+            <h2 id="funnel-title">转化漏斗</h2>
+            <p>只计算已经真实发生的阶段，不填虚假概率。</p>
+          </div>
+        </div>
+        <div class="funnel">{{funnel}}</div>
+      </section>
+
+      <section class="section artifacts-section" aria-labelledby="artifacts-title">
+        <div class="section-heading compact">
+          <div>
+            <h2 id="artifacts-title">可用材料</h2>
+            <p>从这里打开当前简历、投递包和作品集。</p>
+          </div>
+        </div>
+        <div class="artifact-list">{{artifacts}}</div>
+      </section>
+    </div>
+
+    <section id="jobs" class="section jobs-section" aria-labelledby="jobs-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="jobs-title">岗位队列</h2>
+          <p>优先级、匹配判断和下一步必须同时存在。</p>
+        </div>
+        <div class="filters" role="group" aria-label="筛选岗位状态">
+          {{filters}}
+        </div>
+      </div>
+      <div class="job-list" data-job-list>{{jobs}}</div>
+      <div class="empty-filter" data-empty-filter hidden>当前筛选下没有岗位。</div>
+    </section>
+
+    <section id="interviews" class="section" aria-labelledby="interviews-title">
+      <div class="section-heading compact">
+        <div>
+          <h2 id="interviews-title">面试</h2>
+          <p>每场面试都要留下重点、结果和复盘入口。</p>
+        </div>
+      </div>
+      <div class="table-wrap">{{interviews}}</div>
+    </section>
+
+    <section id="offers" class="section" aria-labelledby="offers-title">
+      <div class="section-heading compact">
+        <div>
+          <h2 id="offers-title">Offer 决策</h2>
+          <p>集中比较条件、截止日期和风险，不只看现金。</p>
+        </div>
+      </div>
+      <div class="offer-grid">{{offers}}</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>数据源：career-state.json</span>
+    <span>使用 Agent 更新状态，网页会自动重建。</span>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

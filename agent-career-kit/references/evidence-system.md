@@ -1,91 +1,60 @@
-# Evidence System
+# 证据系统
 
-Read this file before promoting a project idea into a resume or portfolio claim.
+用于判断一段经历现在能写到什么程度，以及怎样补强。
 
-## Evidence Ledger
+## 两级门槛
 
-For each important claim, capture:
+### 简历可用
 
-```text
-Claim ID:
-Claim:
-Status: provided | confirmed | planned
-Source references:
-Candidate contribution:
-Problem and stakes:
-Decision and rejected alternative:
-Outcome:
-Metric definition / denominator / window (if applicable):
-Qualitative proof (if no metric):
-Known limitation:
-Public-safe: yes | no
-Visibility: private | resume | public
-Ship gate: Block | Caution | Pass | Improve
-```
+真实的 `provided/confirmed` claim，只要有来源、个人贡献、当前结果或可观察变化、已知限制，就可以用 `caution/improve` 进入简历。
 
-Candidate-provided facts do not require hostile verification. Source links make future reuse and conflict resolution reliable. Ask only when two sources disagree or the wording exceeds the supplied fact.
+这一级适用于校招课程/个人项目、早期项目、没有完整实验工件但事实边界清晰的经历。缺少 benchmark 不应阻止首版简历。
 
-`status` answers whether a statement is a past fact; `visibility` answers who may see it. Never infer one from the other. Public contact and portfolio claims require explicit `public` selection.
+### 强证据 Pass
 
-## Claim Gate
+项目/研究标 `pass` 时必须：
 
-Before public use, decide:
+1. `proof` 覆盖 task set、baseline、verification、trace、failure、result；
+2. `proof_refs` 引用至少两个不同来源；
+3. 至少一个来源属于 repository、report、dataset、trace、benchmark 或 publication 工件。
+4. `proof_notes` 分别说明六类证据实际证明什么，六项不能复用同一句空泛描述。
 
-- `supported`: wording follows directly from a `provided` or `confirmed` claim.
-- `narrow`: evidence supports a smaller wording; rewrite to that boundary.
-- `planned`: useful future outcome but not completed; send to the project plan.
-- `conflict`: sources disagree; ask one resolution question.
+候选人陈述可以支持 `provided/improve`，但单独不能证明强验证 `pass`。
 
-Use these as evidence verdicts, not replacements for the profile fact status.
+## 证据层级
 
-Check six failure modes:
+从强到弱：
 
-1. A new number, scale, date, publication status, or user outcome appeared without a source.
-2. Participation became leadership or ownership.
-3. Correlation became causal improvement.
-4. Team output became individual contribution.
-5. A demo became production deployment.
-6. A case study or reproduced design became a completed personal project.
+1. 可复现实验：任务集、基线、指标、trace、代码和结果；
+2. 运营工件：日志、Dashboard、事故记录、部署、合并变更或采用记录；
+3. 范围证据：系统边界、用户、数据、任务、团队或决策权；
+4. 定性变化：不可观察到可追踪、手工到可复现、无门禁到有门禁；
+5. 边界清楚的候选人陈述。
 
-## Evidence Hierarchy
+使用当前最强证据，不强迫数字。
 
-Use the strongest available form without forcing a metric:
+## 六类常见越界
 
-1. Reproducible task set, baseline, metric, trace, code, and result.
-2. Operational artifact such as logs, dashboard, incident record, deployment, merged change, or adoption.
-3. Scope evidence such as system boundary, users, data, tasks, teams, or decision authority.
-4. Qualitative transition such as unobservable to traceable, manual to repeatable, unsafe to gated, or ad hoc to standardized.
-5. Candidate-stated decision or contribution with a clear boundary.
+1. 新增没有来源的数字、规模、日期或用户结果；
+2. 参与被写成领导或所有权；
+3. 相关性被写成因果提升；
+4. 团队成果被写成个人成果；
+5. Demo 被写成生产上线；
+6. 复现或案例分析被写成原创完成项目。
 
-## Agent Project Proof
+发生冲突时展示具体冲突，只问一个能解决冲突的问题。
 
-An interview-ready Agent project should answer:
+## 项目补强
 
-- What fixed task set represents the real job?
-- What baseline must it beat?
-- Which outcome and trajectory metrics matter?
-- What verifies success, and how can that verifier be gamed?
-- Which traces prove the mechanism works?
-- What are the top failure categories and their frequency?
-- Which component removal changes the result?
-- What are latency, cost, safety, and reproducibility limits?
+面试可辩护的 Agent 项目逐步补充：固定任务集、基线、结果/轨迹指标、Verifier 及其可被攻击方式、代表 trace、失败分类、消融、延迟/成本/安全/复现限制。
 
-Do not treat a polished architecture diagram as evidence of implementation.
+不要求所有简历项目一开始就具备完整集合；先根据候选阶段和目标岗位选择最小下一项证明。
 
-For public project claims, store two proof layers:
+## 项目状态
 
-- `proof`: bullet IDs that explain the claim in the resume or portfolio.
-- `proof_refs`: source or artifact IDs for the task set, baseline, verification, trace, failure and result evidence.
+- `planned`：只有问题与计划，保持私有且 Block。
+- `running`：已经开始，但结果 claim 仍是 planned。
+- `evidenced`：适用的结果门禁已通过，可提升为 provided。
+- `confirmed`：候选人或审阅者解决了冲突并留下记录。
 
-`proof` without `proof_refs` is narration, not evidence. A case-study source may support `provided/improve`; promotion to `confirmed/pass` requires the stronger artifacts in the project promotion gate.
-
-## Project Promotion
-
-Project state and claim status are different:
-
-- `planned`: question and intended artifact exist; claim remains `planned`, private, and Block.
-- `running`: work has started; claim still remains `planned`.
-- `evidenced`: applicable task set, baseline, verifier, trace, failure and raw result gates pass; claim may move to `provided` with source IDs.
-- `confirmed`: a candidate or reviewer explicitly resolves a conflict and the resolution is logged.
-
-Only after promotion run a separate publication review to set `visibility=resume|public`. Use Block for truth/privacy/correctness failure, Caution for narrow approved use, Pass for satisfied gates, and Improve for a valid current claim with a named non-blocking improvement.
+状态、可见性和使用强度是三个独立维度，不互相推导。

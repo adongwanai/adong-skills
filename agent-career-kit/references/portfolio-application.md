@@ -1,69 +1,48 @@
-# Portfolio And Application Operations
+# 作品集与求职运营
 
-Read this file for public proof, GitHub assets, company outreach, tracking, or offers.
+用于作品集、GitHub README、Demo、内推文案、投递跟踪和 Offer 决策。
 
-## Project Narrative
+## 项目表达
 
-Use six steps:
+按六步组织：问题为何重要、成功如何定义、本人负责什么、关键决策与替代方案、实现与证据、失败/限制/下一版。
 
-1. why the problem mattered;
-2. how success was defined;
-3. the candidate's exact responsibility;
-4. the key technical decision and rejected alternative;
-5. implementation and evidence;
-6. failure, limitation, and next version.
+从同一 claim IDs 生成 30 秒、2 分钟和深挖版本，避免多个互相冲突的故事。
 
-Produce 30-second, 2-minute, and deep-defense versions from the same claim IDs.
+## README 与 Demo
 
-## GitHub README And Demo
+面试可用的项目说明优先包含：问题和范围、架构/数据流、运行方式、当前验证、代表失败、权衡与限制、个人贡献和下一步。
 
-An interview-ready project README should expose:
+校招项目可以从“可运行 + 贡献清楚 + 有基本验证”开始；资深或强证据项目再要求完整 task set、baseline、metrics、Verifier、trace 和 failure taxonomy。
 
-- literal problem and scope;
-- architecture and data flow visual;
-- runnable setup and demo path;
-- task set, baseline, metrics, and verifier;
-- representative traces and failures;
-- tradeoffs, safety, cost, and limitations;
-- candidate contribution and roadmap.
+## 作品集
 
-Prefer a working interaction and inspectable evidence over decorative marketing. Do not claim a hosted demo exists until it is reachable.
+首屏展示姓名、目标岗位、最强证据和主要操作；随后展示项目、证据、时间线、技能、研究/开源和联系方式。
 
-## Portfolio Information Architecture
+项目卡片保持简洁，详细面板承载机制、指标、STAR、权衡、限制和链接。使用真实截图、架构图或评测图，不用纯装饰图替代证据。
 
-Adapt the useful structure of the referenced AI portfolio without copying its visual design:
+简历下载由 `portfolio.resume_downloads` 控制，可以只显示开发版、只显示算法版、同时显示或全部不显示。
 
-1. first viewport: candidate name, literal target role, concise proof, primary resume/GitHub/contact actions, and strongest metrics;
-2. featured projects with real screenshots or architecture/evaluation visuals;
-3. evidence: task sets, traces, failures, metrics, publications, open source, adoption;
-4. filterable or scannable timeline across work, projects, education, research, open source, and honors;
-5. skill matrix tied to project evidence;
-6. contact and downloadable stable resumes.
+## 内推文案
 
-Project and research timeline cards open a keyboard-accessible detail panel. The panel may show a public-safe visual, abstract, bullet-linked metrics, technical sections, STAR extraction, tradeoff and approved public links. Keep the card concise; put the defensible depth in the panel.
+包含目标岗位、两个有证据的匹配理由、一个可访问作品链接和低成本请求。不夸大关系，不虚构内推承诺。
 
-No feature-explaining marketing copy is needed inside the site. Keep it quiet, technical, responsive, accessible, and easy to scan.
+## Offer 求职看板
 
-## Referral Copy
+`career-state.json` 是唯一状态源，包含：
 
-Write a short note containing the target role, two evidence-backed reasons for fit, one public proof link, and a low-friction ask. Do not exaggerate familiarity or fabricate a referral relationship.
+1. 投递：公司、岗位、渠道、状态、日期、下一步、备注；
+2. 面试：公司、岗位、轮次、日期、重点、结果、复盘文件；
+3. Offer：岗位/职级、现金、股权、奖金、条件、截止日期、风险；
+4. 事件：发现岗位、材料就绪、投递、回复、跟进、面试结果、Offer 与拒绝。
 
-## Tracking
+推荐岗位状态：调研中、准备中、已内推、已投递、筛选中、面试中、Offer、拒绝、暂停、主动结束。
 
-Use the provided CSV files as canonical, diffable records:
+使用 `career_ops.py` 更新状态；它会确定性生成 `application-dashboard.md` 与 `outputs/career-dashboard/index.html`。保留历史记录，用户不需要安装 Excel、Node 表格包或维护第二份事实源。完整命令见 [offer-operations.md](offer-operations.md)。
 
-- application: company, role, source, route, status, date, next action, notes;
-- interview: company, round, date, focus, result, review path;
-- offer: company, role/level, cash, equity, bonus, benefits, conditions, deadline, risk notes.
+## Offer 决策
 
-Preserve history. Recommended application states: `researching`, `ready`, `referred`, `applied`, `screen`, `interviewing`, `offer`, `rejected`, `paused`, `withdrawn`.
+建议谈判动作前，记录岗位、职级、薪酬构成、归属/奖金条件、截止日期、其他选择、非现金约束、风险和来源。
 
-## Offer Decision Contract
+不虚构市场数据、隐藏区间、接受概率或谈判筹码。缺少会改变决策的信息时，明确指出是哪一项。
 
-Before recommending any negotiation action, record the role, level, total compensation components, vesting or bonus conditions, deadline, competing options, non-cash constraints, risk notes, and the evidence supporting each claim. Keep exact numbers in the private workspace unless the user explicitly asks to publish a sanitized summary.
-
-Use this to compare choices and prepare negotiation questions. Do not invent market data, hidden bands, acceptance odds, or leverage. If current compensation, competing offer, or deadline is missing, say which missing field changes the decision.
-
-When the spreadsheet capability is available, render the three CSVs into `outputs/application/career-tracker.xlsx` with Applications, Interviews, Offers and formula-driven Summary sheets. Keep formulas derived from the data sheets, apply validation only to intended input cells, scan formula errors, and visually inspect every sheet. Do not make the workbook a second source of truth.
-
-After every real or simulated interview, write concrete weaknesses back to the persistent workspace. Preparation should accumulate rather than restart per application.
+每次真实面试后，同时更新面试状态、复盘路径和具体弱点；准备过程应累计，不应每次投递重新开始。

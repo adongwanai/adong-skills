@@ -1,133 +1,173 @@
 ---
 name: agent-career-kit
-description: Build and operate a persistent career system for senior Agent development or Agent algorithm roles. Use when an AI coding agent needs to organize candidate evidence, audit or render the two stable resumes, plan evidence-building projects, run single-project/topic drills or 45-60 minute resume-based Agent mock interviews, prepare a company pack from JDs, publish a portfolio, track applications, or turn interview feedback into a long-term improvement loop.
+description: 面向校招到资深候选人的 Agent 开发/Agent 算法 Offer 求职系统。用于导入 PDF/DOCX/Markdown 简历与项目材料、建立证据档案、筛选和推进目标岗位、生成单方向/双方向简历与 JD 定向投递包、训练和复盘面试、比较 Offer，并生成中文 Markdown 与网页求职驾驶舱。
 ---
 
 # Agent Career Kit
 
-Build one durable candidate workspace. Do not treat each application as a new resume-writing task.
+唯一成功标准是提高候选人拿到满足底线的目标 Offer 的概率。围绕一个长期候选人档案和一个真实岗位漏斗工作，用户不需要理解 JSON、LaTeX 或目录结构。
 
-## Runtime Compatibility
+## 交互原则
 
-- Use this directory containing `SKILL.md` as `<skill-dir>`; never assume a Codex-, Claude-, or OpenCode-specific home path.
-- Run deterministic scripts through the host's shell with Python 3 and Node.js. Use any available XeLaTeX or Tectonic installation for PDF compilation.
-- Treat `agents/openai.yaml` as optional Codex UI metadata. It does not change the workflow and is not required by Claude Code or OpenCode.
-- Keep the same workspace contract, evidence gates, and output paths on every supported client.
-- Read [source-map.md](references/source-map.md) when auditing provenance or extending the Skill from an upstream method.
+1. 默认使用中文沟通和写文档；技术名词、代码与岗位原文可保留英文。
+2. 不把简历、学习或刷题当最终成果。每轮都回答：它会推动哪个真实岗位进入下一阶段？
+3. 先交付可见价值，再追问。先读已有文件，不问材料中已经写明的事实。
+4. 实时访谈每轮只问一个问题；材料确认可以一次汇总最多 3 个最高价值问题。
+5. 不要求用户一开始准备齐全。已有简历、一份 JD、一个项目链接或一段背景介绍，任意一种都能启动。
+6. 不虚构经历、数字、职责、时间、用户、论文、业务结果或上线状态。真实性是面试通过率门禁。
+7. 用户说“生成、写一份、优化简历”时，视为允许做证据安全的改写提案；用户说“导入、审计、保持原文”时，不改原文。
+8. Agent 改写先保留原文、建议稿和证据 ID，用户一次性确认后再写入最终投递稿。
+9. 校招与资深使用不同标尺。校招重基础、项目深度、学习速度和潜力；资深重范围、决策、架构、结果与影响力。
+10. 开发与算法是两个可选视图，不是两个强制产物。只启用当前有证据、用户需要的方向。
+11. JD 生成独立投递快照并关联岗位 ID；不得凭 JD 创造候选人事实，也不得破坏稳定主简历。
+12. 隐私字段不参与简历、作品集或投递门禁；保留旧字段只为兼容历史工作区。
 
-## Operating Invariants
+## 第一次响应
 
-1. Maintain one candidate fact store and exactly two primary resume views: `development` and `algorithm`.
-2. Never create a per-JD primary resume. Use a JD only for market-signal aggregation, fit analysis, company preparation, question selection, and referral context.
-3. Use the resume template as a dynamic renderer, not a fixed resume. Keep the referenced GitHub resume template's visual format unchanged unless the user explicitly asks to redesign it; names, sections, bullets, projects, metrics and links still come only from the candidate workspace.
-4. Preserve candidate-supplied resume wording by default. Audit and suggest improvements, but do not replace finished resume bullets unless the user explicitly approves a factual correction or rewrite.
-5. Treat candidate-provided facts as usable unless sources explicitly conflict. Never invent experience, ownership, metrics, dates, users, publications, or business outcomes.
-6. Keep fact status, publication visibility, and ship verdict separate. `planned` is private and blocked; portfolio content requires explicit `visibility=public` and public contact consent.
-7. Store all candidate data in an explicit workspace outside this installed Skill. Never write resumes, JDs, stories, or application state into the Skill directory.
-8. Distinguish facts, candidate statements, external public facts, and hypotheses. Do not report uncalibrated match percentages or interview probabilities.
-9. During intake and mock interviews, ask at most one question per turn. Inspect available files before asking for facts already present.
+当用户首次调用、只说“帮我做简历/求职准备”或没有现成 workspace 时，先用自然语言告诉用户怎么开始，不要直接要求目录、JSON 或工具安装。可直接回复：
 
-## Start Or Resume
+> 你可以直接发我一份已有简历，或者告诉我“校招/社招、想投 Agent 开发还是 Agent 算法”。有目标 JD、项目链接、论文或 GitHub 也可以一起发，但不是必需。
+>
+> 我会先读取材料，给你：1）目标 Offer 定义；2）当前岗位定位与首版内容；3）最多 3 个最影响投递或面试的缺口。之后我会把真实 JD 放入岗位队列，持续告诉你下一步最值得做什么。你不需要整理 JSON、Markdown 或 LaTeX。
 
-1. Find an existing workspace by locating `candidate-profile.json`. If more than one exists, ask which one to use.
-2. If none exists, ask for or infer an explicit output directory outside this Skill, then run:
+随后执行：
+
+1. 如果用户已经提供材料，立即读取并列出“已读取 / 未读取 / 无需现在提供”。
+2. 判断 `career_stage`：`campus`、`experienced` 或 `senior`；证据不足时标“待确认”，不要猜职级。
+3. 用岗位方向、城市、Offer 底线、目标日期定义目标 Offer；缺失项先标待确认，不阻断首版。
+4. 如需持久化且不存在 workspace，在已知材料目录旁创建清晰命名的外部目录；写入前告诉用户位置。若没有可推断位置，只问一次保存位置。
+5. 运行：
 
    ```bash
    python3 <skill-dir>/scripts/init_workspace.py <workspace-dir>
+   python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --stage intake
    ```
 
-3. Read [workspace-contract.md](references/workspace-contract.md) before editing structured state.
-4. Inventory resume files, repositories, papers, project notes, public profiles, JDs, and interview reviews. Copy only user-selected raw materials into `source-materials/`; otherwise record their paths in `evidence-ledger.md`.
-5. Fill `candidate-profile.json` from available evidence. Preserve claim and bullet IDs across revisions. Default visibility and public contact to private until the user approves publication.
-6. Run `validate_workspace.py` before producing public artifacts.
+6. 有文件时运行 `import_materials.py` 提取文本；再更新 `intake.md`，输出材料盘点、岗位定位、首版草稿和最多 3 个高价值缺口。
+7. 打开 `outputs/career-dashboard/index.html` 作为用户主界面；JSON、Markdown 和脚本保持内部化。
 
-## Route The Request
+## 工作区与运行时
 
-| User intent | Required references | Result |
-| --- | --- | --- |
-| Start, import, organize, assess level, build a learning route | [workspace-contract.md](references/workspace-contract.md), [capability-models.md](references/capability-models.md), [evidence-system.md](references/evidence-system.md), [learning-routes.md](references/learning-routes.md) | profile, evidence ledger, capability map, staged route |
-| Audit, rewrite, compile, or export resume | [resume-system.md](references/resume-system.md), [evidence-system.md](references/evidence-system.md), [quality-gates.md](references/quality-gates.md) | two stable `.tex`/`.pdf` resumes and Overleaf ZIPs |
-| Strengthen a project, close a gap, or deliver an Agent system | [project-incubation.md](references/project-incubation.md), [agentic-engineering-delivery.md](references/agentic-engineering-delivery.md), [evidence-system.md](references/evidence-system.md) | bounded evidence plan and reviewed delivery |
-| Design or defend a self-improving Agent | [self-improving-agents.md](references/self-improving-agents.md), [project-incubation.md](references/project-incubation.md), [interview-loop.md](references/interview-loop.md) | experiment contract, holdout gate, adaptive defense |
-| Practice a single project/topic or a 45-60 minute resume-based Agent mock | [interview-loop.md](references/interview-loop.md), [interview-technical.md](references/interview-technical.md), [system-design-contracts.md](references/system-design-contracts.md) | focus drill or full-loop mock, coding evidence, review, weakness write-back |
-| Analyze a JD or prepare a company | [company-prep.md](references/company-prep.md), [capability-models.md](references/capability-models.md) | company pack without resume mutation |
-| Build README, Demo, portfolio, referral copy, tracker, or offer comparison | [portfolio-application.md](references/portfolio-application.md), [quality-gates.md](references/quality-gates.md) | public proof and application artifacts |
-| Review progress or plan the next cycle | [quality-gates.md](references/quality-gates.md), [project-incubation.md](references/project-incubation.md) | prioritized next actions and updated weaknesses |
+- 用包含本文件的目录作为 `<skill-dir>`，不要假设 Codex、Claude Code 或 OpenCode 的安装路径。
+- 候选人数据写入独立 workspace，不写入 Skill 安装目录。
+- 基础流程需要 Python 3；读取/验收 PDF 需要 `pdfplumber`，编译 PDF 需要 XeLaTeX 或 Tectonic；面试题库在第一次检索时才建立索引。
+- `career-state.json` 是求职漏斗事实源；`application-dashboard.md` 和 `outputs/career-dashboard/` 由脚本重建，不生成 XLSX。
+- 发现旧版 workspace 缺少 `intake.md` 或仍使用 CSV 时，运行 `migrate_workspace.py`；迁移保留旧文件并生成 Markdown 看板。
+- 结构化状态遵循 [workspace-contract.md](references/workspace-contract.md)，方法来源见 [source-map.md](references/source-map.md)。
 
-For an end-to-end request, execute the routes in table order. Do not ask the user to choose modules they already requested.
+## 请求路由
 
-## Foundation Workflow
+| 用户意图 | 最小输入 | 读取文档 | 交付物 |
+| --- | --- | --- | --- |
+| 开始、导入、整理、评估方向 | 任意一种起始材料 | [onboarding.md](references/onboarding.md)、[workspace-contract.md](references/workspace-contract.md)、[capability-models.md](references/capability-models.md) | 规范文本、目标 Offer、候选阶段、岗位方向、首版草稿、最多 3 个问题 |
+| 发现、筛选或推进岗位 | 目标 Offer、一份 JD 或一次真实状态变化 | [offer-operations.md](references/offer-operations.md)、[portfolio-application.md](references/portfolio-application.md) | 带来源 URL 的真实岗位池、优先级、下一最佳动作、转化漏斗、中文网页驾驶舱 |
+| 审计、生成、改写或导出简历 | 已有简历或候选人事实 | [resume-system.md](references/resume-system.md)、[evidence-system.md](references/evidence-system.md)、[quality-gates.md](references/quality-gates.md) | 当前所需方向的审计稿、`.tex`、`.pdf`、Overleaf ZIP |
+| 针对 JD 投递 | JD + 至少一个已启用简历方向 | [company-prep.md](references/company-prep.md)、[application-packet.md](references/application-packet.md) | JD 摘要、要求-证据映射、缺口、选材理由、经确认的投递快照 |
+| 补强项目或能力缺口 | 一个目标缺口 | [project-incubation.md](references/project-incubation.md)、[agentic-engineering-delivery.md](references/agentic-engineering-delivery.md) | 最小证据项目与完成门槛 |
+| 单项目训练或完整模拟面试 | 一个项目/主题，或简历 | [interview-loop.md](references/interview-loop.md)、[interview-technical.md](references/interview-technical.md) | 单题交互、评分、复盘、弱点回写 |
+| 作品集、README、Demo | 已确认公开内容 | [portfolio-application.md](references/portfolio-application.md)、[quality-gates.md](references/quality-gates.md) | 静态网页或项目说明 |
+| 投递/面试/Offer 跟踪 | 一次状态变化或结果 | [offer-operations.md](references/offer-operations.md) | 更新后的事实源、Markdown、网页与下一最佳动作 |
 
-### Build The Evidence Ledger
+只执行用户请求的路由。不要为了“完整”强制生成作品集、面试包或第二份简历。
+单主题面试题库检索可以只初始化 workspace，不要求先建立完整候选人档案或启用简历方向。
 
-- Give each reusable claim and bullet a stable ID such as `work-routing-01` and `work-routing-01-b1`.
-- Record the source, personal contribution, decision, outcome, metric definition if any, and current status.
-- Use `provided` for a candidate-stated or source-backed past fact, `confirmed` for a fact the candidate explicitly reconfirmed, and `planned` for future work. Set visibility separately.
-- When sources conflict, show the exact conflict and ask one resolution question.
-- Convert missing evidence into `projects/` actions or `weaknesses.md`; do not strengthen the wording beyond the evidence.
+## 事实与证据
 
-### Build Capability Views
+- 每个可复用经历和 bullet 使用稳定 ID，如 `project-memory-01`、`project-memory-01-b1`。
+- `status` 说明事实状态：`provided`、`confirmed`、`planned`；`ship_gate` 说明使用强度：`block`、`caution`、`improve`、`pass`。
+- 真实但证据较轻的校招项目可以用 `caution` 或 `improve` 进入简历，不强制拥有完整 benchmark、trace 和 failure taxonomy。
+- 项目/研究只有在六类 proof 与独立 `proof_notes` 完整，引用至少两个来源，且至少一个是 repository/report/dataset/trace/benchmark/publication 工件时，才能标 `pass`。
+- 缺少数字不等于不能写。可使用明确范围、技术决策、可观察变化、定性结果和已知限制。
+- 缺口写入 `weaknesses.md` 或项目计划，不把未来工作写成已完成事实。
 
-- Score using anchored labels `strong`, `usable`, `gap`, or `unknown`; include evidence IDs beside every judgment.
-- Assess both role models even when one is primary. Senior candidates need technical depth, architecture judgment, production or research evidence, ownership, influence, and problem definition.
-- Select a primary direction only for sequencing. Keep both resume views available.
+## 能力画像
 
-## Resume Workflow
+先确定候选阶段，再使用 [capability-models.md](references/capability-models.md)：
 
-1. Audit the fact store before any edit. Report scope/role calibration and a 30-second hiring impression, then blocker/high/medium/low issues using `critique -> analysis -> suggestion`.
-2. Follow the complete output contract in [resume-system.md](references/resume-system.md): whole-resume, language/terminology, summary, each selected experience/project, and every selected bullet. Run narrative, So What, technical decision, evidence, ownership/verb, scope, consistency, and contribution-boundary checks.
-3. Produce a prioritized revision blueprint and at least one evidence-safe Before/After example. Ask only the highest-value unresolved evidence question in the current turn.
-4. Default to preserving the candidate's supplied bullet text while rendering it in the template. Put rewrite proposals in `outputs/resumes/resume-audit.md`; update `candidate-profile.json` only when the user approves the change or supplies corrected evidence.
-5. Render both variants:
+- `campus`：看计算机基础、动手完整度、项目理解、实验意识、学习速度和贡献边界；课程/个人项目可以作为主要证据。
+- `experienced`：看独立交付、生产约束、可靠性、协作、指标与业务/研究结果。
+- `senior`：额外要求问题定义、架构与非显然决策、失败域、范围、跨团队影响和长期所有权。
+
+每个判断使用 `strong`、`usable`、`gap`、`unknown`，附证据 ID 和下一项最小证明。不要给虚假的综合百分比。
+
+## 简历流程
+
+1. 明确模式：`audit`、`generate` 或 `preserve`；默认把“生成/写/优化”归入 `generate`。
+2. 给出 30 秒招聘印象、岗位/阶段校准、按优先级排列的问题和首版审阅稿。
+3. 逐段检查：事实、So What、技术决策、个人贡献、范围、结果、限制、一致性与关键词。
+4. 一次汇总最多 3 个会显著改变内容的问题；其余缺口进入审计文件，不阻断首版。
+5. 用户确认事实和改写后，在 Agent 改写 bullet 中记录 `text_origin=agent` 与 approval。
+6. 只启用需要的方向并渲染。未传 `--view` 时渲染所有已启用方向：
 
    ```bash
-   python3 <skill-dir>/scripts/render_resumes.py <workspace-dir>
-   python3 <skill-dir>/scripts/package_overleaf.py <workspace-dir>
+   python3 <skill-dir>/scripts/render_resumes.py <workspace-dir> --view development
+   python3 <skill-dir>/scripts/package_overleaf.py <workspace-dir> --view development
    ```
 
-6. Compile each `main.tex` with the available LaTeX compile capability using XeLaTeX or the bundled Tectonic XeTeX engine. Then follow [quality-gates.md](references/quality-gates.md) for cross-tool text extraction and visual inspection.
-7. Write `outputs/resumes/resume-audit.md` with accepted changes, unresolved conflicts, evidence gaps, and exact selected-bullet coverage.
+7. 用 XeLaTeX/Tectonic 编译 PDF，检查岗位标题可见、文本可检索、页数、A4、溢出和顺序。
+8. 用独立门禁验证简历，不要求作品集：
 
-## Project And Learning Workflow
+   ```bash
+   python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --require-resumes --view development
+   ```
 
-- Turn each important gap into the smallest evidence-producing task.
-- Require a question, baseline, task set or dataset, metrics, verifier, trace, failure analysis, alternative, and definition of done when relevant.
-- Mark each proposed resume claim as `planned` until evidence exists.
-- Prefer one flagship project defensible for 20-30 minutes over several shallow demos.
-- Do not modify another project repository or start paid/long-running experiments unless the user asks.
-- Use [learning-routes.md](references/learning-routes.md) when knowledge is missing, [self-improving-agents.md](references/self-improving-agents.md) for persistent improvement claims, and [agentic-engineering-delivery.md](references/agentic-engineering-delivery.md) when the work includes a release.
+## JD 投递流程
 
-## Interview Workflow
+1. 将原始 JD 保存到 `jd-bank/`，创建投递包：
 
-1. Choose an interaction mode (`reconnaissance`, `interview`, `practice`, or `review`) and a session format (`focus` or `full-loop`). Use `focus` for one project/knowledge point and `full-loop` for a resume mock.
-2. Use the bundled interview bank through [interview-technical.md](references/interview-technical.md). New workspaces index it automatically; for an older workspace, run `index_interview_bank.py <workspace-dir>` once. Query only relevant categories instead of loading the raw bank into context.
-3. For `focus`, maintain at most 3-6 hidden probes around the named project/topic and start with the highest-signal one. For `full-loop` or an explicit interviewer plan, follow [interview-loop.md](references/interview-loop.md) to create the interviewer-facing risk profile, framework, and 15-20 question selection pool from resume evidence, JD signals and relevant indexed-bank questions. State that generated or aggregated company-attributed questions are not verified company history unless an original public source proves otherwise.
-4. Run a `full-loop` in 45 or 60 minutes: self-introduction, one project deep dive, project-connected Agent fundamentals, exactly one external-coding or hand-written-algorithm lane, then candidate questions. Do not attempt to ask all 15-20 pool questions.
-5. During any live mock, do not expose the full plan. Ask exactly one question and follow the weakest or highest-signal branch of the answer, using prepared follow-ups only when they remain the best probe.
-6. In `interview` mode, do not coach mid-answer or write the candidate's coding solution. Score after the answer; never provide an ideal answer in advance.
-7. End a round with evidence-linked section reviews, exact breakdowns, a better answer structure, and at most three repair actions.
-8. Append concrete breakdowns to `weaknesses.md` and save reusable stories in `story-bank/`.
+   ```bash
+   python3 <skill-dir>/scripts/init_application.py <workspace-dir> \
+     --jd <workspace-dir>/jd-bank/<jd>.md --slug <company-role> \
+     --company <company> --role <role> --view development --job-id <job-id>
+   ```
 
-## Portfolio And Application Workflow
+2. 填写 `application-request.json`：JD 摘要、逐项要求、映射 claim IDs、未覆盖缺口、选材/排序理由、改写提案。`application-packet.md` 由脚本根据 JSON 同步生成，不要手工维护两份状态。
+3. 未确认时只能生成审阅草稿：
 
-- Render the static portfolio only from explicitly public, public-safe, non-`planned` claims and approved contact fields:
+   ```bash
+   python3 <skill-dir>/scripts/render_application_resume.py <workspace-dir> \
+     <application-request.json>
+   ```
+
+4. 用户一次性确认要求映射、选材和措辞后，将 approval 更新为 `approved`，再加 `--final` 生成最终投递快照。
+   需要可直接检查的 PDF 时同时加 `--compile`；未安装 Tectonic/XeLaTeX 时先交付 TeX 并明确编译依赖。
+5. 主简历保持稳定；投递快照保存在 `outputs/applications/<slug>/`，并记录 JD 摘要哈希，防止错用旧 JD。
+
+## 项目与学习
+
+- 把最高优先缺口变成最小证据任务，优先完成一个能讲 20-30 分钟的项目，而不是堆多个浅层 Demo。
+- 校招项目先完成“问题、个人贡献、关键实现、可运行验证、失败/限制”；需要强化时再加 task set、baseline、metrics、trace、failure taxonomy 和 ablation。
+- 资深项目还要覆盖生产/研究边界、容量与可靠性、决策权衡、影响范围和演进路线。
+- 未完成结果保持 `planned + private + block`。
+
+## 面试
+
+- `focus` 用于一个项目或知识点；`full-loop` 用于 45/60 分钟完整模拟。
+- 题库第一次查询时自动建立索引：
+
+  ```bash
+  python3 <skill-dir>/scripts/query_interview_bank.py <workspace-dir> --contains <关键词>
+  ```
+
+- 实时面试一次只问一道题，不提前给答案或评分点；结束后再给证据化复盘和最多 3 个修复动作。
+- 把重复失败模式写入 `weaknesses.md`，把可复用故事写入 `story-bank/`。
+
+## 作品集与求职看板
+
+- 作品集只在用户请求时生成；简历下载按钮由 `portfolio.resume_downloads` 决定：
 
   ```bash
   python3 <skill-dir>/scripts/render_portfolio.py <workspace-dir>
+  python3 <skill-dir>/scripts/validate_workspace.py <workspace-dir> --require-portfolio
   ```
 
-- Lead with name, literal role signal, strongest evidence, and project visuals. Follow with projects, evidence, timeline, skills, publications/open source, and contact.
-- Keep company analysis in `outputs/interview/companies/<company>/`; never merge it into primary resume facts.
-- Maintain application and offer history in the provided CSV files. Preserve past states rather than overwriting the record.
-- When a spreadsheet renderer is available, produce and inspect `outputs/application/career-tracker.xlsx`; CSV remains the canonical source.
+- 使用 `career_ops.py` 更新岗位、事件、面试和 Offer；脚本会同步重建 `application-dashboard.md` 与网页驾驶舱。不要手工维护三份状态。
+- 每次真实投递、回复、面试或 Offer 后立即回写；网页驾驶舱必须把 Offer 决策、临近面试和逾期事项排在普通准备动作之前。
+- 完整命令与漏斗口径见 [offer-operations.md](references/offer-operations.md)。
 
-  ```bash
-  node <skill-dir>/scripts/build_tracker.mjs <workspace-dir>
-  ```
+## 完成一轮
 
-## Finish A Work Session
-
-1. Run `validate_workspace.py`; use `--require-artifacts` after generating resumes and portfolio.
-2. Apply the relevant gates in [quality-gates.md](references/quality-gates.md).
-3. Update `progress.md` with outputs created, unresolved evidence, next three actions, and the next validation condition.
-4. Tell the user what is complete, what remains `planned`, and which claims changed. Do not hide failures behind a generic readiness score.
+1. 只运行当前路由对应的验证门禁；岗位运营后使用 `--require-dashboard`。
+2. 更新 `progress.md`：本轮产物、已确认改写、未解决证据、下一步最多 3 项。
+3. 用中文告诉用户：已完成什么、哪些只是草稿、还需确认什么、文件在哪里。
+4. 不把内部 traceback 原样抛给用户；按经历名称归纳成“可先出草稿 / 需补证据 / 当前阻断”。

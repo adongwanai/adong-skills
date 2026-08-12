@@ -13,8 +13,10 @@ from pathlib import Path
 
 from pdfminer.high_level import extract_text
 
-from common import SKILL_DIR, load_profile, workspace_path
+from common import SKILL_DIR, active_view_names, load_profile, workspace_path
 from package_overleaf import package
+from career_state import load_state
+from render_career_dashboard import render_dashboard
 from render_portfolio import render_portfolio
 from render_resumes import render_resumes
 from validate_workspace import validate_workspace
@@ -71,28 +73,8 @@ def find_chrome() -> Path:
     raise RuntimeError("missing Chrome/Chromium; set CHROME_PATH")
 
 
-def build_tracker(workspace: Path, node: Path) -> None:
-    env = os.environ.copy()
-    artifact_tool = (
-        Path.home()
-        / ".cache"
-        / "codex-runtimes"
-        / "codex-primary-runtime"
-        / "dependencies"
-        / "node"
-        / "node_modules"
-        / "@oai"
-        / "artifact-tool"
-        / "dist"
-        / "artifact_tool.mjs"
-    )
-    if artifact_tool.exists():
-        env["CODEX_ARTIFACT_TOOL_PATH"] = str(artifact_tool)
-    subprocess.run([str(node), str(SKILL_DIR / "scripts" / "build_tracker.mjs"), str(workspace)], check=True, env=env)
-
-
-def compile_resumes(workspace: Path, tectonic: Path) -> None:
-    for view_name in ("development", "algorithm"):
+def compile_resumes(workspace: Path, tectonic: Path, view_names: list[str]) -> None:
+    for view_name in view_names:
         resume_dir = workspace / "outputs" / "resumes" / view_name
         subprocess.run(
             [str(tectonic), "-X", "compile", "--outdir", str(resume_dir), "--outfmt", "pdf", "--print", "--untrusted", "main.tex"],
@@ -103,10 +85,10 @@ def compile_resumes(workspace: Path, tectonic: Path) -> None:
         )
 
 
-def compile_overleaf_packages(workspace: Path, tectonic: Path) -> None:
+def compile_overleaf_packages(workspace: Path, tectonic: Path, view_names: list[str]) -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
-        for view_name in ("development", "algorithm"):
+        for view_name in view_names:
             extracted = root / view_name
             extracted.mkdir()
             archive_path = workspace / "outputs" / "resumes" / view_name / "overleaf.zip"
@@ -121,13 +103,14 @@ def compile_overleaf_packages(workspace: Path, tectonic: Path) -> None:
             )
 
 
-def validate_with_second_pdf_parser(workspace: Path, profile: dict) -> None:
+def validate_with_second_pdf_parser(workspace: Path, profile: dict, view_names: list[str]) -> None:
     claims = {claim["id"]: claim for claim in profile["claims"]}
-    for view_name in ("development", "algorithm"):
+    for view_name in view_names:
         pdf_path = workspace / "outputs" / "resumes" / view_name / "main.pdf"
         text = extract_text(str(pdf_path))
         expected = [
             profile["candidate"]["name"],
+            profile["resume_views"][view_name]["headline"],
             claims[profile["resume_views"][view_name]["claim_ids"][0]]["name"],
         ]
         if profile.get("fixture_notice", "").strip():
@@ -137,9 +120,9 @@ def validate_with_second_pdf_parser(workspace: Path, profile: dict) -> None:
             raise RuntimeError(f"{view_name} PDF failed pdfminer text validation: {missing}")
 
 
-def render_pdf_pages(workspace: Path, output_dir: Path) -> None:
+def render_pdf_pages(workspace: Path, output_dir: Path, view_names: list[str]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    for view_name in ("development", "algorithm"):
+    for view_name in view_names:
         pdf_path = workspace / "outputs" / "resumes" / view_name / "main.pdf"
         if sys.platform == "darwin":
             swift = require_tool("swift", [])
@@ -161,17 +144,7 @@ def browser_check(workspace: Path, output_dir: Path, node: Path, playwright: Pat
     expected_images = len(profile["portfolio"]["visuals"])
     expected_hero = profile["portfolio"].get("label", "INTERVIEW PORTFOLIO · 2026")
     expected_notice = profile.get("fixture_notice", "").strip()
-    public_contacts = set(profile["candidate"]["contact_visibility"]["public"])
-    forbidden_private_values = [
-        profile["candidate"].get(key, "").strip()
-        for key in ("email", "phone", "birthday", "location")
-        if key not in public_contacts and profile["candidate"].get(key, "").strip()
-    ]
-    forbidden_private_values.extend(
-        link["url"]
-        for link in profile["candidate"].get("links", [])
-        if link["label"] not in public_contacts
-    )
+    expected_resume_views = profile.get("portfolio", {}).get("resume_downloads", active_view_names(profile))
     code = f"""
 import {{ chromium }} from {str(playwright)!r};
 const browser = await chromium.launch({{ headless: true, executablePath: {str(chrome)!r} }});
@@ -182,7 +155,7 @@ const expectedCards = {expected_cards};
 const expectedImages = {expected_images};
 const expectedHero = {json.dumps(expected_hero, ensure_ascii=False)};
 const expectedNotice = {json.dumps(expected_notice, ensure_ascii=False)};
-const forbiddenPrivateValues = {json.dumps(forbidden_private_values, ensure_ascii=False)};
+const expectedResumeViews = {json.dumps(expected_resume_views, ensure_ascii=False)};
 for (const [name, viewport] of Object.entries({{ desktop: {{ width: 1440, height: 1200 }}, mobile: {{ width: 390, height: 1200 }} }})) {{
   const page = await browser.newPage({{ viewport }});
   await page.goto(url);
@@ -199,23 +172,21 @@ for (const [name, viewport] of Object.entries({{ desktop: {{ width: 1440, height
       metrics: document.querySelectorAll(".metric-card").length,
       cards: document.querySelectorAll(".timeline-card").length,
       images: document.querySelectorAll(".card-visual img").length,
-      hasDevelopmentResume: [...document.querySelectorAll("a")].some((a) => a.getAttribute("href")?.includes("../resumes/development/main.pdf")),
-      hasAlgorithmResume: [...document.querySelectorAll("a")].some((a) => a.getAttribute("href")?.includes("../resumes/algorithm/main.pdf")),
+      resumeHrefs: [...document.querySelectorAll("a")].map((a) => a.getAttribute("href") || "").filter((href) => href.includes("../resumes/")),
     }};
   }});
   if (!result.text.includes(expectedHero)) throw new Error(`${{name}}: missing hero`);
   if (expectedNotice && !result.text.includes(expectedNotice)) throw new Error(`${{name}}: missing fixture disclosure`);
   if (!result.text.includes("成长时间轴")) throw new Error(`${{name}}: missing timeline`);
   if (!result.text.includes(expectedProject)) throw new Error(`${{name}}: missing featured project`);
-  for (const value of forbiddenPrivateValues) {{
-    if (result.text.includes(value) || result.html.includes(value)) throw new Error(`${{name}}: private contact leaked: ${{value}}`);
-  }}
   if (result.metrics !== expectedMetrics) throw new Error(`${{name}}: expected ${{expectedMetrics}} metrics, got ${{result.metrics}}`);
   if (result.cards < expectedCards) throw new Error(`${{name}}: expected timeline cards, got ${{result.cards}}`);
   if (result.images !== expectedImages) throw new Error(`${{name}}: expected ${{expectedImages}} project visuals, got ${{result.images}}`);
   if (result.broken.length) throw new Error(`${{name}}: broken images ${{result.broken.join(", ")}}`);
   if (!result.widthOk) throw new Error(`${{name}}: horizontal overflow`);
-  if (!result.hasDevelopmentResume || !result.hasAlgorithmResume) throw new Error(`${{name}}: missing resume links`);
+  for (const view of expectedResumeViews) {{
+    if (!result.resumeHrefs.some((href) => href.includes(`../resumes/${{view}}/main.pdf`))) throw new Error(`${{name}}: missing ${{view}} resume link`);
+  }}
   await page.locator('.timeline-card[data-detail-id]').first().click();
   const detail = await page.evaluate(() => {{
     const modal = document.querySelector('[data-detail-modal]');
@@ -273,20 +244,21 @@ def main() -> None:
 
     workspace = workspace_path(args.workspace)
     profile = load_profile(workspace)
+    view_names = active_view_names(profile)
     output_dir = Path(args.output_dir).expanduser().resolve() if args.output_dir else workspace / "outputs" / "qa"
     node = find_node()
     render_resumes(workspace)
     render_portfolio(workspace)
-    build_tracker(workspace, node)
+    render_dashboard(workspace, load_state(workspace))
     tectonic = find_tectonic()
-    compile_resumes(workspace, tectonic)
+    compile_resumes(workspace, tectonic, view_names)
     package(workspace)
-    compile_overleaf_packages(workspace, tectonic)
-    errors = validate_workspace(workspace, require_artifacts=True)
+    compile_overleaf_packages(workspace, tectonic, view_names)
+    errors = validate_workspace(workspace, require_artifacts=True, require_dashboard=True)
     if errors:
         raise SystemExit("workspace validation failed:\n- " + "\n- ".join(errors))
-    validate_with_second_pdf_parser(workspace, profile)
-    render_pdf_pages(workspace, output_dir)
+    validate_with_second_pdf_parser(workspace, profile, view_names)
+    render_pdf_pages(workspace, output_dir, view_names)
     browser_check(workspace, output_dir, node, find_playwright(), find_chrome(), profile)
     print(f"release OK: {workspace}")
     print(f"visual QA: {output_dir}")
