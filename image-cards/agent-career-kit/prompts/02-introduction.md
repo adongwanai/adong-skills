@@ -1,34 +1,44 @@
-Create a bright, polished product capability infographic for a GitHub README. Explain what the developer Skill “Agent Career Kit” can do. Use simplified Chinese exactly as provided. All Chinese text must be legible and correctly spelled.
+Edit the provided Agent Career Kit capability infographic in place. This is a surgical text update, not a redesign.
 
-Canvas and style:
-- 1536 x 1024 landscape, light warm-white background (#FAFBFD).
-- Dark navy text (#172033), high contrast.
-- Flat editorial infographic with crisp vector-like shapes and familiar line icons.
-- Balanced palette: blue (#2F6FED), mint (#22A87A), coral (#E86F51), amber (#D89B16), with very pale tinted card backgrounds.
-- Cards have at most 6px corner radius, thin borders, no heavy shadows.
-- No dark theme, gradient, 3D, glassmorphism, decorative blob, watermark, fake UI screenshot, or extra copy.
+Preserve exactly:
+- 1536 x 1024 landscape canvas.
+- Existing near-white background, navy typography, blue/green/coral/amber palette.
+- Existing title and subtitle positions.
+- Existing 4-column by 2-row grid with eight equal cards.
+- Every existing line icon, card size, border, spacing, typography hierarchy, and bottom foundation bar.
+- Do not add cards, move elements, change colors, redraw icons, or invent copy.
 
-Header:
-- Large title: “Agent Career Kit 能做什么？”
-- Subtitle: “从材料归档到 Offer 复盘，一套可独立调用的求职工作流”
+Replace only the specified text. Use simplified Chinese exactly as written:
 
-Center: eight equal capability cards in a clean 4-column by 2-row grid. Each card has one simple line icon, one bold title, and one compact description. Use these exact texts:
+Title remains: “Agent Career Kit 能做什么？”
+Subtitle: “从材料归档到 Offer 复盘，一套可独立调用的求职工作流”
 
-1. “候选人档案” — “简历 · GitHub · 论文 · 项目”
-2. “双轨能力画像” — “Agent 开发 · Agent 算法”
-3. “双主简历” — “LaTeX · PDF · Overleaf”
-4. “项目补强” — “学习路线 · 实验 · Demo”
-5. “模拟面试” — “单点深挖 · 45/60 分钟全流程”
-6. “题库训练” — “5,273 题 · Coding · 系统设计”
-7. “作品集与公司包” — “README · 求职页 · JD 分析”
-8. “长期复盘” — “Story Bank · 弱点 · Offer Tracker”
+Card 1 title: “候选人档案”
+Card 1 description: “简历 · JD · GitHub · 项目”
 
-Bottom foundation bar:
-- Left: “Codex · Claude Code · OpenCode”
-- Right: “真实证据，不虚构经历”
+Card 2 title: “阶段化能力画像”
+Card 2 description: “开发 · 算法 · 校招到资深”
 
-Composition constraints:
-- Make all eight cards equal in size and importance.
-- Use clear hierarchy and generous whitespace.
-- Text must remain readable when displayed at 900px width.
-- Preserve every supplied phrase exactly and add no other wording.
+Card 3 title: “按需简历”
+Card 3 description: “LaTeX · PDF · Overleaf”
+
+Card 4 title remains: “项目补强”
+Card 4 description: “学习路线 · 证据 · Demo”
+
+Card 5 title remains: “模拟面试”
+Card 5 description remains: “单点深挖 · 45/60 分钟全流程”
+
+Card 6 title remains: “题库训练”
+Card 6 description remains: “5,273 题 · Coding · 系统设计”
+
+Card 7 title: “作品集与 JD 包”
+Card 7 description: “README · 求职页 · 投递快照”
+
+Card 8 title: “Offer 求职驾驶舱”
+Card 8 description: “岗位队列 · 漏斗 · 下一步”
+
+Bottom foundation bar remains:
+Left: “Codex · Claude Code · OpenCode”
+Right: “真实证据，不虚构经历”
+
+All supplied text must be correctly spelled, high contrast, and legible at 900px display width. Remove the old text completely; do not leave doubled or ghosted labels.
