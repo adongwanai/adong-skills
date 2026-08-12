@@ -4,12 +4,12 @@ Read only the sections needed for the selected round. These are generated practi
 
 ## Question Selection
 
-Select questions in this order: resume evidence and unresolved weaknesses, exact JD signals, an indexed user-provided interview bank, locally available AgentGuide practice material, then this bundled bank.
+Select questions in this order: resume evidence and unresolved weaknesses, exact JD signals, the indexed bundled aggregation, locally available AgentGuide practice material, then the concise practice prompts below.
 
-When the user supplies the `1000篇小红书AI算法岗面经：难度递增整合版`, treat “小红书” as the publishing platform, not the employer. Index the private source once:
+The distributed Skill includes `assets/interview-bank/xiaohongshu-ai-interview-bank.md`. Treat “小红书” as the publishing platform, not the employer. New workspaces index it during initialization; index an older workspace once with:
 
 ```bash
-python3 <skill-dir>/scripts/index_interview_bank.py /path/to/interview-bank.md <workspace-dir>
+python3 <skill-dir>/scripts/index_interview_bank.py <workspace-dir>
 ```
 
 Query only the relevant domain/category/difficulty instead of loading the full bank:
@@ -18,7 +18,7 @@ Query only the relevant domain/category/difficulty instead of loading the full b
 python3 <skill-dir>/scripts/query_interview_bank.py <workspace-dir> --domain 大语言模型与NLP --category Agent与工具调用 --level L3 --level L4 --limit 12
 ```
 
-The index retains source hash, line number, L0-L5 difficulty and reported company attributions. Exclude L0 by default because the source marks it as insufficient context. Treat every company label as an attribution reported by the aggregation, not independently verified company history. Label selected questions accordingly unless an original public post is separately verified.
+The index retains the distributed source hash, line number, L0-L5 difficulty and reported company attributions. Exclude L0 by default because the source marks it as insufficient context. Treat every company label as an attribution reported by the aggregation, not independently verified company history. Label selected questions accordingly unless an original public post is separately verified.
 
 Do not copy a company set wholesale. Connect fundamentals to terms the candidate used in the project answer. For a 45-60 minute full loop, select only the questions that fit the run sheet; retain the rest as an interviewer-only pool.
 

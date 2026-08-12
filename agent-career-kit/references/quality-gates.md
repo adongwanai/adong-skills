@@ -12,7 +12,7 @@ Read this file before declaring an artifact or cycle complete.
 ## Workspace And Evidence
 
 - Candidate workspace is outside the public Agent Career Kit repository; initialized workspaces deny Git tracking by default.
-- Private interview-bank indexes stay outside the repository, retain source hash/line/difficulty, exclude L0 by default, and label company fields as reported attributions.
+- Candidate interview-bank indexes stay outside the repository, retain the bundled source hash/line/difficulty, exclude L0 by default, and label company fields as reported attributions.
 - Claim and bullet IDs are unique and both resume views reference existing items.
 - Resume artifacts reference only `provided` or `confirmed`, `visibility=resume|public`, public-safe claims. Portfolio artifacts use only explicit `visibility=public` claims and approved contact keys.
 - All selected claims and bullets have valid structured source references.

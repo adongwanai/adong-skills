@@ -15,3 +15,7 @@ Agent Career Kit adapts workflow concepts including routing, normalized candidat
 ## AI Portfolio Reference
 
 Source: <https://yiweinanzi.github.io/>, reviewed 2026-08-11. Agent Career Kit adapts information architecture concepts only and does not copy the site's code or visual design.
+
+## Xiaohongshu-Platform Interview Aggregation
+
+`assets/interview-bank/xiaohongshu-ai-interview-bank.md` is the user-supplied aggregation reviewed at source SHA-256 `497d60e18939a015bc3e382122778e41feb3c5742274b4301ee0bd238881a4cd`. The distributed file changes CRLF line endings to LF only and has SHA-256 `878ea90f68fc45acb83cf30065927799093f4483268cf168c2b3808caad9e051`. The project maintainer authorized its redistribution with Agent Career Kit. Company names are reported attributions in the aggregation, not independently verified interview history; the file does not claim endorsement by Xiaohongshu or any named company.

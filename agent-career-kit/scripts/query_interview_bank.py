@@ -9,7 +9,7 @@ from common import workspace_path
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Query an indexed private interview bank.")
+    parser = argparse.ArgumentParser(description="Query an indexed interview bank in a candidate workspace.")
     parser.add_argument("workspace")
     parser.add_argument("--domain")
     parser.add_argument("--category")

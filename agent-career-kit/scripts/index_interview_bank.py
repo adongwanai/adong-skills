@@ -7,17 +7,18 @@ import json
 import re
 from pathlib import Path
 
-from common import REPO_DIR, workspace_path
+from common import REPO_DIR, SKILL_DIR, workspace_path
 
 
 LEVEL_RE = re.compile(r"^\*\*(L[0-5])\b")
 QUESTION_RE = re.compile(r"^(\d+)\.\s+(.+)$")
 ATTRIBUTION_RE = re.compile(r"\s*「([^」]+)」\s*$")
+BUNDLED_BANK = SKILL_DIR / "assets" / "interview-bank" / "xiaohongshu-ai-interview-bank.md"
 
 
 def index_bank(bank_path: Path, workspace: Path) -> Path:
     if workspace == REPO_DIR or REPO_DIR in workspace.parents:
-        raise ValueError("private interview-bank indexes must stay outside the Agent Career Kit repository")
+        raise ValueError("candidate interview-bank indexes must stay outside the Agent Career Kit repository")
     text = bank_path.read_text(encoding="utf-8-sig")
     domain = ""
     category = ""
@@ -67,13 +68,19 @@ def index_bank(bank_path: Path, workspace: Path) -> Path:
 
     output = workspace / "interview-bank" / "question-index.json"
     output.parent.mkdir(parents=True, exist_ok=True)
+    bundled = bank_path == BUNDLED_BANK
     payload = {
         "source": {
             "name": bank_path.name,
             "sha256": hashlib.sha256(bank_path.read_bytes()).hexdigest(),
             "bytes": bank_path.stat().st_size,
             "lines": len(text.splitlines()),
-            "provenance_note": "User-provided Xiaohongshu-platform interview aggregation. Company labels are reported attributions, not independently verified interview history.",
+            "provenance_note": (
+                "Bundled Xiaohongshu-platform interview aggregation. "
+                if bundled
+                else "User-provided replacement interview aggregation. "
+            )
+            + "Company labels are reported attributions, not independently verified interview history.",
         },
         "question_count": len(questions),
         "questions": questions,
@@ -83,9 +90,9 @@ def index_bank(bank_path: Path, workspace: Path) -> Path:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Index a user-provided Markdown interview bank into a private candidate workspace.")
-    parser.add_argument("bank", type=Path)
+    parser = argparse.ArgumentParser(description="Index the bundled Markdown interview bank into a candidate workspace.")
     parser.add_argument("workspace")
+    parser.add_argument("--bank", type=Path, default=BUNDLED_BANK, help="Optional replacement Markdown bank.")
     args = parser.parse_args()
     bank = args.bank.expanduser().resolve()
     if not bank.is_file():

@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 
 from common import SKILL_DIR, workspace_path
+from index_interview_bank import BUNDLED_BANK, index_bank
 
 
 def initialize(raw_destination: str) -> Path:
@@ -35,6 +36,7 @@ def initialize(raw_destination: str) -> Path:
 
     for filename in ("application-tracker.csv", "interview-schedule.csv", "offer-comparison.csv"):
         shutil.move(destination / filename, destination / "outputs" / "application" / filename)
+    index_bank(BUNDLED_BANK, destination)
     return destination
 
 

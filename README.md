@@ -119,7 +119,7 @@ AC 级别的论文审稿与去 AI 味 skill。
 - 基于事实和证据的逐 bullet 简历审计
 - 项目孵化、学习路线、Coding 与系统设计训练
 - 单项目 `focus` 深挖与 45/60 分钟 `full-loop` 模拟面试
-- 私有面经题库索引、Story Bank 与弱点回写
+- 内置公开面经题库、候选人私有索引、Story Bank 与弱点回写
 - GitHub README、Demo、动态个人求职页
 - 公司/JD 准备包、投递、面试和 Offer 跟踪
 

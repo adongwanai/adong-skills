@@ -10,7 +10,7 @@
 4. **能力差距与项目孵化**：分别评估 Agent Runtime、工具、记忆、RAG、Eval、Sandbox、可靠性，以及轨迹、Verifier、Reward、Post-training、实验与复现能力，把缺口变成最小可验证项目。
 5. **专项训练**：围绕一个项目或知识点做 20-30 分钟 `focus` 深挖，每轮只问一道题，并沿最薄弱或最高信息量分支追问。
 6. **完整模拟面试**：按 45 或 60 分钟运行自我介绍、项目深挖、Agent 八股/机制、一道外部 Coding 或手撕算法、反问和面后复盘。
-7. **私有题库索引**：将大体量 Markdown 面经索引进候选人私有 workspace，按领域、分类、L1-L5 难度和关键词检索；原题库不随开源仓库分发。
+7. **内置面试题库**：随 Skill 分发大体量 Markdown 面经，新 workspace 自动建立私有索引，并可按领域、分类、L1-L5 难度和关键词检索。
 8. **Story Bank 与项目讲解**：沉淀 30 秒、2 分钟和深挖版本，记录个人动作、技术决策、失败、边界、结果和可复用能力标签。
 9. **README、Demo 与作品集**：生成项目 README、Demo 讲解稿和响应式求职页；支持时间线筛选、项目/论文详情、STAR、证据链接和两份简历下载。
 10. **公司准备与长期闭环**：JD 只用于能力信号、公司准备、问题选择和匹配说明；用 CSV/XLSX 跟踪投递、面试、Offer、弱点、下一步和验证条件。
@@ -79,6 +79,9 @@ $agent-career-kit 用 interview + focus 模式，只拷打我的 Memory Agent �
 
 # 60 分钟完整模拟面试
 $agent-career-kit 用 interview + full-loop 模式模拟 60 分钟 Agent 算法面试：自我介绍、一个项目、相关八股、一道手撕题、反问。不要提前泄露题目和评分点。
+
+# 内置题库检索
+$agent-career-kit 从内置题库筛选 Agent 工具调用的 L3-L4 问题，只返回与我的简历弱点相关的 12 道候选题。
 
 # 项目补强
 $agent-career-kit 针对我在 Agent Eval/Verifier 的缺口，设计一个最小证据项目。给 baseline、task set、metrics、trace、failure taxonomy、ablation 和 done condition。

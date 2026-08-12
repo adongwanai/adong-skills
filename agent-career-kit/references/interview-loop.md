@@ -38,7 +38,7 @@ For every main question include:
 - verification evidence: stable claim/bullet IDs and the JD signal or `非JD核心`;
 - the reason this question can change the hiring assessment.
 
-When a question is selected or adapted from a private indexed bank, add its `bank-id`, level, original line and reported attributions to `验证依据`. Keep resume/JD evidence beside it; bank frequency never replaces candidate-specific relevance. Do not display a reported attribution as a verified company question.
+When a question is selected or adapted from the indexed bundled bank, add its `bank-id`, level, original line and reported attributions to `验证依据`. Keep resume/JD evidence beside it; bank frequency never replaces candidate-specific relevance. Do not display a reported attribution as a verified company question.
 
 Ask primarily about completed resume facts: `why`, `how`, alternatives, baseline, metric, failure, personal contribution, and scope. Use a hypothetical only as a direct extension of the candidate's answer or claimed system. Do not ask unrelated trivia or present generated questions as a real company's historical questions.
 

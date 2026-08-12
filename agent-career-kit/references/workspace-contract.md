@@ -18,7 +18,7 @@ career-workspace/
 ├── source-materials/
 ├── public-assets/
 ├── jd-bank/
-├── interview-bank/question-index.json  # optional private index; raw bank stays outside the repository
+├── interview-bank/question-index.json  # private derived index of the bundled public bank
 ├── story-bank/
 ├── projects/
 └── outputs/
