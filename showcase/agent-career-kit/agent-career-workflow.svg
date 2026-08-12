@@ -1,135 +1,127 @@
 <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Agent Career Kit workflow</title>
-  <desc id="desc">One evidence-backed candidate profile drives two stable resumes, projects, interviews, portfolio, and application review.</desc>
+  <desc id="desc">A light-background workflow showing how candidate materials become a durable profile, role-specific resumes, project evidence, interview practice, portfolio, application snapshots, and offer feedback.</desc>
   <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
-    </pattern>
-    <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee"/>
+    <marker id="arrow-blue" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0,11 4,0 8" fill="#2563eb"/>
     </marker>
-    <marker id="arrow-emerald" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#34d399"/>
+    <marker id="arrow-green" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0,11 4,0 8" fill="#059669"/>
     </marker>
-    <marker id="arrow-violet" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#a78bfa"/>
+    <marker id="arrow-amber" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0,11 4,0 8" fill="#d97706"/>
     </marker>
+    <filter id="soft-shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
     <style>
-      text { font-family: 'JetBrains Mono', 'Noto Sans SC', 'PingFang SC', sans-serif; letter-spacing: 0; }
-      .title { fill: #f8fafc; font-size: 30px; font-weight: 700; }
-      .subtitle { fill: #94a3b8; font-size: 14px; }
-      .step { fill: #64748b; font-size: 11px; font-weight: 700; }
-      .name { fill: #f8fafc; font-size: 16px; font-weight: 700; }
-      .desc { fill: #cbd5e1; font-size: 12px; }
-      .tiny { fill: #94a3b8; font-size: 10px; }
-      .tag { fill: #0f172a; font-size: 10px; font-weight: 700; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0; }
+      .title { fill: #0f172a; font-size: 34px; font-weight: 800; }
+      .subtitle { fill: #475569; font-size: 15px; font-weight: 500; }
+      .eyebrow { fill: #64748b; font-size: 11px; font-weight: 800; }
+      .name { fill: #0f172a; font-size: 17px; font-weight: 800; }
+      .body { fill: #334155; font-size: 12px; font-weight: 520; }
+      .small { fill: #64748b; font-size: 10px; font-weight: 600; }
+      .tag { fill: #ffffff; font-size: 10px; font-weight: 800; }
+      .note { fill: #334155; font-size: 11px; font-weight: 700; }
     </style>
   </defs>
 
-  <rect width="1440" height="900" fill="#0f172a"/>
-  <rect width="1440" height="900" fill="url(#grid)"/>
+  <rect width="1440" height="900" fill="#ffffff"/>
+  <path d="M0 96 H1440 M0 232 H1440 M0 368 H1440 M0 504 H1440 M0 640 H1440 M0 776 H1440" stroke="#e2e8f0" stroke-width="1"/>
+  <path d="M112 0 V900 M298 0 V900 M484 0 V900 M670 0 V900 M856 0 V900 M1042 0 V900 M1228 0 V900" stroke="#f1f5f9" stroke-width="1"/>
 
-  <text x="64" y="70" class="title">Agent Career Kit</text>
-  <text x="64" y="100" class="subtitle">一份带来源的事实档案，驱动 Agent 开发 / Agent 算法求职全流程</text>
-  <rect x="1160" y="54" width="216" height="34" rx="17" fill="#082f49" stroke="#22d3ee"/>
-  <text x="1268" y="76" fill="#67e8f9" font-size="11" font-weight="700" text-anchor="middle">Codex · Claude · OpenCode</text>
+  <text x="64" y="62" class="title">Agent Career Kit 核心工作流</text>
+  <text x="64" y="92" class="subtitle">从一份旧简历、一个 GitHub 或一段 JD 启动，把 Agent 开发 / Agent 算法求职做成可持续迭代的系统</text>
+  <rect x="1130" y="42" width="246" height="34" rx="17" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="1253" y="64" fill="#1d4ed8" font-size="12" font-weight="800" text-anchor="middle">Codex · Claude Code · OpenCode</text>
 
-  <!-- Connection layer -->
-  <path d="M 284 314 H 358" fill="none" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrow-cyan)"/>
-  <path d="M 632 314 H 706" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow-violet)"/>
-  <path d="M 997 256 H 1062" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
-  <path d="M 997 372 H 1062" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
-  <path d="M 997 488 H 1062" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
-  <path d="M 997 604 H 1062" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
-  <path d="M 1210 676 V 752 H 502 V 634" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow-violet)"/>
+  <!-- Main rail -->
+  <path d="M260 248 H345" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <path d="M612 248 H697" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <path d="M864 248 C930 248, 930 168, 1005 168" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <path d="M864 248 H1005" fill="none" stroke="#059669" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <path d="M864 248 C930 248, 930 328, 1005 328" fill="none" stroke="#d97706" stroke-width="3" marker-end="url(#arrow-amber)"/>
+  <path d="M1178 194 V290" fill="none" stroke="#cbd5e1" stroke-width="3"/>
+  <path d="M1178 354 V470" fill="none" stroke="#cbd5e1" stroke-width="3"/>
+  <path d="M1178 470 H690 V554" fill="none" stroke="#d97706" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#arrow-amber)"/>
 
   <!-- Step 1 -->
-  <text x="64" y="166" class="step">01 / INPUT</text>
-  <rect x="64" y="192" width="220" height="244" rx="8" fill="#0f172a"/>
-  <rect x="64" y="192" width="220" height="244" rx="8" fill="rgba(8,51,68,0.42)" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="88" y="230" class="name">候选人真实材料</text>
-  <text x="88" y="268" class="desc">原始简历</text>
-  <text x="88" y="298" class="desc">GitHub / 项目 / Demo</text>
-  <text x="88" y="328" class="desc">论文 / 博客 / 公开主页</text>
-  <text x="88" y="358" class="desc">面试记录 / Story Bank</text>
-  <text x="88" y="388" class="desc">JD / 公司信息</text>
-  <rect x="88" y="404" width="154" height="22" rx="11" fill="#22d3ee"/>
-  <text x="165" y="419" class="tag" text-anchor="middle">不编造，不偷换 ownership</text>
+  <rect x="64" y="140" width="196" height="216" rx="12" fill="#eff6ff" stroke="#2563eb" filter="url(#soft-shadow)"/>
+  <rect x="86" y="162" width="46" height="24" rx="12" fill="#2563eb"/>
+  <text x="109" y="179" class="tag" text-anchor="middle">输入</text>
+  <text x="86" y="218" class="name">候选人材料</text>
+  <text x="86" y="250" class="body">旧简历 / TeX / PDF</text>
+  <text x="86" y="278" class="body">GitHub / 项目 / Demo</text>
+  <text x="86" y="306" class="body">论文 / 博客 / 面试记录</text>
+  <text x="86" y="334" class="body">JD / 目标公司</text>
 
   <!-- Step 2 -->
-  <text x="358" y="166" class="step">02 / SINGLE SOURCE OF TRUTH</text>
-  <rect x="358" y="192" width="274" height="442" rx="8" fill="#0f172a"/>
-  <rect x="358" y="192" width="274" height="442" rx="8" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
-  <text x="382" y="230" class="name">长期候选人档案</text>
-  <text x="382" y="260" class="desc">Claim / Bullet / Source ID</text>
-
-  <rect x="382" y="288" width="226" height="72" rx="6" fill="#0f172a" stroke="#a78bfa"/>
-  <text x="400" y="316" fill="#ddd6fe" font-size="12" font-weight="700">事实状态</text>
-  <text x="400" y="342" class="tiny">provided · confirmed · planned</text>
-
-  <rect x="382" y="378" width="226" height="72" rx="6" fill="#0f172a" stroke="#a78bfa"/>
-  <text x="400" y="406" fill="#ddd6fe" font-size="12" font-weight="700">发布范围</text>
-  <text x="400" y="432" class="tiny">private · resume · public</text>
-
-  <rect x="382" y="468" width="226" height="72" rx="6" fill="#0f172a" stroke="#a78bfa"/>
-  <text x="400" y="496" fill="#ddd6fe" font-size="12" font-weight="700">出货门禁</text>
-  <text x="400" y="522" class="tiny">Pass · Improve · Block</text>
-
-  <text x="382" y="578" class="desc">Agent 开发 / 算法能力画像</text>
-  <text x="382" y="604" class="desc">Evidence Ledger · Weaknesses</text>
+  <rect x="345" y="122" width="267" height="252" rx="12" fill="#f8fafc" stroke="#94a3b8" filter="url(#soft-shadow)"/>
+  <rect x="369" y="146" width="58" height="24" rx="12" fill="#475569"/>
+  <text x="398" y="163" class="tag" text-anchor="middle">主档案</text>
+  <text x="369" y="202" class="name">长期候选人事实源</text>
+  <text x="369" y="234" class="body">candidate-profile.json</text>
+  <text x="369" y="262" class="body">evidence-ledger.md</text>
+  <text x="369" y="290" class="body">Story Bank / Weaknesses</text>
+  <line x1="369" y1="314" x2="588" y2="314" stroke="#cbd5e1"/>
+  <text x="369" y="342" class="small">事实状态：provided / confirmed / planned</text>
+  <text x="369" y="362" class="small">公开范围：private / resume / public</text>
 
   <!-- Step 3 -->
-  <text x="706" y="166" class="step">03 / STABLE CAREER ASSETS</text>
-  <rect x="706" y="192" width="291" height="128" rx="8" fill="#0f172a"/>
-  <rect x="706" y="192" width="291" height="128" rx="8" fill="rgba(6,78,59,0.42)" stroke="#34d399" stroke-width="1.5"/>
-  <text x="730" y="228" class="name">两份稳定主简历</text>
-  <text x="730" y="258" class="desc">Agent 开发版 · Agent 算法版</text>
-  <text x="730" y="284" class="tiny">原模板版式 · LaTeX · PDF · Overleaf</text>
-  <text x="730" y="304" class="tiny">不按单个 JD 反复改写</text>
+  <rect x="697" y="122" width="167" height="252" rx="12" fill="#f0fdf4" stroke="#059669" filter="url(#soft-shadow)"/>
+  <rect x="721" y="146" width="58" height="24" rx="12" fill="#059669"/>
+  <text x="750" y="163" class="tag" text-anchor="middle">画像</text>
+  <text x="721" y="202" class="name">方向判断</text>
+  <text x="721" y="234" class="body">Agent 开发</text>
+  <text x="721" y="262" class="body">Agent 算法</text>
+  <text x="721" y="290" class="body">校招 / 社招 / 资深</text>
+  <line x1="721" y1="314" x2="840" y2="314" stroke="#bbf7d0"/>
+  <text x="721" y="342" class="small">强项 / 可用 / 缺口</text>
 
-  <rect x="706" y="340" width="291" height="128" rx="8" fill="#0f172a"/>
-  <rect x="706" y="340" width="291" height="128" rx="8" fill="rgba(6,78,59,0.42)" stroke="#34d399" stroke-width="1.5"/>
-  <text x="730" y="376" class="name">项目与公开证据</text>
-  <text x="730" y="406" class="desc">项目孵化 · README · Demo</text>
-  <text x="730" y="432" class="tiny">baseline · metric · trace · ablation</text>
-  <text x="730" y="452" class="tiny">动态作品集 · 项目/论文详情</text>
+  <!-- Branch cards -->
+  <rect x="1005" y="108" width="306" height="120" rx="12" fill="#eff6ff" stroke="#2563eb" filter="url(#soft-shadow)"/>
+  <text x="1029" y="144" class="eyebrow">A · 简历交付</text>
+  <text x="1029" y="174" class="name">按需主简历</text>
+  <text x="1029" y="202" class="body">Agent 开发版 / Agent 算法版</text>
+  <text x="1029" y="222" class="small">同一事实源，不按单个 JD 反复改写</text>
 
-  <rect x="706" y="488" width="291" height="128" rx="8" fill="#0f172a"/>
-  <rect x="706" y="488" width="291" height="128" rx="8" fill="rgba(6,78,59,0.42)" stroke="#34d399" stroke-width="1.5"/>
-  <text x="730" y="524" class="name">自适应模拟面试</text>
-  <text x="730" y="554" class="desc">Focus 20–30 min · Full-loop 45/60 min</text>
-  <text x="730" y="580" class="tiny">自我介绍 · 项目 · 八股 · Coding · 反问</text>
-  <text x="730" y="600" class="tiny">每轮一题，沿最薄弱分支追问</text>
+  <rect x="1005" y="268" width="306" height="120" rx="12" fill="#f0fdf4" stroke="#059669" filter="url(#soft-shadow)"/>
+  <text x="1029" y="304" class="eyebrow">B · 能力补强</text>
+  <text x="1029" y="334" class="name">项目 / 学习 / Demo</text>
+  <text x="1029" y="362" class="body">证据计划、实验、README、作品集素材</text>
+  <text x="1029" y="382" class="small">把建议稿和已完成成果区分清楚</text>
 
-  <!-- Step 4 -->
-  <text x="1062" y="166" class="step">04 / DELIVERY &amp; FEEDBACK</text>
-  <rect x="1062" y="210" width="296" height="92" rx="8" fill="#0f172a"/>
-  <rect x="1062" y="210" width="296" height="92" rx="8" fill="rgba(59,130,246,0.3)" stroke="#60a5fa" stroke-width="1.5"/>
-  <text x="1086" y="246" class="name">简历投递资产</text>
-  <text x="1086" y="274" class="desc">双 PDF · 审计报告 · 内推说明</text>
+  <rect x="1005" y="428" width="306" height="120" rx="12" fill="#fffbeb" stroke="#d97706" filter="url(#soft-shadow)"/>
+  <text x="1029" y="464" class="eyebrow">C · 面试训练</text>
+  <text x="1029" y="494" class="name">单点深挖 / 45-60 分钟全流程</text>
+  <text x="1029" y="522" class="body">项目、八股、Coding、系统设计、反问</text>
+  <text x="1029" y="542" class="small">grill-me：一次一题，追到能力边界</text>
 
-  <rect x="1062" y="326" width="296" height="92" rx="8" fill="#0f172a"/>
-  <rect x="1062" y="326" width="296" height="92" rx="8" fill="rgba(59,130,246,0.3)" stroke="#60a5fa" stroke-width="1.5"/>
-  <text x="1086" y="362" class="name">公开作品集</text>
-  <text x="1086" y="390" class="desc">GitHub · Demo · 响应式求职页</text>
+  <!-- Outputs -->
+  <rect x="64" y="492" width="244" height="158" rx="12" fill="#f8fafc" stroke="#94a3b8" filter="url(#soft-shadow)"/>
+  <text x="88" y="530" class="eyebrow">对外材料</text>
+  <text x="88" y="562" class="name">PDF / Overleaf / 求职页</text>
+  <text x="88" y="590" class="body">简历下载、项目详情、论文与 Demo</text>
+  <text x="88" y="618" class="small">公开前列出事实来源与待确认项</text>
 
-  <rect x="1062" y="442" width="296" height="92" rx="8" fill="#0f172a"/>
-  <rect x="1062" y="442" width="296" height="92" rx="8" fill="rgba(59,130,246,0.3)" stroke="#60a5fa" stroke-width="1.5"/>
-  <text x="1086" y="478" class="name">公司准备包</text>
-  <text x="1086" y="506" class="desc">JD 信号 · 风险画像 · 题目选择</text>
+  <rect x="338" y="492" width="244" height="158" rx="12" fill="#f8fafc" stroke="#94a3b8" filter="url(#soft-shadow)"/>
+  <text x="362" y="530" class="eyebrow">JD 场景</text>
+  <text x="362" y="562" class="name">投递快照 / 公司准备包</text>
+  <text x="362" y="590" class="body">要求-证据-缺口映射</text>
+  <text x="362" y="618" class="small">独立快照，不污染长期主档案</text>
 
-  <rect x="1062" y="558" width="296" height="118" rx="8" fill="#0f172a"/>
-  <rect x="1062" y="558" width="296" height="118" rx="8" fill="rgba(120,53,15,0.35)" stroke="#fbbf24" stroke-width="1.5"/>
-  <text x="1086" y="594" class="name">投递 / 面试 / Offer 复盘</text>
-  <text x="1086" y="622" class="desc">Tracker · Rubric · Failure Pattern</text>
-  <text x="1086" y="648" class="tiny">弱点回写 → 下一个项目证据 / 训练动作</text>
+  <rect x="612" y="492" width="244" height="158" rx="12" fill="#f8fafc" stroke="#94a3b8" filter="url(#soft-shadow)"/>
+  <text x="636" y="530" class="eyebrow">求职运营</text>
+  <text x="636" y="562" class="name">Offer 驾驶舱</text>
+  <text x="636" y="590" class="body">投递、面试、Offer、下一行动</text>
+  <text x="636" y="618" class="small">复盘结果回写弱项和项目计划</text>
 
-  <!-- Footer -->
-  <rect x="64" y="806" width="1312" height="50" rx="6" fill="#111827" stroke="#334155"/>
-  <circle cx="88" cy="831" r="5" fill="#34d399"/>
-  <text x="104" y="836" class="tiny">可审计：每个公开 claim 可回溯 source</text>
-  <circle cx="425" cy="831" r="5" fill="#22d3ee"/>
-  <text x="441" y="836" class="tiny">可独立调用：简历 / 项目 / 面试 / 作品集 / 公司包</text>
-  <circle cx="861" cy="831" r="5" fill="#a78bfa"/>
-  <text x="877" y="836" class="tiny">公开模板演示，不代表真实候选人或求职结果</text>
+  <!-- Case strip -->
+  <rect x="64" y="724" width="1247" height="82" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="88" y="756" class="note">小白怎么用：上传旧简历 → 说目标方向 → 先拿输入输出清单、简历审计、能力画像，再选择简历、面试、项目、作品集或投递包单独推进。</text>
+  <text x="88" y="786" class="small">典型 Case：只有旧简历 · 生成两份主简历 · 拿到大厂 JD · 练完整面试 · 做公开作品集</text>
+
+  <rect x="64" y="832" width="1247" height="36" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="88" y="855" class="small">定位：帮助候选人系统冲刺年薪百万级 Offer；强化表达和项目包装建议，但对外材料只写候选人提供或确认的事实。</text>
 </svg>
