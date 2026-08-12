@@ -6,4 +6,6 @@ The resume layout and template case are derived from [adongwanai/LLM-Resume-Temp
 
 The included experiences, education, publications, companies, awards and metrics demonstrate rendering and workflow behavior only. Replace all of them with candidate-owned evidence before real use.
 
-`agent-career-workflow.svg` / `agent-career-workflow@2x.png` and `agent-career-architecture.svg` / `agent-career-architecture@2x.png` are the reproducible workflow and architecture diagrams for this showcase.
+`agent-career-workflow@2x.png` and `agent-career-architecture@2x.png` are the light-background GPT Image 2 workflow and capability diagrams used as the main README visuals. Their source analysis, outline, and prompts live under `../../image-cards/agent-career-kit/`.
+
+`agent-career-workflow.svg` and `agent-career-architecture.svg` remain available as detailed engineering supplements.

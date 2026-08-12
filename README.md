@@ -107,9 +107,18 @@ AC 级别的论文审稿与去 AI 味 skill。
 
 面向高职级 Agent 开发与 Agent 算法岗位的全流程求职 Skill。
 
-![Agent Career Kit 全流程](./showcase/agent-career-kit/agent-career-workflow@2x.png)
+![Agent Career Kit 核心工作流](./showcase/agent-career-kit/agent-career-workflow@2x.png)
 
-![Agent Career Kit 技能架构](./showcase/agent-career-kit/agent-career-architecture@2x.png)
+![Agent Career Kit 功能介绍](./showcase/agent-career-kit/agent-career-architecture@2x.png)
+
+<details>
+<summary>查看详细工程工作流与技能架构（SVG）</summary>
+
+![Agent Career Kit 详细工程工作流](./showcase/agent-career-kit/agent-career-workflow.svg)
+
+![Agent Career Kit 详细技能架构](./showcase/agent-career-kit/agent-career-architecture.svg)
+
+</details>
 
 它维护一份带来源的候选人事实档案和两份稳定主简历，把下面这些环节串成长期闭环：
 
