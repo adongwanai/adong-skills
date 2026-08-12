@@ -142,9 +142,6 @@ JD 投递快照与长期候选人主档案分离，投递定向不会直接污�
 使用说明与单模块调用示例见：
 [agent-career-kit/README.md](./agent-career-kit/README.md)
 
-1-2 分钟视频分享脚本见：
-[showcase/agent-career-kit/video-script.md](./showcase/agent-career-kit/video-script.md)
-
 公开展示案例来自指定的 LLM-Resume-Template 模板，仅用于展示 Skill 生成效果，不代表真实候选人或求职结果。当前案例同时启用了开发与算法两个方向，用于展示双视图；真实用户可以只启用其中一个方向：
 
 - [Agent 开发版 PDF](./showcase/agent-career-kit/resumes/development/main.pdf)
