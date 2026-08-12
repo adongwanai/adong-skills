@@ -1,0 +1,2 @@
+# Template package marker.
+# init_workspace.py writes the deny-all .gitignore into generated candidate workspaces.

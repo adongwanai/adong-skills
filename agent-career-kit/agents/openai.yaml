@@ -1,0 +1,5 @@
+interface:
+  display_name: "Agent Career Kit"
+  short_description: "面向高职级 Agent 开发与算法岗位的全流程求职系统"
+  brand_color: "#B42318"
+  default_prompt: "Use $agent-career-kit to build my career workspace, drill one project or topic, or run a 45-60 minute full-loop Agent mock interview."

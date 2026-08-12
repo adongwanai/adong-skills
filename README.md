@@ -103,6 +103,47 @@ AC 级别的论文审稿与去 AI 味 skill。
 目录见：
 [vibe-paper-deai/](./vibe-paper-deai/)
 
+### 7. agent-career-kit
+
+面向高职级 Agent 开发与 Agent 算法岗位的全流程求职 Skill。
+
+![Agent Career Kit 全流程](./showcase/agent-career-kit/agent-career-workflow@2x.png)
+
+它维护一份带来源的候选人事实档案和两份稳定主简历，把下面这些环节串成长期闭环：
+
+- 原始简历、GitHub、论文与项目材料归档
+- Agent 开发 / Agent 算法能力画像
+- 严格保留指定版式的双 LaTeX、PDF 与 Overleaf 简历
+- 基于事实和证据的逐 bullet 简历审计
+- 项目孵化、学习路线、Coding 与系统设计训练
+- 单项目 `focus` 深挖与 45/60 分钟 `full-loop` 模拟面试
+- 私有面经题库索引、Story Bank 与弱点回写
+- GitHub README、Demo、动态个人求职页
+- 公司/JD 准备包、投递、面试和 Offer 跟踪
+
+它不会为每个 JD 重写一份主简历，也不虚构经历、指标、公司真题或 Offer 概率。确定性产物由脚本生成和验证；简历审计、项目计划和模拟面试由 Codex、Claude Code 或 OpenCode 按 Skill 工作流执行。
+
+使用说明与单模块调用示例见：
+[agent-career-kit/README.md](./agent-career-kit/README.md)
+
+公开展示案例来自指定的 LLM-Resume-Template 模板，仅用于展示 Skill 生成效果，不代表真实候选人或求职结果：
+
+- [Agent 开发版 PDF](./showcase/agent-career-kit/resumes/development/main.pdf)
+- [Agent 算法版 PDF](./showcase/agent-career-kit/resumes/algorithm/main.pdf)
+- [动态作品集源码](./showcase/agent-career-kit/portfolio/index.html)
+
+| Agent 开发简历 | Agent 算法简历 |
+| --- | --- |
+| ![Agent 开发简历公开模板演示](./showcase/agent-career-kit/qa/resume-development.png) | ![Agent 算法简历公开模板演示](./showcase/agent-career-kit/qa/resume-algorithm.png) |
+
+| 动态求职页 | 移动端项目详情 |
+| --- | --- |
+| ![动态求职页公开模板演示](./showcase/agent-career-kit/qa/portfolio-desktop.png) | ![移动端项目详情公开模板演示](./showcase/agent-career-kit/qa/portfolio-mobile-detail.png) |
+
+![投递面试 Offer 跟踪看板公开演示](./showcase/agent-career-kit/qa/tracker-summary.png)
+
+以上经历和指标来自公开模板 fixture，所有对外产物都带有 Demo 声明；真实使用必须换成候选人自己的来源和证据。
+
 ## 如何使用
 
 ### Claude Code
@@ -137,6 +178,8 @@ cp -r andrej-karpathy-perspective ~/.agents/skills/
 
 具体以你当前 agent 工具的 skill 发现机制为准。
 
+`agent-career-kit` 同时支持 Codex、Claude Code 与 OpenCode，详细安装命令见它自己的 [README](./agent-career-kit/README.md)。真实候选人 workspace 必须放在本仓库之外。
+
 ## 目录约定
 
 一个标准 skill 目录通常包含：
@@ -168,4 +211,4 @@ cp -r andrej-karpathy-perspective ~/.agents/skills/
 
 ## License
 
-MIT
+仓库原创代码与内容采用 MIT License。第三方材料按各自许可证分发；`agent-career-kit` 使用的简历 class、模板来源和修改说明见 [THIRD_PARTY_NOTICES.md](./agent-career-kit/THIRD_PARTY_NOTICES.md)，公开 showcase 的 CC BY 4.0 归属见 [showcase 说明](./showcase/agent-career-kit/README.md)。

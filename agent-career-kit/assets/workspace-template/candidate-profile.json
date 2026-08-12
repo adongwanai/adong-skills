@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "sources": [],
+  "candidate": {
+    "name": "",
+    "headline": "",
+    "location": "",
+    "email": "",
+    "phone": "",
+    "links": [],
+    "contact_visibility": {
+      "resume": [],
+      "public": []
+    }
+  },
+  "education": [],
+  "claims": [],
+  "resume_views": {
+    "development": {
+      "headline": "Agent Development Engineer",
+      "expected_pages": 1,
+      "summary": "",
+      "summary_claim_ids": [],
+      "claim_ids": [],
+      "bullet_ids_by_claim": {},
+      "skills": []
+    },
+    "algorithm": {
+      "headline": "Agent Algorithm Engineer",
+      "expected_pages": 1,
+      "summary": "",
+      "summary_claim_ids": [],
+      "claim_ids": [],
+      "bullet_ids_by_claim": {},
+      "skills": []
+    }
+  },
+  "portfolio": {
+    "summary": "",
+    "summary_claim_ids": [],
+    "metrics": [],
+    "featured_claim_ids": [],
+    "visuals": []
+  }
+}

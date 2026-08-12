@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{summary}}">
+  <meta name="theme-color" content="#f7f5ef">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">{{portfolio_label}}</p>
+        <h1 id="hero-title">{{name}}</h1>
+        <p class="headline">{{headline}}</p>
+        <p class="summary">{{summary}}</p>
+        <p class="fixture-notice">{{fixture_notice}}</p>
+        <div class="actions">{{links}}</div>
+      </div>
+      <div class="hero-metrics" aria-label="关键成果">{{metrics}}</div>
+    </section>
+
+    <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+      <div class="section-heading">
+        <h2 id="timeline-title">成长时间轴</h2>
+        <p>顺着时间线，一段一段讲述经历、项目、证据和面试可追问点。</p>
+      </div>
+      <div class="filters" role="toolbar" aria-label="时间轴筛选">
+        {{filters}}
+      </div>
+      <div class="timeline">{{timeline}}</div>
+    </section>
+
+    <section id="skills" class="skills-section" aria-labelledby="skills-title">
+      <div class="section-heading">
+        <h2 id="skills-title">技术栈</h2>
+        <p>技能必须能回到时间轴里的项目和证据，不单独堆关键词。</p>
+      </div>
+      <div class="skill-columns">{{skills}}</div>
+    </section>
+
+    <section id="honors" class="honors-section" aria-labelledby="honors-title"{{honors_hidden}}>
+      <div class="section-heading">
+        <h2 id="honors-title">荣誉与成就</h2>
+      </div>
+      <ul class="honors">{{honors}}</ul>
+    </section>
+
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+      <h2 id="contact-title">联系我</h2>
+      <p>如果你对我的 Agent 项目、研究方向或岗位匹配感兴趣，欢迎通过以下方式联系。</p>
+      <div class="contact-links">{{contact}}</div>
+      <div class="actions">{{links}}</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 {{name}}</span>
+    <span>Agent Career Kit · Resume · Evidence · Interview</span>
+  </footer>
+  <section class="detail-modal" data-detail-modal hidden aria-hidden="true">
+    <div class="detail-backdrop" data-detail-close></div>
+    <article class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <header class="detail-header">
+        <div>
+          <p class="detail-category" data-detail-category></p>
+          <h2 id="detail-title" data-detail-title></h2>
+          <p class="detail-meta" data-detail-meta></p>
+        </div>
+        <button type="button" class="detail-close" data-detail-close aria-label="关闭详情面板">×</button>
+      </header>
+      <div class="detail-body">
+        <figure class="detail-visual" data-detail-visual-wrap hidden>
+          <img data-detail-visual alt="">
+          <figcaption data-detail-visual-caption></figcaption>
+        </figure>
+        <p class="detail-summary" data-detail-summary></p>
+        <section class="detail-section" data-detail-abstract-wrap>
+          <h3>摘要</h3>
+          <p data-detail-abstract></p>
+        </section>
+        <section class="detail-section" data-detail-metrics-wrap>
+          <h3>核心指标</h3>
+          <div class="detail-metrics" data-detail-metrics></div>
+        </section>
+        <div data-detail-sections></div>
+        <section class="detail-section star-section" data-detail-star-wrap hidden>
+          <h3>STAR 提炼</h3>
+          <div class="star-grid" data-detail-star></div>
+        </section>
+        <section class="detail-section" data-detail-tradeoff-wrap hidden>
+          <h3>技术权衡</h3>
+          <p data-detail-tradeoff></p>
+        </section>
+        <div class="detail-tags" data-detail-tags></div>
+        <div class="detail-links" data-detail-links></div>
+      </div>
+    </article>
+  </section>
+  <script id="portfolio-details" type="application/json">{{details_json}}</script>
+  <script src="app.js"></script>
+</body>
+</html>
