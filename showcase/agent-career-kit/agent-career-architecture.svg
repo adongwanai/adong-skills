@@ -1,0 +1,188 @@
+<svg viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Career Kit architecture</title>
+  <desc id="desc">The architecture expands the core career loop from candidate materials to a single evidence-backed profile, two role views, four independently callable workflows, public outputs, and feedback.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#22d3ee"/>
+    </marker>
+    <marker id="arrow-emerald" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#fbbf24"/>
+    </marker>
+    <style>
+      text { font-family: 'JetBrains Mono','Noto Sans SC','PingFang SC',sans-serif; letter-spacing: 0; }
+      .title { fill: #f8fafc; font-size: 32px; font-weight: 700; }
+      .subtitle { fill: #94a3b8; font-size: 14px; }
+      .layer { fill: #64748b; font-size: 11px; font-weight: 700; }
+      .name { fill: #f8fafc; font-size: 16px; font-weight: 700; }
+      .body { fill: #cbd5e1; font-size: 11px; }
+      .small { fill: #94a3b8; font-size: 9px; }
+      .tag { fill: #0f172a; font-size: 9px; font-weight: 700; }
+      .arrow-label { fill: #94a3b8; font-size: 9px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1200" fill="#0f172a"/>
+  <rect width="1600" height="1200" fill="url(#grid)"/>
+
+  <text x="60" y="58" class="title">Agent Career Kit · 技能架构</text>
+  <text x="60" y="88" class="subtitle">同一条核心闭环的工程化展开：一份事实源、两条岗位视图、四个可独立调用的工作流</text>
+  <rect x="1294" y="42" width="246" height="34" rx="17" fill="#082f49" stroke="#22d3ee"/>
+  <text x="1417" y="64" fill="#67e8f9" font-size="11" font-weight="700" text-anchor="middle">Codex · Claude Code · OpenCode</text>
+
+  <!-- Regions -->
+  <rect x="60" y="130" width="1480" height="160" rx="12" fill="rgba(30,41,59,0.24)" stroke="#475569" stroke-dasharray="8 5"/>
+  <text x="82" y="154" class="layer">01 · 候选人输入 / SYSTEM BOUNDARY</text>
+
+  <rect x="60" y="330" width="1480" height="246" rx="12" fill="rgba(76,29,149,0.12)" stroke="#a78bfa" stroke-dasharray="8 5"/>
+  <text x="82" y="354" fill="#c4b5fd" font-size="11" font-weight="700">02 · 私有候选人 WORKSPACE / SINGLE SOURCE OF TRUTH</text>
+
+  <rect x="60" y="616" width="1480" height="268" rx="12" fill="rgba(6,78,59,0.11)" stroke="#34d399" stroke-dasharray="8 5"/>
+  <text x="82" y="640" fill="#6ee7b7" font-size="11" font-weight="700">03 · 可独立调用的工作流 / AGENT-EXECUTED ROUTES</text>
+
+  <rect x="60" y="924" width="1480" height="146" rx="12" fill="rgba(59,130,246,0.09)" stroke="#60a5fa" stroke-dasharray="8 5"/>
+  <text x="82" y="948" fill="#93c5fd" font-size="11" font-weight="700">04 · 可交付资产 / DETERMINISTIC OUTPUTS</text>
+
+  <!-- Connection layer: input to SSOT -->
+  <path d="M 300 258 V 308 H 800 V 374" fill="none" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+  <path d="M 800 258 V 374" fill="none" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+  <path d="M 1300 258 V 308 H 800" fill="none" stroke="#22d3ee" stroke-width="2"/>
+  <text x="817" y="314" class="arrow-label">材料抽取 + 来源登记</text>
+
+  <!-- SSOT to role views / routes -->
+  <path d="M 800 552 V 596 H 252 V 664" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 800 552 V 596 H 617 V 664" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 800 552 V 596 H 982 V 664" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 800 552 V 596 H 1347 V 664" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="818" y="588" class="arrow-label">开发 / 算法能力画像 + 当前优先级</text>
+
+  <!-- Routes to outputs -->
+  <path d="M 252 848 V 972" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+  <path d="M 617 848 V 972" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+  <path d="M 982 848 V 972" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+  <path d="M 1347 848 V 972" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+  <!-- Feedback loop -->
+  <path d="M 1347 1050 V 1110 H 800 V 576" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="9 6" marker-end="url(#arrow-amber)"/>
+  <rect x="930" y="1090" width="300" height="32" rx="16" fill="#422006" stroke="#fbbf24"/>
+  <text x="1080" y="1111" fill="#fde68a" font-size="10" font-weight="700" text-anchor="middle">面后复盘 → Weaknesses → 下一轮证据 / 训练</text>
+
+  <!-- Input cards -->
+  <rect x="90" y="174" width="420" height="84" rx="7" fill="#0f172a"/>
+  <rect x="90" y="174" width="420" height="84" rx="7" fill="rgba(8,51,68,0.42)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="114" y="207" class="name">候选人事实材料</text>
+  <text x="114" y="234" class="body">原始简历 · GitHub · 项目 · Demo · 论文 · 博客</text>
+
+  <rect x="590" y="174" width="420" height="84" rx="7" fill="#0f172a"/>
+  <rect x="590" y="174" width="420" height="84" rx="7" fill="rgba(8,51,68,0.42)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="614" y="207" class="name">训练与复盘材料</text>
+  <text x="614" y="234" class="body">面试记录 · Story Bank · 小红书题库 · Coding 结果</text>
+
+  <rect x="1090" y="174" width="420" height="84" rx="7" fill="#0f172a"/>
+  <rect x="1090" y="174" width="420" height="84" rx="7" fill="rgba(8,51,68,0.42)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="1114" y="207" class="name">市场与公司信号</text>
+  <text x="1114" y="234" class="body">JD · 目标公司 · 职级要求 · 面试轮次信息</text>
+
+  <!-- SSOT cards -->
+  <rect x="90" y="376" width="500" height="158" rx="8" fill="#0f172a"/>
+  <rect x="90" y="376" width="500" height="158" rx="8" fill="rgba(76,29,149,0.38)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="116" y="412" class="name">候选人主档案</text>
+  <text x="116" y="443" class="body">candidate-profile.json · 稳定 Claim / Bullet ID</text>
+  <text x="116" y="471" class="body">教育 · 经历 · 项目 · 技能 · 论文 · 开源 · 联系方式</text>
+  <rect x="116" y="494" width="194" height="23" rx="11" fill="#a78bfa"/>
+  <text x="213" y="510" class="tag" text-anchor="middle">一份事实，两份岗位视图</text>
+
+  <rect x="630" y="376" width="400" height="158" rx="8" fill="#0f172a"/>
+  <rect x="630" y="376" width="400" height="158" rx="8" fill="rgba(120,53,15,0.30)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="656" y="412" class="name">Evidence Gate</text>
+  <text x="656" y="443" class="body">事实：provided · confirmed · planned</text>
+  <text x="656" y="471" class="body">可见性：private · resume · public</text>
+  <text x="656" y="499" class="body">出货：Pass · Improve · Block</text>
+
+  <rect x="1070" y="376" width="440" height="158" rx="8" fill="#0f172a"/>
+  <rect x="1070" y="376" width="440" height="158" rx="8" fill="rgba(76,29,149,0.38)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="1096" y="412" class="name">长期职业记忆</text>
+  <text x="1096" y="443" class="body">Agent 开发 / Agent 算法能力画像</text>
+  <text x="1096" y="471" class="body">Evidence Ledger · Story Bank · Weaknesses</text>
+  <text x="1096" y="499" class="body">学习进度 · 项目状态 · 投递与面试历史</text>
+
+  <!-- Workflow cards -->
+  <rect x="90" y="664" width="324" height="184" rx="8" fill="#0f172a"/>
+  <rect x="90" y="664" width="324" height="184" rx="8" fill="rgba(6,78,59,0.40)" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="112" y="686" width="54" height="20" rx="10" fill="#34d399"/>
+  <text x="139" y="700" class="tag" text-anchor="middle">AGENT</text>
+  <text x="112" y="738" class="name">简历工作流</text>
+  <text x="112" y="766" class="body">完整审计 · So What · STAR/CAR</text>
+  <text x="112" y="791" class="body">两份稳定视图 · 不按 JD 重写</text>
+  <text x="112" y="819" class="small">Script：LaTeX / PDF / Overleaf / 文本检查</text>
+
+  <rect x="455" y="664" width="324" height="184" rx="8" fill="#0f172a"/>
+  <rect x="455" y="664" width="324" height="184" rx="8" fill="rgba(6,78,59,0.40)" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="477" y="686" width="54" height="20" rx="10" fill="#34d399"/>
+  <text x="504" y="700" class="tag" text-anchor="middle">AGENT</text>
+  <text x="477" y="738" class="name">项目与学习工作流</text>
+  <text x="477" y="766" class="body">能力 gap → 最小证据项目</text>
+  <text x="477" y="791" class="body">baseline · metric · trace · ablation</text>
+  <text x="477" y="819" class="small">输出：计划 / README / Demo / 项目讲解稿</text>
+
+  <rect x="820" y="664" width="324" height="184" rx="8" fill="#0f172a"/>
+  <rect x="820" y="664" width="324" height="184" rx="8" fill="rgba(6,78,59,0.40)" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="842" y="686" width="54" height="20" rx="10" fill="#34d399"/>
+  <text x="869" y="700" class="tag" text-anchor="middle">AGENT</text>
+  <text x="842" y="738" class="name">面试工作流</text>
+  <text x="842" y="766" class="body">Focus 20–30 min · Full-loop 45/60 min</text>
+  <text x="842" y="791" class="body">项目 · 八股 · Coding · 系统设计 · 反问</text>
+  <text x="842" y="819" class="small">grill-me：一次一题，沿最薄弱分支追问</text>
+
+  <rect x="1185" y="664" width="324" height="184" rx="8" fill="#0f172a"/>
+  <rect x="1185" y="664" width="324" height="184" rx="8" fill="rgba(6,78,59,0.40)" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="1207" y="686" width="54" height="20" rx="10" fill="#34d399"/>
+  <text x="1234" y="700" class="tag" text-anchor="middle">AGENT</text>
+  <text x="1207" y="738" class="name">作品集与求职工作流</text>
+  <text x="1207" y="766" class="body">动态求职页 · 公司包 · JD 信号</text>
+  <text x="1207" y="791" class="body">投递 / 面试 / Offer Tracker</text>
+  <text x="1207" y="819" class="small">Script：公开性 / 链接 / 浏览器 / XLSX 检查</text>
+
+  <!-- Output cards -->
+  <rect x="90" y="972" width="324" height="78" rx="7" fill="#0f172a"/>
+  <rect x="90" y="972" width="324" height="78" rx="7" fill="rgba(59,130,246,0.28)" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="112" y="1003" class="name">双主简历</text>
+  <text x="112" y="1029" class="body">Agent 开发版 · Agent 算法版</text>
+
+  <rect x="455" y="972" width="324" height="78" rx="7" fill="#0f172a"/>
+  <rect x="455" y="972" width="324" height="78" rx="7" fill="rgba(59,130,246,0.28)" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="477" y="1003" class="name">项目证据资产</text>
+  <text x="477" y="1029" class="body">Repo · README · Demo · 实验记录</text>
+
+  <rect x="820" y="972" width="324" height="78" rx="7" fill="#0f172a"/>
+  <rect x="820" y="972" width="324" height="78" rx="7" fill="rgba(59,130,246,0.28)" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="842" y="1003" class="name">面试训练资产</text>
+  <text x="842" y="1029" class="body">Question Pack · Review · Repair Actions</text>
+
+  <rect x="1185" y="972" width="324" height="78" rx="7" fill="#0f172a"/>
+  <rect x="1185" y="972" width="324" height="78" rx="7" fill="rgba(59,130,246,0.28)" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="1207" y="1003" class="name">公开与投递资产</text>
+  <text x="1207" y="1029" class="body">Portfolio · Company Pack · Tracker</text>
+
+  <!-- Quality rail -->
+  <rect x="60" y="1140" width="1480" height="38" rx="6" fill="#111827" stroke="#334155"/>
+  <circle cx="88" cy="1159" r="5" fill="#22d3ee"/>
+  <text x="104" y="1164" class="small">真实性与来源</text>
+  <circle cx="272" cy="1159" r="5" fill="#a78bfa"/>
+  <text x="288" y="1164" class="small">私有 / 简历 / 公开隔离</text>
+  <circle cx="518" cy="1159" r="5" fill="#34d399"/>
+  <text x="534" y="1164" class="small">LaTeX / PDF / Overleaf</text>
+  <circle cx="750" cy="1159" r="5" fill="#60a5fa"/>
+  <text x="766" y="1164" class="small">桌面 / 移动 / 点击 / 下载</text>
+  <circle cx="1018" cy="1159" r="5" fill="#fbbf24"/>
+  <text x="1034" y="1164" class="small">面后失败回写</text>
+  <text x="1514" y="1164" fill="#64748b" font-size="9" text-anchor="end">公开模板演示，不代表求职结果</text>
+</svg>

@@ -109,6 +109,8 @@ AC 级别的论文审稿与去 AI 味 skill。
 
 ![Agent Career Kit 全流程](./showcase/agent-career-kit/agent-career-workflow@2x.png)
 
+![Agent Career Kit 技能架构](./showcase/agent-career-kit/agent-career-architecture@2x.png)
+
 它维护一份带来源的候选人事实档案和两份稳定主简历，把下面这些环节串成长期闭环：
 
 - 原始简历、GitHub、论文与项目材料归档
@@ -126,7 +128,7 @@ AC 级别的论文审稿与去 AI 味 skill。
 使用说明与单模块调用示例见：
 [agent-career-kit/README.md](./agent-career-kit/README.md)
 
-公开展示案例来自指定的 LLM-Resume-Template 模板，仅用于展示 Skill 生成效果，不代表真实候选人或求职结果：
+公开展示案例来自指定的 LLM-Resume-Template 模板，仅用于展示 Skill 生成效果，不代表真实候选人或求职结果。当前公开案例用于验证双视图机制，但两份 PDF 的经历主体仍高度重合，不应将其解读为已经完成理想的岗位差异化：
 
 - [Agent 开发版 PDF](./showcase/agent-career-kit/resumes/development/main.pdf)
 - [Agent 算法版 PDF](./showcase/agent-career-kit/resumes/algorithm/main.pdf)
