@@ -1,7 +1,22 @@
 # adong-skills
 
-一个自用的 Skills 仓库，用来沉淀可复用的 AI Agent 能力模块。  
-这些 skill 主要面向 Claude Code / Codex 一类支持 Skills 机制的工具，目标是把高频工作流、人物视角和工具能力整理成可直接安装、可持续迭代的目录。
+面向 AI Agent 开发者的中文 Skills 仓库。
+
+这里不是一次性 prompt 合集，而是把高频工作流、人物视角、求职系统、内容生产和工具能力沉淀成可以被 Codex / Claude Code / OpenCode 反复调用的 Skill。
+
+如果这个仓库对你有帮助，欢迎点一个 **Star**，后续我会持续更新更多可直接安装、可持续迭代的 Agent 工作流。
+
+## 关注阿东
+
+我是阿东，长期分享 AI Agent、Vibe Coding、Claude Skills、MCP、求职面试和 AI 工作流。
+
+- Agent 学习 / 项目实战 / 面试题库：[AgentGuide](https://github.com/adongwanai/AgentGuide)
+- 个人主页：[adongwanai.github.io](https://adongwanai.github.io/)
+- 小红书：搜索 **阿东玩AI**
+- 微信公众号：搜索 **阿东玩AI**
+- 社群：欢迎通过小红书或公众号私信 **社群**，一起交流 Agent 开发、项目实战和求职准备
+
+也欢迎在 GitHub 提 Issue，一起把这些 Skills 打磨成更好用的中文 Agent 能力库。
 
 ## 仓库内容
 

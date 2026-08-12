@@ -6,6 +6,8 @@
 
 如果你还想系统学习 Agent 工程、项目实战路线和面试题库，可以关注配套仓库：[AgentGuide](https://github.com/adongwanai/AgentGuide)。
 
+如果这个 Skill 对你有帮助，欢迎给 [adong-skills](https://github.com/adongwanai/adong-skills) 和 [AgentGuide](https://github.com/adongwanai/AgentGuide) 点 Star。也欢迎在小红书或微信公众号搜索 **阿东玩AI**，私信 **社群** 一起交流 Agent 求职、项目和面试准备。
+
 ## 能做什么
 
 - **材料归档与事实抽取**：导入 PDF、DOCX、Markdown、TXT、JSON、HTML 或 LaTeX，保留原件与规范化文本，提取经历、项目、技能、数字和证据缺口。
