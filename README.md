@@ -107,6 +107,9 @@ AC 级别的论文审稿与去 AI 味 skill。
 
 面向校招、有经验和资深候选人的 Agent 开发 / Agent 算法全流程求职 Skill。
 
+如果你想系统学习 Agent 工程、项目实战和面试题库，可以同时关注：
+[AgentGuide](https://github.com/adongwanai/AgentGuide)。
+
 ![Agent Career Kit 核心工作流](./showcase/agent-career-kit/agent-career-workflow@2x.png)
 
 ![Agent Career Kit 功能介绍](./showcase/agent-career-kit/agent-career-architecture@2x.png)
@@ -138,6 +141,9 @@ JD 投递快照与长期候选人主档案分离，投递定向不会直接污�
 
 使用说明与单模块调用示例见：
 [agent-career-kit/README.md](./agent-career-kit/README.md)
+
+1-2 分钟视频分享脚本见：
+[showcase/agent-career-kit/video-script.md](./showcase/agent-career-kit/video-script.md)
 
 公开展示案例来自指定的 LLM-Resume-Template 模板，仅用于展示 Skill 生成效果，不代表真实候选人或求职结果。当前案例同时启用了开发与算法两个方向，用于展示双视图；真实用户可以只启用其中一个方向：
 

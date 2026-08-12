@@ -4,6 +4,8 @@
 
 适用于校招、有经验候选人和资深候选人，可在 Codex、Claude Code 与 OpenCode 中使用。
 
+如果你还想系统学习 Agent 工程、项目实战路线和面试题库，可以关注配套仓库：[AgentGuide](https://github.com/adongwanai/AgentGuide)。
+
 ## 能做什么
 
 - **材料归档与事实抽取**：导入 PDF、DOCX、Markdown、TXT、JSON、HTML 或 LaTeX，保留原件与规范化文本，提取经历、项目、技能、数字和证据缺口。
