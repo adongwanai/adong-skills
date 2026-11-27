@@ -1,165 +1,211 @@
-# adong-skills · 阿东的实战 Agent Skills 库
+<div align="center">
 
-面向 **Claude Code / Codex / OpenCode / Cursor / Antigravity** 的自包含中文 Skills 集合。
+# ⚡ adong-skills
 
-这里收录的不是零散提示词，而是经过日常高频打磨、带确定性脚本、参考语料或审校门禁的 **可复用工作流模块**——覆盖 **前沿论文追踪与审稿去 AI 味**、**AI Agent 全流程求职系统**、**多平台技术内容创作** 三大核心场景。
+**一线 Agent 工程师实战打磨的 9 款自包含中文 Agent Skills**  
+拒绝空洞提示词与公关套话 · 用确定性脚本、真实语料与审校门禁搭起个人 AI 工作流闭环
 
-> 觉得有用欢迎点个 **Star**。关于 AI Agent 工程、项目实战与面试题库，可同步搭配阅读 [AgentGuide](https://github.com/adongwanai/AgentGuide)。
+[![Skills](https://img.shields.io/badge/Skills-9_Modules-2563eb?style=flat-square)](#catalog)
+[![Compatible](https://img.shields.io/badge/Works_with-Claude_Code_%7C_Codex_%7C_Antigravity_%7C_Cursor-0f172a?style=flat-square)](#install)
+[![Zero BS](https://img.shields.io/badge/Style-讲人话_·_去AI套话-16a34a?style=flat-square)](#showcase)
+[![License: MIT](https://img.shields.io/badge/License-MIT-f59e0b?style=flat-square)](./LICENSE)
 
----
+[**30 秒看懂全景**](#overview) · [**按需选装表**](#catalog) · [**10 秒安装**](#install) · [**旗舰效果实拍**](#showcase) · [**配套 AgentGuide ↗**](https://github.com/adongwanai/AgentGuide)
 
-## 技能速查总表（8 个自包含模块）
-
-| 场景分类 | Skill 目录 | 一句话定位 | 核心产出 / 线上实例 |
-| :--- | :--- | :--- | :--- |
-| **科研与论文情报** | [`adong-daily-paper`](./adong-daily-paper/) | Hugging Face 每日论文抓取、去套话结构化精读与静态论文站引擎 | 双路输出 `daily/*.md` + 零构建交互账本站 · [线上实例 ↗](https://adongwanai.github.io/hf-daily-papers/) |
-| **科研与论文情报** | [`vibe-paper-deai`](./vibe-paper-deai/) | 顶会 Area Chair 视角审稿诊断与学术论文去 AI 写作痕迹 | `Mode A` 审稿体检报告 / `Mode B` 保真学术润色 |
-| **求职与工程成长** | [`agent-career-kit`](./agent-career-kit/) | 校招 / 社招 / 资深候选人的 Agent 开发与算法 Offer 求职系统 | 证据库审计、LaTeX/PDF 定向简历、模拟面试、动态求职页 |
-| **求职与工程成长** | [`andrej-karpathy-perspective`](./andrej-karpathy-perspective/) | Andrej Karpathy 技术认知框架（Software 2.0/3.0、Agent Loop、学习与决策） | 架构评审、学习路径规划、第一性原理拆解 |
-| **求职与工程成长** | [`github-to-skill`](./github-to-skill/) | 搜索评估优质开源仓库，快速封装为标准 Agent Skill | 仓库质量评估 + 结构化 `SKILL.md` 与脚本骨架 |
-| **多平台技术写作** | [`adong-wechat-writer`](./adong-wechat-writer/) | 微信公众号深度技术长文全流程创作（选题深化 → 初稿 → 去 AI 味） | 结构清晰、有人味的公众号技术长文 |
-| **多平台技术写作** | [`adong-x-writer`](./adong-x-writer/) | X / Twitter 单条推文与长推串（Thread）拆解创作 | 高信息密度推文 / 长文转 X Thread |
-| **多平台技术写作** | [`adong-xhs-writer`](./adong-xhs-writer/) | 小红书技术干货图文笔记生成（300–800 字 + 分镜配图建议） | 小红书图文脚本与封面配图方案 |
+</div>
 
 ---
 
-## 10 秒快速安装
+<a id="overview"></a>
+## 🧭 30 秒看懂整套工作流闭环
 
-### 方式一：通过 `skills` CLI 按需安装（推荐）
+仓库里的 9 个 Skill 不是零散堆砌，而是围绕 **「前沿输入 → 工程思考 → 内容/学术输出 → 求职沉淀」** 串成的完整飞轮，每个模块均可**独立拆走即插即用**：
+
+```mermaid
+flowchart LR
+  subgraph S1["📡 1. 每日情报与论文输入"]
+    A1["adong-ai-daily<br/>全网多源 AI 行业早报"]
+    A2["adong-daily-paper<br/>HF 每日论文深读账本"]
+  end
+
+  subgraph S2["🧠 2. 认知推演与技能扩展"]
+    B1["andrej-karpathy-perspective<br/>第一性原理与 Agent 边界评审"]
+    B2["github-to-skill<br/>优质开源仓库一键转 Skill"]
+  end
+
+  subgraph S3["✍️ 3. 审稿润色与多端创作"]
+    C1["vibe-paper-deai<br/>顶会 AC 审稿体检与去 AI 味"]
+    C2["adong-wechat / x / xhs-writer<br/>公众号 · X · 小红书一源多发"]
+  end
+
+  subgraph S4["🚀 4. 职业竞争力交付"]
+    D1["agent-career-kit<br/>简历 · 模拟面试 · 动态作品集"]
+  end
+
+  S1 --> S2 --> S3 --> S4
+```
+
+---
+
+<a id="catalog"></a>
+## 🎯 按场景选装（9 个自包含 Skill）
+
+不知道先装哪个？对照下表看 **「你在聊天框直接说什么」** 与 **「最终拿到什么文件」**：
+
+| 阶段 | Skill 目录 | 解决什么问题 | 装好后直接对 Agent 说（触发示例） | 外部依赖 | 最终交付产物 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **📡 情报输入** | **[`adong-ai-daily`](./adong-ai-daily/)** `NEW` | 聚合 X 建设者、播客、GitHub/HN、HF/arXiv 与 9 大中文媒体，并查集跨源去重 | `生成今天的AI日报` / `做一份社群转发的AI早报` | **零 Key · 纯标准库** | 交互式单文件 `.html`（含分享卡片导出台）+ 微信群一键转发 `.txt` |
+| **📡 论文输入** | **[`adong-daily-paper`](./adong-daily-paper/)** | Hugging Face 每日论文抓取、去套话提炼方法与指标、构建静态检索站 | `跑一份 HF 今日论文` / `更新论文站` | 免 Key 交互或配 LLM Key | `daily/*.md` + 零构建静态学术账本站（[线上实例 ↗](https://adongwanai.github.io/hf-daily-papers/)） |
+| **🔬 学术润色** | **[`vibe-paper-deai`](./vibe-paper-deai/)** | 顶会 Area Chair 视角审稿挑刺，清除论文里的 LLM 拔高套话与模板味 | `按 AC 视角审一下这篇初稿` / `把这段改得像人写的学术英文` | 纯规则与参考库 | `Mode A` 审稿诊断清单 / `Mode B` 保真去 AI 味重写 |
+| **💼 求职闭环** | **[`agent-career-kit`](./agent-career-kit/)** | 校招 / 社招 Agent 开发与算法双方向求职系统，事实库严格防编造 | `导入我的简历准备字节 Agent 岗` / `来一场 45 分钟深挖模拟面试` | Python + 可选 LaTeX | 定向 PDF/Overleaf 简历、证据审计表、模拟面试复盘、个人作品集网页 |
+| **🧠 工程认知** | **[`andrej-karpathy-perspective`](./andrej-karpathy-perspective/)** | 引入 Karpathy 的 Software 2.0/3.0 与 Agent Loop 框架做技术取舍与学习规划 | `用 Karpathy 视角评审这套 Agent 架构` | 内置一手语料库 | 架构边界拆解、最小实现路线、技术选型判断 |
+| **🛠️ 技能工厂** | **[`github-to-skill`](./github-to-skill/)** | 搜索评估 GitHub 仓库质量，将好用的 CLI / 工具库封装为标准 Skill | `把这个 GitHub 仓库封装成 Skill` | Python 标准库 | 仓库可用性评估 + 标准自包含 `SKILL.md` 目录骨架 |
+| **✍️ 深度长文** | **[`adong-wechat-writer`](./adong-wechat-writer/)** | 一线工程师口吻撰写微信公众号深度技术长文（选题质检 → 成稿 → 去套话） | `把这篇论文/项目按阿东风格写成公众号长文` | 纯规范驱动 | 逻辑硬核、讲人话的公众号技术长文 |
+| **✍️ 海外短推** | **[`adong-x-writer`](./adong-x-writer/)** | 提炼核心技术判断，生成高信息密度单条推文或 X / Twitter Thread | `把这篇稿子拆成 X thread` | 纯规范驱动 | 高密度推文 / 结构化长推串 |
+| **✍️ 图文卡片** | **[`adong-xhs-writer`](./adong-xhs-writer/)** | 产出小红书 300–800 字技术干货笔记与 6–9 页图文卡片分镜方案 | `把这次踩坑写成小红书图文笔记` | 纯规范驱动 | 小红书外层短文案 + 逐页卡片排版脚本 |
+
+> [!TIP]
+> **两款“每日情报” Skill 怎么选？**
+> - 想每天 **5 分钟扫完全网动态**（大佬推文、开源热榜、产业重磅）并直接**一键转发微信群 / 导出小红书分享图** 👉 用 **[`adong-ai-daily`](./adong-ai-daily/)**。
+> - 想**逐篇深挖每日最新论文**的问题边界、核心机制、定量对比并沉淀**可检索学术网站** 👉 用 **[`adong-daily-paper`](./adong-daily-paper/)**。两者互补，可同时安装。
+
+---
+
+<a id="install"></a>
+## ⚡ 10 秒快速安装
+
+### 方式一：使用 `skills` CLI 一键按需安装（最省心）
 
 ```bash
-# 安装单个 Skill（例如每日论文账本或论文去 AI 味）
+# 📡 情报与科研组合包
+npx skills add adongwanai/adong-skills --skill adong-ai-daily -g
 npx skills add adongwanai/adong-skills --skill adong-daily-paper -g
 npx skills add adongwanai/adong-skills --skill vibe-paper-deai -g
 
-# 查看或安装仓库内其他 Skill
+# ✍️ 多平台技术写作组合包
+npx skills add adongwanai/adong-skills --skill adong-wechat-writer -g
+npx skills add adongwanai/adong-skills --skill adong-xhs-writer -g
+npx skills add adongwanai/adong-skills --skill adong-x-writer -g
+
+# 💼 Agent 求职冲刺与工程认知包
+npx skills add adongwanai/adong-skills --skill agent-career-kit -g
+npx skills add adongwanai/adong-skills --skill andrej-karpathy-perspective -g
+
+# 查看仓库全部可用模块列表
 npx skills add adongwanai/adong-skills --list
 ```
 
-### 方式二：克隆仓库并软链 / 复制到本地客户端
+### 方式二：Git 克隆并软链到常用客户端（方便随时 `git pull` 升级）
 
 ```bash
 git clone https://github.com/adongwanai/adong-skills.git
 cd adong-skills
 
-# Claude Code
-ln -s "$(pwd)/adong-daily-paper" ~/.claude/skills/adong-daily-paper
-
-# OpenAI Codex
-ln -s "$(pwd)/adong-daily-paper" ~/.codex/skills/adong-daily-paper
-
-# Antigravity / Gemini CLI
-ln -s "$(pwd)/adong-daily-paper" ~/.gemini/config/skills/adong-daily-paper
-
-# 项目级通用 .agents 目录
-mkdir -p /path/to/your-project/.agents/skills
-cp -r adong-daily-paper /path/to/your-project/.agents/skills/
+# 按你使用的客户端任选一行软链（将 adong-ai-daily 替换为任意模块名，或用 for 循环全量挂载）：
+ln -sfn "$(pwd)/adong-ai-daily" ~/.claude/skills/adong-ai-daily          # Claude Code
+ln -sfn "$(pwd)/adong-ai-daily" ~/.codex/skills/adong-ai-daily           # OpenAI Codex
+ln -sfn "$(pwd)/adong-ai-daily" ~/.gemini/config/skills/adong-ai-daily   # Antigravity / Gemini CLI
 ```
 
 ---
 
-## 重点工程级 Skill 详解
+<a id="showcase"></a>
+## 📸 核心旗舰模块实拍
 
-### 1. `adong-daily-paper` — HF 每日论文账本与静态站生成器
+### 1. [`adong-ai-daily`](./adong-ai-daily/) — 多源 AI 行业日报与自媒体分享卡片工作台
 
-- **源码目录**：[adong-daily-paper/](./adong-daily-paper/)
-- **线上运行实例**：[https://adongwanai.github.io/hf-daily-papers/](https://adongwanai.github.io/hf-daily-papers/)（配套开源站仓库 [hf-daily-papers](https://github.com/adongwanai/hf-daily-papers)）
+免登录、零 API Key、纯 Python 标准库直连 **19 个公开一手与科技信源**（`follow-builders` X 建设者与播客、HF Daily Papers、arXiv `cs.AI`、OpenAI News、GitHub Trending、Hacker News 及 9 大中文 AI 媒体）：
 
-把每日 Hugging Face Papers 从“冗长摘要堆砌”改造成 **高密度学术账本 + Markdown 双路归档工作流**：
+- **并查集跨源共振去重**：自动将多家媒体同题报道聚合成单一事件簇（标注 `🔥 N源共振`），配合关注方向三维加权打分过滤噪音。
+- **短 ID 防幻觉回填**：大模型只做去震惊体事实提炼与跨事件趋势判断，真实多源 URL 与 Star/点赞热度由渲染脚本按 `N001` 精确回填，杜绝编造链接。
+- **极简双端交付 + 零依赖卡片导出**：只输出 1 份**自包含交互式 HTML 账本页**（支持白宣/暖纸/黑曜三主题、证据角标平滑定位、一键提取写作选题、内置 HTML5 Canvas 高清分享卡导出）与 1 份**微信群/飞书群一键转发纯文本早报**。
 
-- **双产物同步生成**：每次运行同时产出带目录锚点的干净 `daily/YYYY-MM-DD.md`（方便同步飞书知识库 / Obsidian）与零构建静态网页 `site/`（含 Atom RSS 与跨月毫秒级全文检索）。
-- **克制、去套话的文献提炼**：直读 HF `/api/daily_papers` 原生摘要、GitHub 仓库与星标；严格基于原文汇报问题、方法、定量结果，仅对高信号论文（`≥4/5`）展开可验证延伸实验设想。
-- **双密度阅读与穿孔档案抽屉**：支持「紧凑账本速扫」与「三列内联精读」一键切换，支持键盘 `/` 搜索、`J/K` 翻篇与一键导出 BibTeX / Markdown。
-- **支持双模式执行**：配好 API Key 可走并发脚本断点续跑；无外部 Key 时可由当前交互 Agent 分批提炼并自动入库编译网页。
+| 自包含交互式 HTML 日报账本（含前置判断与多维筛选） | 内置本地高清分享卡片工作台（小红书封面卡 & 趋势金句卡） |
+| :---: | :---: |
+| ![交互式 AI 日报账本](./showcase/adong-ai-daily/interactive-ledger.png) | ![自媒体高清分享卡片](./showcase/adong-ai-daily/social-cards.png) |
+
+---
+
+### 2. [`adong-daily-paper`](./adong-daily-paper/) — HF 每日论文账本与静态学术站
+
+- **线上运行实例**：[https://adongwanai.github.io/hf-daily-papers/](https://adongwanai.github.io/hf-daily-papers/)（独立站点仓库 [hf-daily-papers](https://github.com/adongwanai/hf-daily-papers)）
+- **双产物同步归档**：每次运行同步生成结构化 `daily/YYYY-MM-DD.md`（适配 Obsidian / 飞书知识库）与零构建交互网页 `site/`（含 Atom RSS 订阅与跨月全文秒级检索）。
+- **克制求真的文献精读**：严格基于原文汇报痛点、机制与定量指标；仅对高启发度工作（`≥4/5`）展开可验证后续实验设想，支持快捷键 `/` 检索、`J/K` 翻篇与一键复制 BibTeX。
 
 | 每日论文账本视图（含脉冲时间轴与领域谱系） | 月度热力日历与跨期全库检索 |
-| --- | --- |
+| :---: | :---: |
 | ![HF Papers 每日账本视图](./showcase/adong-daily-paper/daily-ledger.png) | ![HF Papers 月度归档与检索](./showcase/adong-daily-paper/archive-calendar.png) |
 
 ---
 
-### 2. `agent-career-kit` — AI Agent 开发 / 算法全流程求职系统
+### 3. [`agent-career-kit`](./agent-career-kit/) — AI Agent 开发 / 算法全流程求职系统
 
-- **详细文档**：[agent-career-kit/README.md](./agent-career-kit/README.md)
-
-面向校招、社招与资深候选人的证据驱动求职工作流。不要求预先整理复杂格式——从一份现有简历、一个目标 JD 或一个项目链接即可启动，覆盖：
-
-- **多格式材料导入与事实库隔离**：支持 PDF / DOCX / Markdown / LaTeX 导入；长期候选人主档案与单岗位 JD 投递快照严格分离，绝不虚构经历、指标或真题。
-- **双方向按需视图**：支持 `Agent 开发` 与 `Agent 算法` 单方向或双方向简历生成（保留标准 LaTeX / Overleaf 版式）及逐条 bullet 证据审计。
-- **面试闭环与驾驶舱**：支持单项目 `focus` 深挖、45/60 分钟 `full-loop` 模拟面试、Story Bank 沉淀、动态个人求职作品集与中文求职转化漏斗看板。
+- **完整说明文档**：[agent-career-kit/README.md](./agent-career-kit/README.md)
+- **证据驱动，绝不注水**：支持从 PDF / DOCX / Markdown / LaTeX 导入已有经历，候选人主事实库与单岗位 JD 投递包严格分离，每一条简历 Bullet 均绑定证据等级审计。
+- **全链路求职交付**：一键编译 `Agent 开发` / `Agent 算法` 双方向标准 LaTeX 简历、45/60 分钟压力追问模拟面试、Story Bank 故事库与响应式个人作品集网站。
 
 ![Agent Career Kit 核心工作流](./showcase/agent-career-kit/agent-career-workflow@2x.png)
 
 <details>
-<summary>展开查看 Agent Career Kit 架构图与公开模板演示截图</summary>
+<summary><b>点击展开查看 Agent Career Kit 系统架构图与简历 / 作品集实拍</b></summary>
+<br/>
 
 ![Agent Career Kit 功能架构](./showcase/agent-career-kit/agent-career-architecture@2x.png)
 
-公开模板演示产物（基于公开 fixture 生成，仅展示排版与工程效果）：
-- [Agent 开发版简历 PDF](./showcase/agent-career-kit/resumes/development/main.pdf) · [Agent 算法版简历 PDF](./showcase/agent-career-kit/resumes/algorithm/main.pdf) · [动态作品集源码](./showcase/agent-career-kit/portfolio/index.html)
+公开模板演示产物（基于公开虚构样例生成）：
+[Agent 开发版简历 PDF](./showcase/agent-career-kit/resumes/development/main.pdf) · [Agent 算法版简历 PDF](./showcase/agent-career-kit/resumes/algorithm/main.pdf) · [动态作品集源码](./showcase/agent-career-kit/portfolio/index.html)
 
-| Agent 开发简历演示 | Agent 算法简历演示 |
-| --- | --- |
+| Agent 开发方向简历 | Agent 算法方向简历 |
+| :---: | :---: |
 | ![Agent 开发简历演示](./showcase/agent-career-kit/qa/resume-development.png) | ![Agent 算法简历演示](./showcase/agent-career-kit/qa/resume-algorithm.png) |
 
-| 动态求职页桌面端 | 移动端项目详情 |
-| --- | --- |
+| 动态求职作品集（桌面端） | 项目证据详情（移动端） |
+| :---: | :---: |
 | ![动态求职页演示](./showcase/agent-career-kit/qa/portfolio-desktop.png) | ![移动端项目详情演示](./showcase/agent-career-kit/qa/portfolio-mobile-detail.png) |
 
 </details>
 
 ---
 
-## 其他核心模块一览
+### 4. 审稿去 AI 味、认知评审与多平台创作模块
 
-### 3. [`vibe-paper-deai`](./vibe-paper-deai/) — 顶会论文审稿体检与去 AI 味
-- **适用场景**：NeurIPS / ICML / ICLR / ACL / CVPR 投稿前自检，识别并消除 LLM 写作痕迹（过度拔高声称、模板化 Limitation、浅层消融描述、碎片化公式与可疑引用）。
-- **双模式**：`Mode A (Audit)` 输出 AC 视角审稿诊断与修改优先级；`Mode B (Rewrite)` 在严格保持技术事实不变的前提下重写段落。
-
-### 4. [`andrej-karpathy-perspective`](./andrej-karpathy-perspective/) — Karpathy 技术认知与决策视角
-- **适用场景**：AI / LLM 学习路线规划、Software 2.0/3.0 范式推演、Human-in-the-loop 与 Agent Loop 交互边界设计、From-Scratch 最小实现拆解。
-- **内置资料**：自带系统化整理的演讲、博客、访谈、表达特征（Expression DNA）与关键技术决策时间线（位于 `references/`）。
-
-### 5. [`github-to-skill`](./github-to-skill/) — 开源仓库转 Agent Skill 工具
-- **适用场景**：给定技术需求自动检索评估 GitHub 项目质量，或将任意高质量 CLI / 脚本仓库提炼封装为目录自包含的标准 `SKILL.md` 模块。
-
-### 6. 多平台技术内容创作套件（公众号 / X / 小红书）
-
-一套保持统一技术审美与真实个人表达、拒绝公关腔的多平台内容生产流水线，支持跨平台一源多发：
-
-| Skill | 目标平台 | 核心工作流与规格 | 常用触发口令 |
-| :--- | :--- | :--- | :--- |
-| [`adong-wechat-writer`](./adong-wechat-writer/) | 微信公众号 | 素材研读（PDF/链接/口述）→ 选题深化 → 长文成稿 → 去 AI 味精修 | `写公众号`、`写技术长文`、`按这篇论文出篇稿子` |
-| [`adong-x-writer`](./adong-x-writer/) | X / Twitter | 提炼核心技术判断，生成高密度单推或结构化 Thread 推文串 | `写推文`、`拆成 X thread`、`转 Twitter 版本` |
-| [`adong-xhs-writer`](./adong-xhs-writer/) | 小红书 | 产出 300–800 字技术干货图文文案 + 逐页卡片视觉配图建议 | `写小红书笔记`、`转小红书图文版` |
+| 模块 | 核心设计亮点 |
+| :--- | :--- |
+| **[`vibe-paper-deai`](./vibe-paper-deai/)** | 内置顶会审稿高频红旗词库与重写管线：`Mode A` 从 Area Chair 视角定位浮夸 Claim、空洞消融与伪形式化公式；`Mode B` 在零事实篡改前提下还原扎实自然的人类学术笔触。 |
+| **[`adong-wechat-writer`](./adong-wechat-writer/)**<br>**[`adong-x-writer`](./adong-x-writer/)**<br>**[`adong-xhs-writer`](./adong-xhs-writer/)** | 共享「先做再说、讲人话、先结论后解释、敢下明确工程判断」底层文风规范：同一份技术调研或源码实战，可分别按公众号深度叙事、X 高密度 Thread、小红书分页图文卡片精准变形。 |
+| **[`andrej-karpathy-perspective`](./andrej-karpathy-perspective/)** | 系统沉淀 Karpathy 历年演讲、博客、访谈一手语料与决策时间线，适合在做复杂 Agent 系统减法、规划从零手搓（From-Scratch）学习路径时做第一性原理对齐。 |
+| **[`github-to-skill`](./github-to-skill/)** | 自动抓取 GitHub 仓库元数据、活跃度与 README 结构，快速生成遵循渐进式披露（Progressive Disclosure）原则的自包含 Skill 包。 |
 
 ---
 
-## 目录组织规范
+## 📂 仓库统一目录规范
 
-本仓库所有 Skill 均遵循自包含目录约定，方便单独复制或 Fork 扩展：
+每个子目录都是一个无外部路径硬编码的独立 Skill，支持单目录拷走或 Fork 二次定制：
 
 ```text
 <skill-name>/
-├── SKILL.md          # 必需：触发条件（Frontmatter）与分步执行规程
-├── prompts/          # 可选：结构化子任务提示词模板
-├── references/       # 可选：分类标准、调研语料、风格规范（按需加载省上下文）
-├── scripts/          # 可选：确定性抓取、校验、构建脚本
-└── templates/        # 可选：前端或文档导出模板
+├── SKILL.md          # 必需：触发条件（YAML Frontmatter）与精简执行规程
+├── config.json       # 可选：默认参数与关注方向配置（支持本地 config.local.json 覆盖）
+├── prompts/          # 可选：子任务结构化提示词模板
+├── references/       # 可选：分类边界、去套话红线、领域语料（按需读取节省上下文）
+├── scripts/          # 可选：确定性并发抓取、Schema 校验与多端渲染脚本
+└── templates/        # 可选：静态网页或排版模板
 ```
 
 ---
 
-## 关于作者
+## 👋 关于作者与开源生态
 
-我是 **阿东（Adong）**，持续深耕并分享 AI Agent、RSI（递归自我改进）、Vibe Coding、Skills 工程与求职实战：
+我是 **阿东（Adong）**，大厂 Agent 技术专家 / 大模型算法工程师 / OPC 实践者，持续开源分享一线可复现的 Agent 工程方法论：
 
-- **AI Agent 学习与面试指南**：[adongwanai/AgentGuide](https://github.com/adongwanai/AgentGuide)
-- **HF 每日论文账本与综述站**：[adongwanai.github.io/hf-daily-papers](https://adongwanai.github.io/hf-daily-papers/)
-- **Follow RSI 实证追踪库**：[adongwanai.github.io/follow-rsi](https://adongwanai.github.io/follow-rsi/)
-- **个人主页**：[adongwanai.github.io](https://adongwanai.github.io/)
-- **小红书 / 微信公众号**：搜索 **阿东玩AI**（私信「社群」可加入技术与求职交流群）
+- 📘 **AI Agent 学习与面试实战宝典**：[adongwanai/AgentGuide](https://github.com/adongwanai/AgentGuide)
+- 📑 **HF 每日论文账本线上站**：[adongwanai.github.io/hf-daily-papers](https://adongwanai.github.io/hf-daily-papers/)
+- 🔄 **Follow RSI（递归自我改进）追踪库**：[adongwanai.github.io/follow-rsi](https://adongwanai.github.io/follow-rsi/)
+- 🌐 **个人主页**：[adongwanai.github.io](https://adongwanai.github.io/)
+- 💬 **小红书 / 微信公众号**：全网同名 **阿东玩AI**（私信「社群」可加入技术与求职交流群）
+
+如果这些 Skills 帮你在日常科研、写稿或求职里省下了时间，欢迎点一颗 **⭐ Star** 支持后续更新！
 
 ## License
 
-仓库原创代码与内容采用 [MIT License](./LICENSE)。第三方材料按各自许可证分发；`agent-career-kit` 相关模板来源与修改说明见 [THIRD_PARTY_NOTICES.md](./agent-career-kit/THIRD_PARTY_NOTICES.md)，公开演示材料的 CC BY 4.0 归属说明见 [showcase/agent-career-kit/README.md](./showcase/agent-career-kit/README.md)。
+仓库原创代码与文档采用 [MIT License](./LICENSE)。第三方材料按各自许可证分发；`agent-career-kit` 模板来源说明见 [THIRD_PARTY_NOTICES.md](./agent-career-kit/THIRD_PARTY_NOTICES.md)，公开演示样例归属说明见 [showcase/agent-career-kit/README.md](./showcase/agent-career-kit/README.md)。
