@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Hugging Face 每日论文结构化账本与近三月专题综述归档。">
+  <meta property="og:title" content="HF Papers · Daily Research Ledger & Survey Archive">
+  <meta property="og:description" content="Structured daily Hugging Face paper ledger since September 2026, with curated research surveys.">
+  <title>HF Papers · 每日论文账本与专题归档</title>
+  <link rel="alternate" type="application/atom+xml" title="HF Papers Atom Feed" href="feed/atom.xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="header-top">
+        <div class="brand-group">
+          <a href="#daily" class="wordmark">HF Papers</a>
+          <span class="edition-tag" id="edition-span">2026.09 — PRESENT</span>
+          <span class="brand-sub">
+            <span class="zh">结构化论文账本 · 由 <a href="https://adongwanai.github.io/" target="_blank" rel="noopener">阿东玩 AI</a> 维护</span>
+            <span class="en">Structured Paper Ledger · Curated by <a href="https://adongwanai.github.io/" target="_blank" rel="noopener">Adong</a></span>
+          </span>
+        </div>
+        <div class="header-utils">
+          <button type="button" class="util-btn" id="btn-density" title="切换阅读密度 / Toggle density">
+            <span class="zh" id="density-zh">内联精读</span>
+            <span class="en" id="density-en">Expanded</span>
+          </button>
+          <button type="button" class="util-btn mono" id="btn-lang" aria-label="Switch language">EN</button>
+          <button type="button" class="util-btn" id="btn-theme" aria-label="Toggle color theme">
+            <span class="zh">主题</span><span class="en">Theme</span>
+          </button>
+          <a class="util-btn mono" href="feed/atom.xml" target="_blank" rel="noopener">RSS</a>
+          <a class="util-btn gh-btn" id="gh-link" href="https://github.com/adongwanai/hf-daily-papers" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="header-nav">
+        <nav class="nav-tabs" role="tablist" aria-label="Primary sections">
+          <button type="button" class="nav-tab" role="tab" data-nav="daily" aria-selected="true">
+            <span class="zh">每日账本</span><span class="en">Daily Ledger</span>
+            <span class="nav-count" id="nav-cnt-daily"></span>
+          </button>
+          <button type="button" class="nav-tab" role="tab" data-nav="archive" aria-selected="false">
+            <span class="zh">全景归档与检索</span><span class="en">Archive & Search</span>
+            <span class="nav-count" id="nav-cnt-papers"></span>
+          </button>
+          <button type="button" class="nav-tab" role="tab" data-nav="surveys" aria-selected="false">
+            <span class="zh">专题综述</span><span class="en">Surveys</span>
+            <span class="nav-count" id="nav-cnt-surveys"></span>
+          </button>
+          <button type="button" class="nav-tab" role="tab" data-nav="saved" aria-selected="false">
+            <span class="zh">待读清单</span><span class="en">Saved</span>
+            <span class="nav-count" id="nav-cnt-saved">0</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- 90-Day Publication Pulse Bar (shown on Daily view) -->
+  <section class="pulse-section" id="pulse-section">
+    <div class="wrap">
+      <div class="pulse-header">
+        <span id="pulse-readout">PUBLICATION PULSE · HOVER OR CLICK ANY ISSUE</span>
+        <div class="pulse-controls">
+          <button type="button" class="step-btn" id="btn-prev-day">← <span class="zh">前一期</span><span class="en">Prev</span></button>
+          <select id="date-select" class="date-select" aria-label="Select issue date"></select>
+          <button type="button" class="step-btn" id="btn-next-day"><span class="zh">后一期</span><span class="en">Next</span> →</button>
+        </div>
+      </div>
+      <div class="pulse-bars" id="pulse-bars" role="navigation" aria-label="Issue timeline"></div>
+    </div>
+  </section>
+
+  <main id="main-root">
+    <!-- VIEW 1: DAILY LEDGER -->
+    <div id="view-daily">
+      <div class="wrap">
+        <section class="issue-hero" id="issue-hero"></section>
+      </div>
+
+      <div class="toolbar">
+        <div class="wrap">
+          <div class="toolbar-row">
+            <label class="search-box" for="daily-q">
+              <span class="mono" aria-hidden="true">⌕</span>
+              <input id="daily-q" type="search" autocomplete="off" placeholder="筛选本期标题、机构、方法关键词（按 / 聚焦，跨月全库检索请切至「全景归档」）">
+              <kbd>/</kbd>
+            </label>
+            <button type="button" class="pill" id="tog-signal" aria-pressed="false">
+              <span class="zh">高信号 ≥4</span><span class="en">Signal ≥4</span>
+            </button>
+            <button type="button" class="pill" id="tog-code" aria-pressed="false">
+              <span class="zh">含开源代码</span><span class="en">With Code</span>
+            </button>
+            <button type="button" class="pill" id="tog-focus" aria-pressed="false">
+              <span class="zh">课题关注</span><span class="en">Focus Track</span>
+            </button>
+            <div class="segmented" role="group" aria-label="Sort order">
+              <button type="button" data-sort="topic" aria-pressed="true"><span class="zh">按领域</span><span class="en">By Topic</span></button>
+              <button type="button" data-sort="upvotes" aria-pressed="false"><span class="zh">按票数</span><span class="en">Top Votes</span></button>
+              <button type="button" data-sort="signal" aria-pressed="false"><span class="zh">按信号</span><span class="en">Signal</span></button>
+            </div>
+          </div>
+          <div class="filter-pills" id="daily-topic-pills"></div>
+        </div>
+      </div>
+
+      <div class="wrap ledger-main" id="daily-ledger"></div>
+    </div>
+
+    <!-- VIEW 2: ARCHIVE & CROSS-MONTH SEARCH -->
+    <div id="view-archive" hidden>
+      <div class="wrap">
+        <div class="archive-head">
+          <p class="eyebrow">FULL ARCHIVE & INDEX</p>
+          <h1 class="issue-title"><span class="zh">月度日历与跨期全库检索</span><span class="en">Monthly Calendar & Full-Archive Search</span></h1>
+          <p class="issue-brief" id="archive-summary"></p>
+        </div>
+        <div class="cal-months" id="cal-months"></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="wrap">
+          <div class="toolbar-row">
+            <label class="search-box" for="arch-q">
+              <span class="mono" aria-hidden="true">⌕</span>
+              <input id="arch-q" type="search" autocomplete="off" placeholder="跨月搜索全部论文：输入 VLA / Harness / RLHF / LoRA / 机构名 / arXiv ID...">
+              <kbd>/</kbd>
+            </label>
+            <button type="button" class="pill" id="arch-tog-signal" aria-pressed="false">
+              <span class="zh">高信号 ≥4</span><span class="en">Signal ≥4</span>
+            </button>
+            <button type="button" class="pill" id="arch-tog-code" aria-pressed="false">
+              <span class="zh">含开源代码</span><span class="en">With Code</span>
+            </button>
+          </div>
+          <div class="filter-pills" id="arch-topic-pills"></div>
+        </div>
+      </div>
+
+      <div class="wrap ledger-main" id="arch-results"></div>
+    </div>
+
+    <!-- VIEW 3: SPECIAL SURVEYS -->
+    <div id="view-surveys" hidden>
+      <div class="wrap" id="surveys-container"></div>
+    </div>
+
+    <!-- VIEW 4: SAVED READING LIST -->
+    <div id="view-saved" hidden>
+      <div class="wrap">
+        <div class="archive-head" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+          <div>
+            <p class="eyebrow">READING LIST · LOCAL STORAGE</p>
+            <h1 class="issue-title"><span class="zh">待读论文清单</span><span class="en">Saved Reading List</span></h1>
+            <p class="issue-brief"><span class="zh">保存在当前浏览器本地的重点文献，支持一键导出为 Markdown 笔记或 BibTeX 引用条目。</span><span class="en">Papers bookmarked locally in your browser. Export anytime as Markdown notes or BibTeX citations.</span></p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="util-btn" id="btn-export-md"><span class="zh">复制 Markdown</span><span class="en">Copy Markdown</span></button>
+            <button type="button" class="util-btn" id="btn-export-bib"><span class="zh">复制 BibTeX</span><span class="en">Copy BibTeX</span></button>
+          </div>
+        </div>
+        <div class="ledger-main" id="saved-ledger"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="wrap">
+    <footer class="site-footer">
+      <div>HF PAPERS · STRUCTURED RESEARCH LEDGER · MIT LICENSE</div>
+      <div style="display:flex;gap:18px;">
+        <a href="feed/atom.xml">Atom / RSS</a>
+        <a href="https://huggingface.co/papers" target="_blank" rel="noopener">Hugging Face Papers ↗</a>
+        <a id="footer-gh" href="https://github.com/adongwanai/hf-daily-papers" target="_blank" rel="noopener">Source on GitHub ↗</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Slide-Over Perforated Dossier Drawer -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-label="Paper Dossier"></aside>
+</body>
+</html>

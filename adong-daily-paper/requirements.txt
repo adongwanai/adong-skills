@@ -1,0 +1,7 @@
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+pyyaml>=6.0
+markdown>=3.6
+python-dateutil>=2.9
+pytest>=8.0

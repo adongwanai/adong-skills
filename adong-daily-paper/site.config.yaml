@@ -1,0 +1,20 @@
+title: HF Papers
+subtitle_zh: Hugging Face 每日论文账本与专题归档
+subtitle_en: Daily Hugging Face Paper Ledger & Survey Archive
+repository: adongwanai/hf-daily-papers
+repository_url: https://github.com/adongwanai/hf-daily-papers
+base_url: https://adongwanai.github.io/hf-daily-papers
+feed_url: https://adongwanai.github.io/hf-daily-papers/feed/atom.xml
+author_name: Adong / 阿东玩 AI
+author_url: https://adongwanai.github.io/
+focus_keywords:
+  - agent
+  - harness
+  - self-improvement
+  - rsi
+  - embodied
+  - vla
+  - robot
+  - reinforcement learning
+  - post-training
+  - world model
