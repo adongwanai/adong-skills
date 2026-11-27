@@ -1,0 +1,13 @@
+[project]
+name = "agent-resource-scout"
+version = "0.2.0"
+description = "Curated learning paths, framework selection matrices, and real-time link/repo verification skill for AI agents."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]
+addopts = "-q"

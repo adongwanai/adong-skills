@@ -1,6 +1,6 @@
 # adong-skills
 
-这里放的是我自己每天在 Claude Code、Codex 和 Antigravity 里实际在用的 10 个 Skills。
+这里放的是我自己每天在 Claude Code、Codex 和 Antigravity 里实际在用的 11 个 Skills。
 
 先交代下背景：我白天做大模型和 Agent，下班还要看论文、写公众号和小红书、偶尔帮朋友改简历看面试。事情一多，很多重复活儿就想交给 Agent 干；但直接写两句 Prompt 跑出来的东西，十有八九带着一股 AI 味，链接还经常瞎编。
 
@@ -28,8 +28,9 @@
 
 - **[`adong-wechat-writer`](./adong-wechat-writer/)** / **[`adong-xhs-writer`](./adong-xhs-writer/)** / **[`adong-x-writer`](./adong-x-writer/)**：我自己写公众号长文、小红书图文卡片和 X Thread 用的三套底子。核心规矩就一条：先聊自己亲手试过什么、数字是多少，把“总而言之、意义重大”这类正确的废话全按掉。说实话，它们能帮你省掉大半搭骨架的时间，但最后那 20% 的个人经历和判断，还是得你自己填。
 
-### 4. 找工作、改简历、练面试
+### 4. 入门选型、改简历、练面试
 
+- **[`agent-resource-scout`](./agent-resource-scout/)**：给刚学 Agent 的朋友和做开源框架选型时排雷用的。问怎么入门，它按「原生 API 手写最小闭环 → 官方系统课 → 框架实战」只给 3 步路线和前 30 分钟开跑动作，顺带告诉你怎么把玩具 Demo 改造成能写进简历、扛住面试追问的真项目；问技术选型，拉 3–5 个候选比活跃度、Issue 响应、PyPI/npm 近 30 天真实下载量和商用协议风险。内置两个纯标准库核验脚本，输出前把 404 幻觉仓库、刷星壳子和 CSDN / 扫码进群引流帖全筛一遍。
 - **[`agent-career-kit`](./agent-career-kit/)**：面向校招和社招 Agent 岗（开发和算法两个方向）。把你手头的旧简历、项目文档导进去建个事实库，按目标 JD 出 Overleaf / PDF 简历、跑 45 分钟追问式模拟面试、顺带生成个人作品集网页。底线是不替你编经历、不造假指标。
 
 ---
@@ -43,6 +44,7 @@
 npx skills add adongwanai/adong-skills --skill adong-ai-daily -g
 npx skills add adongwanai/adong-skills --skill adong-daily-paper -g
 npx skills add adongwanai/adong-skills --skill kaggle-prior-art -g
+npx skills add adongwanai/adong-skills --skill agent-resource-scout -g
 npx skills add adongwanai/adong-skills --skill vibe-paper-deai -g
 npx skills add adongwanai/adong-skills --skill agent-career-kit -g
 

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Agent Resource Scout"
+  short_description: "帮 Agent 小白与选型者筛出排好序、实时核验过的教程与开源方案，顺带避开简历与面试雷区"
+  brand_color: "#0F766E"
+  default_prompt: "使用 $agent-resource-scout 帮我规划一条从零跑通到能做成扎实项目的学习路线（或对比开源选型），所有推荐链接请实时核验。"
