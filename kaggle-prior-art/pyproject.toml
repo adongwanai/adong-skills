@@ -1,0 +1,13 @@
+[project]
+name = "kaggle-prior-art"
+version = "0.2.0"
+description = "Cross-competition prior-art research and solution verification skill for Kaggle and data science competitions."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]
+addopts = "-q"

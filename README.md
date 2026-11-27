@@ -1,6 +1,6 @@
 # adong-skills
 
-这里放的是我自己每天在 Claude Code、Codex 和 Antigravity 里实际在用的 9 个 Skills。
+这里放的是我自己每天在 Claude Code、Codex 和 Antigravity 里实际在用的 10 个 Skills。
 
 先交代下背景：我白天做大模型和 Agent，下班还要看论文、写公众号和小红书、偶尔帮朋友改简历看面试。事情一多，很多重复活儿就想交给 Agent 干；但直接写两句 Prompt 跑出来的东西，十有八九带着一股 AI 味，链接还经常瞎编。
 
@@ -17,9 +17,10 @@
 - **[`adong-ai-daily`](./adong-ai-daily/)**：每天早起扫全网动态用的。脚本直接去抓 X 上的建设者推文、播客、GitHub Trending、HN、HF/arXiv 和 9 家中文 AI 媒体，把撞车的同一件事合并去重，最后只吐出两个文件：一个能筛选搜索、能顺手导出小红书卡片的**单文件 HTML 日报**，再加一份**直接复制就能发微信群的纯文本早报**（线上自动更新站：[adong-ai-daily](https://adongwanai.github.io/adong-ai-daily/)）。不用配任何 API Key，Python 标准库就能跑。
 - **[`adong-daily-paper`](./adong-daily-paper/)**：专门用来啃 Hugging Face 每日论文。把每篇到底解决什么问题、怎么做的、实验数字多少抠出来存成 Markdown，同时增量编译一个带全文搜索的静态网页（我自己跑的线上站：[hf-daily-papers](https://adongwanai.github.io/hf-daily-papers/)）。
 
-### 2. 改顶会论文、做技术取舍
+### 2. 改顶会论文、打数据竞赛、做技术取舍
 
 - **[`vibe-paper-deai`](./vibe-paper-deai/)**：投 NeurIPS / ICML / ACL 前自查用的。先站在 Area Chair 视角挑出初稿里虚张声势的 Claim 和敷衍的消融分析，再在不改任何实验事实的前提下，把那种大模型味儿很重的英文改回正常学者的写法。
+- **[`kaggle-prior-art`](./kaggle-prior-art/)**：打 Kaggle / DrivenData / 天池前摸底用的。免配 Token 秒查 700+ 场往届相似比赛的金牌方案帖与代码，遇到跨界新赛题自动拆成「同模态借架构 + 同指标借 Loss 与后处理」双路拼图，顺带跑一遍 GitHub 代码体检把 404 链接和 `"Code coming soon"` 空壳仓库筛掉，最后给出一份带采用率占比的共识底座和开局前 48 小时 EDA 验证单。
 - **[`andrej-karpathy-perspective`](./andrej-karpathy-perspective/)**：攒了 Karpathy 历年的演讲、博客和访谈原话。设计 Agent 交互边界、或者纠结系统是不是做重了的时候，拿来做个对照很管用。
 - **[`github-to-skill`](./github-to-skill/)**：刷到好用的开源项目或 CLI，让它自己翻完仓库结构，给你起好一份能直接改改就用的 `SKILL.md` 骨架。
 
@@ -41,6 +42,7 @@
 # 想装哪个把后面的名字换掉就行
 npx skills add adongwanai/adong-skills --skill adong-ai-daily -g
 npx skills add adongwanai/adong-skills --skill adong-daily-paper -g
+npx skills add adongwanai/adong-skills --skill kaggle-prior-art -g
 npx skills add adongwanai/adong-skills --skill vibe-paper-deai -g
 npx skills add adongwanai/adong-skills --skill agent-career-kit -g
 

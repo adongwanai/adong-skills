@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+meta/
+cache/
+*.csv
+*.csv.zip
+.DS_Store
+.env
