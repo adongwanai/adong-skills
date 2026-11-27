@@ -14,7 +14,7 @@
 
 ### 1. 早起刷信息、看论文
 
-- **[`adong-ai-daily`](./adong-ai-daily/)**：每天早起扫全网动态用的。脚本直接去抓 X 上的建设者推文、播客、GitHub Trending、HN、HF/arXiv 和 9 家中文 AI 媒体，把撞车的同一件事合并去重，最后只吐出两个文件：一个能筛选搜索、能顺手导出小红书卡片的**单文件 HTML 日报**，再加一份**直接复制就能发微信群的纯文本早报**。不用配任何 API Key，Python 标准库就能跑。
+- **[`adong-ai-daily`](./adong-ai-daily/)**：每天早起扫全网动态用的。脚本直接去抓 X 上的建设者推文、播客、GitHub Trending、HN、HF/arXiv 和 9 家中文 AI 媒体，把撞车的同一件事合并去重，最后只吐出两个文件：一个能筛选搜索、能顺手导出小红书卡片的**单文件 HTML 日报**，再加一份**直接复制就能发微信群的纯文本早报**（线上自动更新站：[adong-ai-daily](https://adongwanai.github.io/adong-ai-daily/)）。不用配任何 API Key，Python 标准库就能跑。
 - **[`adong-daily-paper`](./adong-daily-paper/)**：专门用来啃 Hugging Face 每日论文。把每篇到底解决什么问题、怎么做的、实验数字多少抠出来存成 Markdown，同时增量编译一个带全文搜索的静态网页（我自己跑的线上站：[hf-daily-papers](https://adongwanai.github.io/hf-daily-papers/)）。
 
 ### 2. 改顶会论文、做技术取舍
